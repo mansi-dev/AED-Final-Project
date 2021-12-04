@@ -6,6 +6,7 @@
 package Business;
 
 
+import Business.Admin.AdminDirectory;
 import Business.Customer.CustomerDirectory;
 import Business.DeliveryMan.DeliveryManDirectory;
 import Business.Restaurant.RestaurantDirectory;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author MyPC1
+ * @author mansi
  */
 public class EcoSystem extends Organization{
     
@@ -23,6 +24,7 @@ public class EcoSystem extends Organization{
     private RestaurantDirectory restaurantDirectory;
     private CustomerDirectory customerDirectory;
     private DeliveryManDirectory deliveryManDirectory;
+    private AdminDirectory adminDirectory;
 
     public EcoSystem(RestaurantDirectory restaurantDirectory, CustomerDirectory customerDirectory, DeliveryManDirectory deliveryManDirectory) {
 
@@ -49,6 +51,15 @@ public class EcoSystem extends Organization{
        // networkList=new ArrayList<Network>();
     }
 
+    public AdminDirectory getAdminDirectory() {
+        return adminDirectory;
+    }
+
+    public void setAdminDirectory(AdminDirectory adminDirectory) {
+        this.adminDirectory = adminDirectory;
+    }
+
+    
     
     public boolean checkIfUserIsUnique(String userName){
        //
