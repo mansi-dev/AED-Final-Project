@@ -4,8 +4,9 @@
  */
 package Business.UserAccount;
 
+import Business.EcoSystem;
 import Business.Employee.Employee;
-import Business.Role.Role;
+import Business.UserAccount.User.Role;
 import Business.WorkQueue.WorkQueue;
 
 /**
@@ -17,13 +18,26 @@ public class UserAccount {
     private String username;
     private String password;
     private Employee employee;
+    private User user;
     private Role role;
     private WorkQueue workQueue;
+    private static int counter=0;
+    private int accountId;
 
     public UserAccount() {
         workQueue = new WorkQueue();
     }
     
+    public UserAccount(String firstName, String lastName, String username, String password, Role role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        accountId = ++counter;
+        if(role==Role.Admin)this.user = EcoSystem.getInstance().getAdminDirectory().createAdmin(accountId);
+
+        this.user.setFirstName(firstName);
+        this.user.setLastName(lastName);
+    }
     
     
     public String getUsername() {
@@ -60,6 +74,22 @@ public class UserAccount {
 
     public WorkQueue getWorkQueue() {
         return workQueue;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 
     
