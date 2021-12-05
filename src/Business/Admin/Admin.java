@@ -3,12 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business.DeliveryMan;
+package Business.Admin;
+
+import Business.UserAccount.User;
 
 /**
  *
- * @author harold
+ * @author nishok
  */
-public class DeliveryManDirectory {
-    
+public class Admin extends User{
+    public Admin(int id){
+        super(id);
+    }
 }
