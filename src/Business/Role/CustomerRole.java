@@ -8,7 +8,7 @@ import Business.EcoSystem;
 
 import Business.Organization;
 import Business.UserAccount.UserAccount;
-import userinterface.CustomerRole.CustomerAreaJPanel;
+import userinterface.GovernmentRole.CustomerAreaJPanel;
 import javax.swing.JPanel;
 
 /**
