@@ -8,6 +8,9 @@ package Business;
 
 import Business.Government.LicenseOrganization;
 import Business.DeliveryMan.DeliveryManDirectory;
+import Business.Admin.AdminDirectory;
+import Business.Customer.CustomerDirectory;
+import Business.Population.Receiver;
 import Business.Restaurant.RestaurantDirectory;
 import Business.Role.Role;
 import Business.Role.SystemAdminRole;
@@ -15,20 +18,26 @@ import java.util.ArrayList;
 
 /**
  *
- * @author MyPC1
+ * @author mansi
  */
 public class EcoSystem extends Organization{
     
     private static EcoSystem business;
     private RestaurantDirectory restaurantDirectory;
-    private LicenseOrganization customerDirectory;
-    private DeliveryManDirectory deliveryManDirectory;
+    private LicenseOrganization licenseDirectory;
 
-    public EcoSystem(RestaurantDirectory restaurantDirectory, LicenseOrganization customerDirectory, DeliveryManDirectory deliveryManDirectory) {
+    private CustomerDirectory customerDirectory;
+    private Receiver recieverDirectory;
+    private DeliveryManDirectory deliveryManDirectory;
+    private AdminDirectory adminDirectory;
+
+  
+    public EcoSystem(RestaurantDirectory restaurantDirectory, LicenseOrganization licenseDirectory, CustomerDirectory customerDirectory, Receiver recieverDirectory) {
 
         this.restaurantDirectory = restaurantDirectory;
         this.customerDirectory = customerDirectory;
-        this.deliveryManDirectory = deliveryManDirectory;
+        this.recieverDirectory = recieverDirectory;
+        this.licenseDirectory = licenseDirectory;
     }
     
     public static EcoSystem getInstance(){
@@ -49,6 +58,15 @@ public class EcoSystem extends Organization{
        // networkList=new ArrayList<Network>();
     }
 
+    public AdminDirectory getAdminDirectory() {
+        return adminDirectory;
+    }
+
+    public void setAdminDirectory(AdminDirectory adminDirectory) {
+        this.adminDirectory = adminDirectory;
+    }
+
+    
     
     public boolean checkIfUserIsUnique(String userName){
        //
