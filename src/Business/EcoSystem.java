@@ -8,7 +8,7 @@ package Business;
 
 import Business.Admin.AdminDirectory;
 import Business.Customer.CustomerDirectory;
-import Business.DeliveryMan.DeliveryManDirectory;
+import Business.Population.Receiver;
 import Business.Restaurant.RestaurantDirectory;
 import Business.Role.Role;
 import Business.Role.SystemAdminRole;
@@ -23,14 +23,15 @@ public class EcoSystem extends Organization{
     private static EcoSystem business;
     private RestaurantDirectory restaurantDirectory;
     private CustomerDirectory customerDirectory;
+    private Receiver recieverDirectory;
     private DeliveryManDirectory deliveryManDirectory;
     private AdminDirectory adminDirectory;
 
-    public EcoSystem(RestaurantDirectory restaurantDirectory, CustomerDirectory customerDirectory, DeliveryManDirectory deliveryManDirectory) {
+    public EcoSystem(RestaurantDirectory restaurantDirectory, CustomerDirectory customerDirectory, Receiver recieverDirectory) {
 
         this.restaurantDirectory = restaurantDirectory;
         this.customerDirectory = customerDirectory;
-        this.deliveryManDirectory = deliveryManDirectory;
+        this.recieverDirectory = recieverDirectory;
     }
     
     public static EcoSystem getInstance(){
