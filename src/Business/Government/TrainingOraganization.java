@@ -7,7 +7,7 @@ package Business.Government;
 
 /**
  *
- * @author harold
+ * @author mayan
  */
 public class TrainingOraganization {
 
