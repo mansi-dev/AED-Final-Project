@@ -5,17 +5,22 @@
  */
 package userinterface.Population;
 
+import Business.EcoSystem;
+
 /**
  *
  * @author neeraja
  */
 public class ChooseUserJPanel extends javax.swing.JPanel {
 
+    EcoSystem ecosystem;
+
     /**
      * Creates new form ChooseUser
      */
-    public ChooseUserJPanel() {
+    public ChooseUserJPanel(EcoSystem ecosystem) {
         initComponents();
+        this.ecosystem=ecosystem;
     }
 
     /**
