@@ -4,6 +4,7 @@
  */
 package Business.Hospital;
 
+import Business.EcoSystem;
 import Business.UserAccount.User;
 
 /**
@@ -62,7 +63,10 @@ public class Doctor extends User{
         this.hospital = hospital;
     }
 
-    
+     public void setHospitalByID(int id){
+        this.hospital=EcoSystem.getInstance().getHospitalDirectory().getHospitalByID(id);
+    }
+         
     @Override
     public String toString() {
         return "Doctor{" + "employeeId=" + employeeId + ", isTrained=" + isTrained + ", degree=" + degree + ", specialization=" + specialization + '}';

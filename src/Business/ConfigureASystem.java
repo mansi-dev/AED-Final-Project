@@ -1,8 +1,9 @@
 package Business;
 
 import Business.Admin.AdminDirectory;
-import Business.Employee.Employee;
-import Business.Role.SystemAdminRole;
+import Business.Hospital.DoctorDirectory;
+import Business.Hospital.HospitalDirectory;
+import Business.Population.PersonDirectory;
 import Business.UserAccount.User;
 import Business.UserAccount.UserAccount;
 
@@ -16,7 +17,9 @@ public class ConfigureASystem {
         
         EcoSystem system = EcoSystem.getInstance();
         system.setAdminDirectory(new AdminDirectory());
-
+        system.setPersonDirectory(new PersonDirectory());
+        system.setDoctorDirectory(new DoctorDirectory());
+        system.setHospitalDirectory(new HospitalDirectory());
         //Create a network
         //create an enterprise
         //initialize some organizations
@@ -26,7 +29,7 @@ public class ConfigureASystem {
         
         //Employee employee = system.getEmployeeDirectory().createEmployee("RRH");
         
-        UserAccount ua = system.getUserAccountDirectory().createUserAccount("sysadmin","sysadmin","sysadmin", "sysadmin", User.Role.Admin);
+        UserAccount ua = system.getUserAccountDirectory().createUserAccount("sysadmin","sysadmin", "sysadmin", User.Role.Admin);
         
         return system;
     }

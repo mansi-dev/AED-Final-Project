@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  *
- * @author harold
+ * @author mayan
  */
 public class LicenseOrganization {
 

@@ -5,13 +5,14 @@
  */
 package Business.Population;
 
+import Business.UserAccount.User;
 import java.util.Date;
 
 /**
  *
  * @author neeraja
  */
-public class Donor{
+public class Donor extends User{
     private int age;
     private float weight;
     private float height;

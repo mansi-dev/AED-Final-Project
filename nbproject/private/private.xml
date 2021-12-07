@@ -2,17 +2,5 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/neeraja/NetBeansProjects/BloodBankProject/AED-Final-Project/src/userinterface/Population/ChooseUserJPanel.java</file>
-            <file>file:/Users/neeraja/NetBeansProjects/BloodBankProject/AED-Final-Project/src/Business/Population/DonorTransaction.java</file>
-            <file>file:/Users/neeraja/NetBeansProjects/BloodBankProject/AED-Final-Project/src/Business/Population/Donor.java</file>
-            <file>file:/Users/neeraja/NetBeansProjects/BloodBankProject/AED-Final-Project/src/userinterface/DeliveryManRole/ProcessWorkRequestJPanel.java</file>
-            <file>file:/Users/neeraja/NetBeansProjects/BloodBankProject/AED-Final-Project/src/Business/Population/Receiver.java</file>
-            <file>file:/Users/neeraja/NetBeansProjects/BloodBankProject/AED-Final-Project/src/userinterface/DeliveryManRole/DeliveryManWorkAreaJPanel.java</file>
-            <file>file:/Users/neeraja/NetBeansProjects/BloodBankProject/AED-Final-Project/src/userinterface/Population/ReceiveBloodJPanel.java</file>
-            <file>file:/Users/neeraja/NetBeansProjects/BloodBankProject/AED-Final-Project/src/Business/EcoSystem.java</file>
-            <file>file:/Users/neeraja/NetBeansProjects/BloodBankProject/AED-Final-Project/src/Business/Population/ReceiverTransaction.java</file>
-            <file>file:/Users/neeraja/NetBeansProjects/BloodBankProject/AED-Final-Project/src/userinterface/Population/DonateBloodJPanel.java</file>
-        </group>
     </open-files>
 </project-private>

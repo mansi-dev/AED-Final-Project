@@ -10,41 +10,104 @@ package Business.UserAccount;
  *
  */
 public abstract class User {
-    String firstName;
-    String lastName;
     private int id;
+    public String name;
+    private String address;
+    private String email;
+    private long phoneNum;
+    private String city;
+    private String state;
+    private String zipCode;
+    
+    public User() {}
     
     public User(int id){
         this.id = id;
     }
-    public User(String firstName, String lastName){
-        this.firstName=firstName;
-        this.lastName=lastName;
-    }
+
     public int getId() {
         return id;
     }
-    public void setFirstName(String firstName){
-        this.firstName=firstName;
-    }
-    public void setLastName(String lastName){
-        this.lastName=lastName;
-    }
-    public String getFirstName(){
-        return firstName;
-    }
-    public String getLastName(){
-        return lastName;
-    }
+
     public void setId(int id) {
         this.id = id;
     }
-        
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public long getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(long phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public User(int id, String name, String address, String email, long phoneNum, String city, String state, String zipCode) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.phoneNum = phoneNum;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+    }
+ 
+    
+    
     public enum Role{
         Manager("Manager"),
-        Customer("Customer"),
-        DeliveryMan("DeliveryMan"),
-        Admin("Admin");
+        Person("Person"),
+        Admin("Admin"),
+        SysAdmin("Sysadmin"),
+        Doctor("Doctor");
         
         private String value;
         private Role(String value) {

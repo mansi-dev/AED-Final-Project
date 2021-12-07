@@ -4,6 +4,7 @@
  */
 package Business.Hospital;
 
+import Business.Restaurant.Restaurant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,4 +41,5 @@ public class DoctorDirectory {
     public void deleteDoctor(Doctor doctor){
         this.doctorList.remove(doctor);
     }
+    
 }
