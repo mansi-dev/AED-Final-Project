@@ -5,11 +5,13 @@
  */
 package Business.Population;
 
+import Business.UserAccount.User;
+
 /**
  *
  * @author neeraja
  */
-public class Receiver {
+public class Receiver extends User {
     private String bloodGroup;
     private int numberOfUnits;
     private String organizationName;

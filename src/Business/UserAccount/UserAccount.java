@@ -28,15 +28,16 @@ public class UserAccount {
         workQueue = new WorkQueue();
     }
     
-    public UserAccount(String firstName, String lastName, String username, String password, Role role) {
+    public UserAccount(String name, String username, String password, Role role) {
         this.username = username;
         this.password = password;
         this.role = role;
         accountId = ++counter;
         if(role==Role.Admin)this.user = EcoSystem.getInstance().getAdminDirectory().createAdmin(accountId);
+        if(role==Role.Person)this.user = EcoSystem.getInstance().getPersonDirectory().addNewPerson(accountId);
+        if(role==Role.Doctor)this.user = EcoSystem.getInstance().getDoctorDirectory().addNewDoctor(accountId);
 
-        this.user.setFirstName(firstName);
-        this.user.setLastName(lastName);
+        this.user.setName(name);
     }
     
     
