@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <Properties>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+    </Property>
+  </Properties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="saveBtn" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="357" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="receiverLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="phoneNumberLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="receiverTxt" pref="163" max="32767" attributes="0"/>
+                          <Component id="phoneNumberTxt" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="bloodGrpLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="unitsLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="orgNameLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="hbLvl" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="bloodGrpTxt" max="32767" attributes="0"/>
+                          <Component id="unitsTxt" max="32767" attributes="0"/>
+                          <Component id="orgNameTxt" alignment="0" max="32767" attributes="0"/>
+                          <Component id="hbTxt" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="390" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="receiverLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="receiverTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="phoneNumberLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="phoneNumberTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="bloodGrpLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="bloodGrpTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="hbLvl" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="hbTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="unitsLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="unitsTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="orgNameLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="orgNameTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+              <Component id="saveBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="196" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Receive Blood"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="receiverLbl">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Receiver Name:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="phoneNumberLbl">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Receiver Phone Number:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="bloodGrpLbl">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Blood Group:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="unitsLbl">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Number of Units:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="orgNameLbl">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Organization Name:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="receiverTxt">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="receiverTxtActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="phoneNumberTxt">
+    </Component>
+    <Component class="javax.swing.JTextField" name="bloodGrpTxt">
+    </Component>
+    <Component class="javax.swing.JTextField" name="unitsTxt">
+    </Component>
+    <Component class="javax.swing.JTextField" name="orgNameTxt">
+    </Component>
+    <Component class="javax.swing.JButton" name="saveBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Save"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="hbLvl">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Hemoglobin Level:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="hbTxt">
+    </Component>
+  </SubComponents>
+</Form>

@@ -11,9 +11,16 @@ package Business.Population;
  */
 public class Receiver {
     private String bloodGroup;
-    private int numberOfUnits;
-    private String organizationName;
-
+    private float hblevel;
+    
+     public Receiver() {
+    }
+     public Receiver(String bloodGroup, float hblevel) {
+        this.bloodGroup = bloodGroup;
+        this.hblevel = hblevel;
+        
+    }
+     
     public String getBloodGroup() {
         return bloodGroup;
     }
@@ -21,35 +28,19 @@ public class Receiver {
     public void setBloodGroup(String bloodGroup) {
         this.bloodGroup = bloodGroup;
     }
-
-    public int getNumberOfUnits() {
-        return numberOfUnits;
+    
+    public float getHblevel() {
+        return hblevel;
     }
 
-    public void setNumberOfUnits(int numberOfUnits) {
-        this.numberOfUnits = numberOfUnits;
-    }
-
-    public String getOrganizationName() {
-        return organizationName;
-    }
-
-    public void setOrganizationName(String organizationName) {
-        this.organizationName = organizationName;
-    }
-
-    public Receiver(String bloodGroup, int numberOfUnits, String organizationName) {
-        this.bloodGroup = bloodGroup;
-        this.numberOfUnits = numberOfUnits;
-        this.organizationName = organizationName;
-    }
-
-    public Receiver() {
+    public void setHblevel(float hblevel) {
+        this.hblevel = hblevel;
+    
     }
 
     @Override
     public String toString() {
-        return "Receiver{" + "bloodGroup=" + bloodGroup + ", numberOfUnits=" + numberOfUnits + ", organizationName=" + organizationName + '}';
+        return "Receiver{" + "bloodGroup=" + bloodGroup + ", hblevel=" + hblevel + '}';
     }
     
     
