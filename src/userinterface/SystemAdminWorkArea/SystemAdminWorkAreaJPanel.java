@@ -11,6 +11,7 @@ import java.awt.CardLayout;
 import javax.swing.JFrame;
 
 import javax.swing.SwingUtilities;
+import userinterface.MainJFrame;
 
 /**
  *
@@ -159,9 +160,11 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         frame.remove(this);
         frame.pack();
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-        frame.setUndecorated(true);
-        frame.setVisible(true);
+//        frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+//        frame.setUndecorated(true);
+//        frame.setVisible(true);
+        MainJFrame mf = new MainJFrame();
+        mf.setVisible(true);
         dB4OUtil.storeSystem(ecosystem);
     }//GEN-LAST:event_btnLogoutActionPerformed
 

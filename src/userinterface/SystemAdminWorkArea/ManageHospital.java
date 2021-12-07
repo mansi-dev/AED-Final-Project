@@ -14,7 +14,10 @@ import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.BadLocationException;
 
 /**
  *
@@ -27,6 +30,7 @@ public class ManageHospital extends javax.swing.JPanel {
      */
     public ManageHospital() {
         initComponents();
+        addListeners();
     }
 
     /**
@@ -253,7 +257,7 @@ public class ManageHospital extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true, true, true, true
+                false, false, true, true, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -509,7 +513,7 @@ public class ManageHospital extends javax.swing.JPanel {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true, true, true, true, true, true
+                false, false, true, true, true, true, true, true, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -521,9 +525,6 @@ public class ManageHospital extends javax.swing.JPanel {
             tblViewDoc.getColumnModel().getColumn(0).setMinWidth(1);
             tblViewDoc.getColumnModel().getColumn(0).setPreferredWidth(1);
             tblViewDoc.getColumnModel().getColumn(0).setMaxWidth(1);
-            tblViewDoc.getColumnModel().getColumn(8).setHeaderValue("Hospital");
-            tblViewDoc.getColumnModel().getColumn(9).setHeaderValue("Degree");
-            tblViewDoc.getColumnModel().getColumn(10).setHeaderValue("Specialization");
         }
 
         btnUpdate.setText("Update");
@@ -629,8 +630,9 @@ public class ManageHospital extends javax.swing.JPanel {
 
         if (!elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
             && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
-            && !elementAt.get(7).toString().isEmpty()) {
-            Person res = (Person) elementAt.get(0);
+            && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty() 
+            && !elementAt.get(10).toString().isEmpty()) {
+            Doctor res = (Doctor) elementAt.get(0);
             res.setName(elementAt.get(2).toString());
             res.setAddress(elementAt.get(3).toString());
             res.setCity(elementAt.get(4).toString());
@@ -699,10 +701,40 @@ public class ManageHospital extends javax.swing.JPanel {
 
     private void btnUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdate1ActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tblHospView.getModel();
+        int rowIndex = tblHospView.getSelectedRow();
+
+        Vector dataVector = model.getDataVector();
+        Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
+
+        if (!elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
+            && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
+            && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()) {
+            Hospital hospital = (Hospital) elementAt.get(0);
+            hospital.setName(elementAt.get(2).toString());
+            hospital.setAddress(elementAt.get(3).toString());
+            hospital.setCity(elementAt.get(4).toString());
+            hospital.setState(elementAt.get(5).toString());
+            hospital.setPhoneNum(Long.parseLong(elementAt.get(6).toString()));
+            hospital.setZipCode(elementAt.get(7).toString());
+
+            JOptionPane.showMessageDialog(this, "Value updated successfully!");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Please enter all values.");
+
+        }
     }//GEN-LAST:event_btnUpdate1ActionPerformed
 
     private void btnDelete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete1ActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tblHospView.getModel();
+        int rowIndex = tblHospView.getSelectedRow();
+        Hospital valueAt = (Hospital) model.getValueAt(rowIndex, 0);
+        EcoSystem.getInstance().getHospitalDirectory().deleteHospital(valueAt);
+
+        JOptionPane.showMessageDialog(this, "Values deleted successfully");
+        populateHospitalView();
     }//GEN-LAST:event_btnDelete1ActionPerformed
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
@@ -776,6 +808,88 @@ public class ManageHospital extends javax.swing.JPanel {
     private javax.swing.JTextField txtZipCode;
     // End of variables declaration//GEN-END:variables
 
+            /**
+     * Function to validate number input. To check if text fields contain any
+     * alphabets.
+     */
+    void validateNumberInput(DocumentEvent e) {
+        String charRegex = ".*[a-zA-z].*";
+        int length = e.getDocument().getLength();
+        try {
+            String text = e.getDocument().getText(0, length);
+            if (text.matches(charRegex)) {
+                JOptionPane.showMessageDialog(this, "Characters are not allowed in Number field!");
+
+            }
+        } catch (BadLocationException ex) {
+        }
+    }
+
+    /**
+     * Function to validate input length.
+     */
+    void validateInputLength(DocumentEvent e, int len) {
+        String charRegex = ".{" + len + "}";
+        int length = e.getDocument().getLength();
+        try {
+            String text = e.getDocument().getText(0, length);
+            if (text.matches(charRegex)) {
+                JOptionPane.showMessageDialog(this, "Maximum characters allowed: " + (len - 1));
+
+            }
+        } catch (BadLocationException ex) {
+        }
+    }
+
+    /**
+     * Function to validate email input. To check if text fields contain any
+     * special characters.
+     */
+    void validateEmailInput(String email) {
+        String charRegex = ".*@[a-z]+\\.[a-z]+";
+
+        System.out.println(email);
+        if (!email.matches(charRegex)) {
+            JOptionPane.showMessageDialog(this, "Email is not proper format!");
+
+        }
+
+    }
+
+    /**
+     * Function to validate text input. To check if text fields contain any
+     * special characters.
+     */
+    void validateSpecialInput(DocumentEvent e) {
+        String charRegex = ".*[./\\$)(?*%@].*";
+        int length = e.getDocument().getLength();
+        try {
+            String text = e.getDocument().getText(0, length);
+            if (text.matches(charRegex)) {
+                JOptionPane.showMessageDialog(this, "Special characters are not allowed!");
+
+            }
+        } catch (BadLocationException ex) {
+        }
+    }
+
+    /**
+     * Function to validate text input. To check if text fields contain any
+     * digits.
+     */
+    void validateTextInput(DocumentEvent e) {
+        String digitRegex = ".*\\d.*";
+        int length = e.getDocument().getLength();
+        try {
+            String text = e.getDocument().getText(0, length);
+            if (text.matches(digitRegex)) {
+                JOptionPane.showMessageDialog(this, "Digits are not allowed in text field!");
+
+            }
+        } catch (BadLocationException ex) {
+        }
+    }
+    
     private void populateDocView() {
         DefaultTableModel model = (DefaultTableModel) tblViewDoc.getModel();
         List<Doctor> docList = EcoSystem.getInstance().getDoctorDirectory().getDoctorList();
@@ -823,5 +937,241 @@ public class ManageHospital extends javax.swing.JPanel {
             model.addRow(row);
 
         }
+    }
+    private void addListeners() {
+        txtPhoneNum.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateInputLength(e, 11);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateInputLength(e, 11);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateInputLength(e, 11);
+                validateSpecialInput(e);
+            }
+
+        });
+        txtHospitalPhone.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateInputLength(e, 11);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateInputLength(e, 11);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateInputLength(e, 11);
+                validateSpecialInput(e);
+            }
+
+        });
+        
+        txtHospitalID.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+        });
+        
+        txtHospitalID1.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+        });
+        
+        txtName.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateTextInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateTextInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateTextInput(e);
+                validateSpecialInput(e);
+            }
+
+        });
+        txtCity.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateTextInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateTextInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateTextInput(e);
+                validateSpecialInput(e);
+            }
+
+        });
+        
+        txtHospitalCity.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateTextInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateTextInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateTextInput(e);
+                validateSpecialInput(e);
+            }
+
+        });
+                
+        txtState.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateTextInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateTextInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateTextInput(e);
+                validateSpecialInput(e);
+            }
+
+        });
+        
+        txtHospitalState.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateTextInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateTextInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateTextInput(e);
+                validateSpecialInput(e);
+            }
+
+        });
+        
+        txtZipCode.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+        });
+        
+        txtHospitalZipCode.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+        });
     }
 }
