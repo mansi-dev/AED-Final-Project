@@ -7,6 +7,7 @@ import Business.Manager.ManagerDirectory;
 import Business.Population.PersonDirectory;
 import Business.UserAccount.User;
 import Business.UserAccount.UserAccount;
+import Government.Admin.GovernmentAdminDirectory;
 
 /**
  *
@@ -22,6 +23,7 @@ public class ConfigureASystem {
         system.setDoctorDirectory(new DoctorDirectory());
         system.setHospitalDirectory(new HospitalDirectory());
         system.setManagerDirectory(new ManagerDirectory());
+        system.setGovernmentAdminDirectory(new GovernmentAdminDirectory());
         //Create a network
         //create an enterprise
         //initialize some organizations

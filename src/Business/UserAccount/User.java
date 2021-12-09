@@ -107,7 +107,8 @@ public abstract class User {
         Person("Person"),
         Admin("Admin"),
         SysAdmin("Sysadmin"),
-        Doctor("Doctor");
+        Doctor("Doctor"),
+        GovernmentAdmin("GovernmentAdmin");
         
         private String value;
         private Role(String value) {

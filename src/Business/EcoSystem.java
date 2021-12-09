@@ -8,6 +8,8 @@ package Business;
 
 import Business.Government.LicenseOrganization;
 import Business.Admin.AdminDirectory;
+import Business.Government.LicenseDirectory;
+import Business.Government.TrainingDirectory;
 import Business.Hospital.DoctorDirectory;
 import Business.Hospital.HospitalDirectory;
 import Business.Manager.ManagerDirectory;
@@ -17,6 +19,7 @@ import Business.Restaurant.RestaurantDirectory;
 import Business.Role.Role;
 import Business.Role.SystemAdminRole;
 import Business.UserAccount.UserDirectory;
+import Government.Admin.GovernmentAdminDirectory;
 import java.util.ArrayList;
 
 /**
@@ -27,22 +30,50 @@ public class EcoSystem extends Organization{
     
     private static EcoSystem business;
     private RestaurantDirectory restaurantDirectory;
-    private LicenseOrganization licenseDirectory;
-
+    
     private Receiver recieverDirectory;
     private AdminDirectory adminDirectory;
     private PersonDirectory personDirectory;
     private DoctorDirectory doctorDirectory;
     private HospitalDirectory hospitalDirectory;
     private ManagerDirectory managerDirectory;
+    private TrainingDirectory trainingDirectory;
+    private LicenseDirectory licenseDirectory;
+    private GovernmentAdminDirectory governmentAdminDirectory;
 
-    public EcoSystem(RestaurantDirectory restaurantDirectory, LicenseOrganization licenseDirectory, Receiver recieverDirectory, DoctorDirectory doctorDirectory,HospitalDirectory hospitalDirectory) {
+    public GovernmentAdminDirectory getGovernmentAdminDirectory() {
+        return governmentAdminDirectory;
+    }
+
+    public void setGovernmentAdminDirectory(GovernmentAdminDirectory governmentAdminDirectory) {
+        this.governmentAdminDirectory = governmentAdminDirectory;
+    }
+
+    public EcoSystem(RestaurantDirectory restaurantDirectory, Receiver recieverDirectory, DoctorDirectory doctorDirectory,HospitalDirectory hospitalDirectory, TrainingDirectory trainingDirectory, LicenseDirectory licenseDirectory) {
 
         this.restaurantDirectory = restaurantDirectory;
         this.recieverDirectory = recieverDirectory;
-        this.licenseDirectory = licenseDirectory;
         this.doctorDirectory = doctorDirectory;
         this.hospitalDirectory = hospitalDirectory;
+        this.licenseDirectory = licenseDirectory;
+        this.trainingDirectory = trainingDirectory;
+        
+    }
+
+    public TrainingDirectory getTrainingDirectory() {
+        return trainingDirectory;
+    }
+
+    public void setTrainingDirectory(TrainingDirectory trainingDirectory) {
+        this.trainingDirectory = trainingDirectory;
+    }
+
+    public LicenseDirectory getLicenseDirectory() {
+        return licenseDirectory;
+    }
+
+    public void setLicenseDirectory(LicenseDirectory licenseDirectory) {
+        this.licenseDirectory = licenseDirectory;
     }
     
     public static EcoSystem getInstance(){
@@ -86,13 +117,7 @@ public class EcoSystem extends Organization{
         this.restaurantDirectory = restaurantDirectory;
     }
 
-    public LicenseOrganization getLicenseDirectory() {
-        return licenseDirectory;
-    }
 
-    public void setLicenseDirectory(LicenseOrganization licenseDirectory) {
-        this.licenseDirectory = licenseDirectory;
-    }
 
     public Receiver getRecieverDirectory() {
         return recieverDirectory;

@@ -10,6 +10,7 @@ import Business.UserAccount.UserAccount;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import userinterface.GovernmentRole.GovernmentWorkArea;
 import userinterface.HospitalWorkArea.HospitalJPanel;
 import userinterface.MainJFrame;
 import userinterface.Population.ChooseUserJPanel;
@@ -198,6 +199,18 @@ public class LoginForm extends javax.swing.JPanel {
             MainJFrame mj = (MainJFrame) topFrame;
             mj.getContentPane().removeAll();
             mj.getContentPane().add(hospitalJPanel);
+            mj.revalidate();
+            mj.pack();
+            mj.setSize(1425, 988);
+
+            //this.pack();
+        } else if (auth.getRole() == Role.GovernmentAdmin) {
+            GovernmentWorkArea governmentJPanel = new GovernmentWorkArea(system);
+
+            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            MainJFrame mj = (MainJFrame) topFrame;
+            mj.getContentPane().removeAll();
+            mj.getContentPane().add(governmentJPanel);
             mj.revalidate();
             mj.pack();
             mj.setSize(1425, 988);
