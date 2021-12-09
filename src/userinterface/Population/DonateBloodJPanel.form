@@ -57,9 +57,9 @@
                   <Component id="bloodGrpTxt" alignment="0" max="32767" attributes="0"/>
                   <Component id="unitsTxt" alignment="0" max="32767" attributes="0"/>
                   <Component id="diseasesCheck" min="-2" max="-2" attributes="0"/>
-                  <Component id="donationDate" alignment="0" max="32767" attributes="0"/>
-                  <Component id="lastDonatedDate" alignment="0" max="32767" attributes="0"/>
                   <Component id="emailTxt" max="32767" attributes="0"/>
+                  <Component id="donationDate" max="32767" attributes="0"/>
+                  <Component id="lastDonatedDate" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
@@ -115,23 +115,25 @@
                   <Component id="lastDonateLbl" min="-2" max="-2" attributes="0"/>
                   <Component id="lastDonatedDate" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="unitsLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="unitsTxt" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="donationDateLbl" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="donationDateLbl" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="diseasesLbl" min="-2" max="-2" attributes="0"/>
+                          <Component id="diseasesCheck" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                      <Component id="saveBtn" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Component id="donationDate" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="diseasesLbl" min="-2" max="-2" attributes="0"/>
-                  <Component id="diseasesCheck" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-              <Component id="saveBtn" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -224,16 +226,16 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveBtnActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="lastDonatedDate">
-    </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="donationDate">
-    </Component>
     <Component class="javax.swing.JLabel" name="emailLbl">
       <Properties>
         <Property name="text" type="java.lang.String" value="Email ID:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="emailTxt">
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="donationDate">
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="lastDonatedDate">
     </Component>
   </SubComponents>
 </Form>

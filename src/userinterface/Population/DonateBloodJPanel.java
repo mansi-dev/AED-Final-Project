@@ -8,9 +8,6 @@ package userinterface.Population;
 import Business.EcoSystem;
 import Business.Population.DonorTransaction;
 import Business.Population.Person;
-import Business.UserAccount.User;
-import static Business.UserAccount.User.Role.Person;
-import Business.UserAccount.UserAccount;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -64,10 +61,10 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         unitsTxt = new javax.swing.JTextField();
         diseasesCheck = new javax.swing.JCheckBox();
         saveBtn = new javax.swing.JButton();
-        lastDonatedDate = new com.toedter.calendar.JDateChooser();
-        donationDate = new com.toedter.calendar.JDateChooser();
         emailLbl = new javax.swing.JLabel();
         emailTxt = new javax.swing.JTextField();
+        donationDate = new com.toedter.calendar.JDateChooser();
+        lastDonatedDate = new com.toedter.calendar.JDateChooser();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -141,9 +138,9 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
                     .addComponent(bloodGrpTxt)
                     .addComponent(unitsTxt)
                     .addComponent(diseasesCheck)
+                    .addComponent(emailTxt)
                     .addComponent(donationDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lastDonatedDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(emailTxt))
+                    .addComponent(lastDonatedDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -187,20 +184,21 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lastDonateLbl)
                     .addComponent(lastDonatedDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(unitsLbl)
                     .addComponent(unitsTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(donationDateLbl)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(donationDateLbl)
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(diseasesLbl)
+                            .addComponent(diseasesCheck))
+                        .addGap(58, 58, 58)
+                        .addComponent(saveBtn))
                     .addComponent(donationDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(diseasesLbl)
-                    .addComponent(diseasesCheck))
-                .addGap(58, 58, 58)
-                .addComponent(saveBtn)
                 .addGap(26, 26, 26))
         );
     }// </editor-fold>//GEN-END:initComponents
