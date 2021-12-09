@@ -2,8 +2,20 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group>
             <file>file:/Users/mansizope/NetBeansProjects/blood-donation-system/src/userinterface/SystemAdminWorkArea/ManageHospital.java</file>
         </group>
+=======
+<<<<<<< HEAD
+        <group>
+            <file>file:/C:/Users/Mayan%20Mishra/Documents/NetBeansProjects/AED-Final-Project/src/userinterface/GovernmentRole/GovernmentPanel.java</file>
+            <file>file:/C:/Users/Mayan%20Mishra/Documents/NetBeansProjects/AED-Final-Project/src/Business/Government/LicenseOrganization.java</file>
+            <file>file:/C:/Users/Mayan%20Mishra/Documents/NetBeansProjects/AED-Final-Project/src/Business/Government/TrainingOraganization.java</file>
+            <file>file:/C:/Users/Mayan%20Mishra/Documents/NetBeansProjects/AED-Final-Project/src/userinterface/GovernmentRole/ViewJPanel.java</file>
+        </group>
+=======
+>>>>>>> 3d280b2f3ba012bd7be448cb429e61cc0c19ebf8
+>>>>>>> 8e95f3b7a2b9b648c626b04fcccee6133eeaf9f0
     </open-files>
 </project-private>

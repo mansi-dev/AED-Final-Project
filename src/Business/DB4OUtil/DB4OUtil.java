@@ -44,8 +44,7 @@ public class DB4OUtil {
             //Register your top most Class here
             config.common().objectClass(EcoSystem.class).cascadeOnUpdate(true); // Change to the object you want to save
 
- 
-
+            
             return db;
         } catch (Exception ex) {
             System.out.print(ex.getMessage());
@@ -68,8 +67,8 @@ public class DB4OUtil {
             system = ConfigureASystem.configure();  // If there's no System in the record, create a new one
         }
         else{
-            //system = systems.get(systems.size() - 1);
-             system = ConfigureASystem.configure();
+            // system = systems.get(systems.size() - 1);
+            system = ConfigureASystem.configure();
         }
         conn.close();
         return system;
