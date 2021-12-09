@@ -10,6 +10,7 @@ import Business.Government.LicenseOrganization;
 import Business.Admin.AdminDirectory;
 import Business.Hospital.DoctorDirectory;
 import Business.Hospital.HospitalDirectory;
+import Business.Manager.ManagerDirectory;
 import Business.Population.PersonDirectory;
 import Business.Population.Receiver;
 import Business.Restaurant.RestaurantDirectory;
@@ -33,7 +34,8 @@ public class EcoSystem extends Organization{
     private PersonDirectory personDirectory;
     private DoctorDirectory doctorDirectory;
     private HospitalDirectory hospitalDirectory;
-    
+    private ManagerDirectory managerDirectory;
+
     public EcoSystem(RestaurantDirectory restaurantDirectory, LicenseOrganization licenseDirectory, Receiver recieverDirectory, DoctorDirectory doctorDirectory,HospitalDirectory hospitalDirectory) {
 
         this.restaurantDirectory = restaurantDirectory;
@@ -114,6 +116,14 @@ public class EcoSystem extends Organization{
 
     public void setHospitalDirectory(HospitalDirectory hospitalDirectory) {
         this.hospitalDirectory = hospitalDirectory;
+    }
+
+    public ManagerDirectory getManagerDirectory() {
+        return managerDirectory;
+    }
+
+    public void setManagerDirectory(ManagerDirectory managerDirectory) {
+        this.managerDirectory = managerDirectory;
     }
     
     

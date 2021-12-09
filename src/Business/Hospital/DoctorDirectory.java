@@ -42,4 +42,20 @@ public class DoctorDirectory {
         this.doctorList.remove(doctor);
     }
     
+    public void approveDonor() {
+        //approve donor code goes here
+    }
+
+    public void approveSample() {
+        //approve sample code goes here
+    }
+
+    public void forwardRequest() {
+        //forward request code goes here
+    }
+
+    public void drawSalary() {
+        //draw salary code goes here
+    }
+    
 }
