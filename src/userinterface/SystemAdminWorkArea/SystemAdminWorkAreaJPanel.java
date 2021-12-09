@@ -170,9 +170,6 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         frame.remove(this);
         frame.pack();
         frame.setSize(1425, 988);
-//      frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-//        frame.setUndecorated(true);
-//        frame.setVisible(true);
         frame.add(new LoginForm(ecosystem));
         dB4OUtil.storeSystem(EcoSystem.getInstance());
     }//GEN-LAST:event_btnLogoutActionPerformed
