@@ -27,7 +27,7 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
         this.loggedInUser = loggedInUser;
         initComponents();
         addListeners();
-        populateInitialValues();
+       // populateInitialValues();
     }
 
     /**
