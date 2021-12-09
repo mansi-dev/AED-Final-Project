@@ -49,13 +49,15 @@
                           <Component id="unitsLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="orgNameLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="hbLvl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="emailLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                      <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="bloodGrpTxt" max="32767" attributes="0"/>
                           <Component id="unitsTxt" max="32767" attributes="0"/>
-                          <Component id="orgNameTxt" alignment="0" max="32767" attributes="0"/>
                           <Component id="hbTxt" alignment="0" max="32767" attributes="0"/>
+                          <Component id="emailTxt" alignment="0" max="32767" attributes="0"/>
+                          <Component id="orgCombo" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -80,6 +82,11 @@
               </Group>
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="emailLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="emailTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="bloodGrpLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bloodGrpTxt" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -94,13 +101,13 @@
                   <Component id="unitsTxt" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="orgNameLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="orgNameTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="orgNameLbl" min="-2" max="-2" attributes="0"/>
+                  <Component id="orgCombo" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
               <Component id="saveBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="196" max="32767" attributes="0"/>
+              <EmptySpace pref="140" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -108,7 +115,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Receive Blood"/>
+        <Property name="text" type="java.lang.String" value="Request Blood"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="receiverLbl">
@@ -147,12 +154,13 @@
     </Component>
     <Component class="javax.swing.JTextField" name="unitsTxt">
     </Component>
-    <Component class="javax.swing.JTextField" name="orgNameTxt">
-    </Component>
     <Component class="javax.swing.JButton" name="saveBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Save"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="hbLvl">
       <Properties>
@@ -160,6 +168,28 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="hbTxt">
+    </Component>
+    <Component class="javax.swing.JLabel" name="emailLbl">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Email:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="emailTxt">
+    </Component>
+    <Component class="javax.swing.JComboBox" name="orgCombo">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
