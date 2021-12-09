@@ -6,6 +6,7 @@ package userinterface.HospitalWorkArea;
 
 import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
+import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import userinterface.MainJFrame;
@@ -41,8 +42,7 @@ public class HospitalJPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnAvailability = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
@@ -59,17 +59,10 @@ public class HospitalJPanel extends javax.swing.JPanel {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
 
-        jButton1.setText("Check Availability");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAvailability.setText("Order Blood Sample");
+        btnAvailability.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Order Blood Sample");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAvailabilityActionPerformed(evt);
             }
         });
 
@@ -93,9 +86,7 @@ public class HospitalJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE))
+                        .addComponent(btnAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -107,10 +98,8 @@ public class HospitalJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(63, 63, 63)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 429, Short.MAX_VALUE)
+                .addComponent(btnAvailability)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 458, Short.MAX_VALUE)
                 .addComponent(btnLogout))
         );
 
@@ -123,23 +112,18 @@ public class HospitalJPanel extends javax.swing.JPanel {
         add(jSplitPane2);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAvailabilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvailabilityActionPerformed
         // TODO add your handling code here:
-
+        jPanel1.removeAll();
+        AvailabilityPanel aPanel = new AvailabilityPanel();
+        jPanel1.add(aPanel);
+        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
+        cardLayout.next(jPanel1);
 //        jPanel1.remove(manageHospital);
 //        jPanel1.add(manageUsers);
 //        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
 //        cardLayout.next(jPanel1);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-//        jPanel1.remove(manageUsers);
-//        jPanel1.add(manageHospital);
-//
-//        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
-//        cardLayout.next(jPanel1);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnAvailabilityActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
@@ -154,9 +138,8 @@ public class HospitalJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAvailability;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
