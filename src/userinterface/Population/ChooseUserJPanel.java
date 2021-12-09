@@ -21,19 +21,15 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
     ViewDonationHistory viewDonationHistory;
     ViewReceiverHistory receiverHistory;
     String loggedInUser;
-    
 
     /**
      * Creates new form ChooseUser
      */
     public ChooseUserJPanel(EcoSystem ecosystem, String loggedInUser) {
-        donateBlood = new DonateBloodJPanel(loggedInUser);
-        receieveBlood = new ReceiveBloodJPanel(loggedInUser);
-        viewDonationHistory = new ViewDonationHistory();
-        receiverHistory = new ViewReceiverHistory();
-        this.ecosystem=ecosystem;
+
+        this.ecosystem = ecosystem;
         this.loggedInUser = loggedInUser;
-                initComponents();
+        initComponents();
 
     }
 
@@ -140,44 +136,54 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
 
     private void receiveHistBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receiveHistBtnActionPerformed
         // TODO add your handling code here:
-        jPanel2.remove(receieveBlood);
-        jPanel2.remove(viewDonationHistory);
-        jPanel2.remove(donateBlood);
+//        jPanel2.remove(receieveBlood);
+//        jPanel2.remove(viewDonationHistory);
+//        jPanel2.remove(donateBlood);
+        jPanel2.removeAll();
+        receiverHistory = new ViewReceiverHistory();
+
         jPanel2.add(receiverHistory);
-        
+
         CardLayout cardLayout = (CardLayout) jPanel2.getLayout();
         cardLayout.next(jPanel2);
     }//GEN-LAST:event_receiveHistBtnActionPerformed
 
     private void donateHistBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donateHistBtnActionPerformed
         // TODO add your handling code here:
-        jPanel2.remove(receieveBlood);
-        jPanel2.remove(receiverHistory);
-        jPanel2.remove(donateBlood);
+//        jPanel2.remove(receieveBlood);
+//        jPanel2.remove(receiverHistory);
+//        jPanel2.remove(donateBlood);
+        viewDonationHistory = new ViewDonationHistory(EcoSystem.getInstance().getPersonDirectory());
+        jPanel2.removeAll();
         jPanel2.add(viewDonationHistory);
-        
+
         CardLayout cardLayout = (CardLayout) jPanel2.getLayout();
         cardLayout.next(jPanel2);
     }//GEN-LAST:event_donateHistBtnActionPerformed
 
     private void donateBldBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donateBldBtnActionPerformed
         // TODO add your handling code here:
-        jPanel2.remove(receieveBlood);
-        jPanel2.remove(viewDonationHistory);
-        jPanel2.remove(receiverHistory);
+//        jPanel2.remove(receieveBlood);
+//        jPanel2.remove(viewDonationHistory);
+//        jPanel2.remove(receiverHistory);
+        jPanel2.removeAll();
+        donateBlood = new DonateBloodJPanel(loggedInUser);
+
         jPanel2.add(donateBlood);
-        
+
         CardLayout cardLayout = (CardLayout) jPanel2.getLayout();
         cardLayout.next(jPanel2);
     }//GEN-LAST:event_donateBldBtnActionPerformed
 
     private void receiveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receiveBtnActionPerformed
         // TODO add your handling code here:
-        jPanel2.remove(donateBlood);
-        jPanel2.remove(viewDonationHistory);
-        jPanel2.remove(receiverHistory);
+//        jPanel2.remove(donateBlood);
+//        jPanel2.remove(viewDonationHistory);
+//        jPanel2.remove(receiverHistory);
+        jPanel2.removeAll();
         jPanel2.add(receieveBlood);
-        
+        receieveBlood = new ReceiveBloodJPanel(loggedInUser);
+
         CardLayout cardLayout = (CardLayout) jPanel2.getLayout();
         cardLayout.next(jPanel2);
     }//GEN-LAST:event_receiveBtnActionPerformed

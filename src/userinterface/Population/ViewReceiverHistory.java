@@ -27,28 +27,24 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        btnUpdateReceiver = new javax.swing.JButton();
-        btnDeleteReceiver = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        receiverTable = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        receiverTrnTable = new javax.swing.JTable();
-        btnUpdateTrn = new javax.swing.JButton();
-        btnDeleteTrn = new javax.swing.JButton();
-        trnLbl = new javax.swing.JLabel();
-        receiverLbl = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        receiverLbl1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        receiverTable1 = new javax.swing.JTable();
+        btnUpdateReceiver1 = new javax.swing.JButton();
+        btnDeleteReceiver1 = new javax.swing.JButton();
+        trnLbl1 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        receiverTrnTable1 = new javax.swing.JTable();
+        btnUpdateTrn1 = new javax.swing.JButton();
+        btnDeleteTrn1 = new javax.swing.JButton();
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("View Receiver History");
 
-        btnUpdateReceiver.setText("Update");
+        receiverLbl1.setText("Receiver Details:");
 
-        btnDeleteReceiver.setText("Delete");
-
-        receiverTable.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        receiverTable.setModel(new javax.swing.table.DefaultTableModel(
+        receiverTable1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        receiverTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -67,18 +63,22 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(receiverTable);
-        if (receiverTable.getColumnModel().getColumnCount() > 0) {
-            receiverTable.getColumnModel().getColumn(0).setMinWidth(1);
-            receiverTable.getColumnModel().getColumn(0).setPreferredWidth(1);
-            receiverTable.getColumnModel().getColumn(0).setMaxWidth(1);
-            receiverTable.getColumnModel().getColumn(5).setHeaderValue("Blood Group");
+        jScrollPane3.setViewportView(receiverTable1);
+        if (receiverTable1.getColumnModel().getColumnCount() > 0) {
+            receiverTable1.getColumnModel().getColumn(0).setMinWidth(1);
+            receiverTable1.getColumnModel().getColumn(0).setPreferredWidth(1);
+            receiverTable1.getColumnModel().getColumn(0).setMaxWidth(1);
+            receiverTable1.getColumnModel().getColumn(5).setHeaderValue("Blood Group");
         }
 
-        jLabel2.setText("View Receiver History");
+        btnUpdateReceiver1.setText("Update");
 
-        receiverTrnTable.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        receiverTrnTable.setModel(new javax.swing.table.DefaultTableModel(
+        btnDeleteReceiver1.setText("Delete");
+
+        trnLbl1.setText("Transaction Details:");
+
+        receiverTrnTable1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        receiverTrnTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -97,124 +97,95 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(receiverTrnTable);
-        if (receiverTrnTable.getColumnModel().getColumnCount() > 0) {
-            receiverTrnTable.getColumnModel().getColumn(0).setMinWidth(1);
-            receiverTrnTable.getColumnModel().getColumn(0).setPreferredWidth(1);
-            receiverTrnTable.getColumnModel().getColumn(0).setMaxWidth(1);
+        jScrollPane4.setViewportView(receiverTrnTable1);
+        if (receiverTrnTable1.getColumnModel().getColumnCount() > 0) {
+            receiverTrnTable1.getColumnModel().getColumn(0).setMinWidth(1);
+            receiverTrnTable1.getColumnModel().getColumn(0).setPreferredWidth(1);
+            receiverTrnTable1.getColumnModel().getColumn(0).setMaxWidth(1);
         }
 
-        btnUpdateTrn.setText("Update");
+        btnUpdateTrn1.setText("Update");
 
-        btnDeleteTrn.setText("Delete");
-
-        trnLbl.setText("Transaction Details:");
-
-        receiverLbl.setText("Receiver Details:");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 903, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 903, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnUpdateTrn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnDeleteTrn)
-                                .addGap(37, 37, 37))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnUpdateReceiver)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnDeleteReceiver)
-                                .addGap(48, 48, 48))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(385, 385, 385))))))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(trnLbl))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(receiverLbl)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(receiverLbl)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdateReceiver)
-                    .addComponent(btnDeleteReceiver))
-                .addGap(21, 21, 21)
-                .addComponent(trnLbl)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDeleteTrn)
-                    .addComponent(btnUpdateTrn))
-                .addGap(36, 36, 36))
-        );
-
-        jLabel1.setText("View Receiver History");
+        btnDeleteTrn1.setText("Delete");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(408, 408, 408)
-                .addComponent(jLabel1)
-                .addContainerGap(378, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1050, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnUpdateReceiver1)
+                        .addGap(35, 35, 35)
+                        .addComponent(btnDeleteReceiver1)
+                        .addGap(290, 290, 290))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(822, 822, 822)
+                .addComponent(btnUpdateTrn1)
+                .addGap(34, 34, 34)
+                .addComponent(btnDeleteTrn1)
+                .addGap(285, 285, 285))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(receiverLbl1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(490, 490, 490)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1046, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(trnLbl1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(jLabel1)
-                .addContainerGap(561, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(101, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(384, Short.MAX_VALUE)))
+                .addGap(28, 28, 28)
+                .addComponent(jLabel3)
+                .addGap(31, 31, 31)
+                .addComponent(receiverLbl1)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpdateReceiver1)
+                    .addComponent(btnDeleteReceiver1))
+                .addGap(51, 51, 51)
+                .addComponent(trnLbl1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(79, 79, 79))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnUpdateTrn1)
+                            .addComponent(btnDeleteTrn1))
+                        .addGap(15, 15, 15))))
         );
     }// </editor-fold>//GEN-END:initComponents
 /***
 ***/
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDeleteReceiver;
-    private javax.swing.JButton btnDeleteTrn;
-    private javax.swing.JButton btnUpdateReceiver;
-    private javax.swing.JButton btnUpdateTrn;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel receiverLbl;
-    private javax.swing.JTable receiverTable;
-    private javax.swing.JTable receiverTrnTable;
-    private javax.swing.JLabel trnLbl;
+    private javax.swing.JButton btnDeleteReceiver1;
+    private javax.swing.JButton btnDeleteTrn1;
+    private javax.swing.JButton btnUpdateReceiver1;
+    private javax.swing.JButton btnUpdateTrn1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JLabel receiverLbl1;
+    private javax.swing.JTable receiverTable1;
+    private javax.swing.JTable receiverTrnTable1;
+    private javax.swing.JLabel trnLbl1;
     // End of variables declaration//GEN-END:variables
 }

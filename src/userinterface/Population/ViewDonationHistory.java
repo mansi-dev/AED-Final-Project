@@ -5,10 +5,14 @@
  */
 package userinterface.Population;
 
+import Business.EcoSystem;
 import Business.Population.DonorTransaction;
 import Business.Population.Person;
 import Business.Population.PersonDirectory;
+import java.util.Date;
 import java.util.List;
+import java.util.Vector;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,8 +26,10 @@ public class ViewDonationHistory extends javax.swing.JPanel {
      * Creates new form ViewDonationHistory
      */
     PersonDirectory personDirectory;
-    public ViewDonationHistory() {
+    public ViewDonationHistory( PersonDirectory personDirectory) {
+        this.personDirectory = personDirectory;
         initComponents();
+        
         viewDonationHist();
     }
 
@@ -48,7 +54,6 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         btnDeleteTrn = new javax.swing.JButton();
         donorLbl = new javax.swing.JLabel();
         trnLbl = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -85,8 +90,18 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         }
 
         btnUpdateDonor.setText("Update");
+        btnUpdateDonor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateDonorActionPerformed(evt);
+            }
+        });
 
         btnDeleteDonor.setText("Delete");
+        btnDeleteDonor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteDonorActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("View Donation History");
 
@@ -118,8 +133,18 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         }
 
         btnUpdateTrn.setText("Update");
+        btnUpdateTrn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateTrnActionPerformed(evt);
+            }
+        });
 
         btnDeleteTrn.setText("Delete");
+        btnDeleteTrn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteTrnActionPerformed(evt);
+            }
+        });
 
         donorLbl.setText("Donor Details:");
 
@@ -186,33 +211,21 @@ public class ViewDonationHistory extends javax.swing.JPanel {
                 .addContainerGap(61, Short.MAX_VALUE))
         );
 
-        jLabel1.setText("View Doantion History");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(420, 420, 420)
-                .addComponent(jLabel1)
-                .addContainerGap(620, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jLabel1)
-                .addContainerGap(625, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -245,11 +258,130 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             model.addRow(rowTrn);
         }
     }//GEN-LAST:event_donorTableMouseClicked
+
+    private void btnUpdateDonorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateDonorActionPerformed
+        // TODO add your handling code here:
+        //System.out.println("ui.ViewPatients.patientUpdBtnActionPerformed()");
+        DefaultTableModel model = (DefaultTableModel) donorTable.getModel();
+        int rowIndex = donorTable.getSelectedRow();
+        int colIndex = 0;
+        int colIndex1 = donorTable.getSelectedColumn();
+
+        Vector dataVector = model.getDataVector();
+        Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
+        Person personDetails = null;
+        if (colIndex1 == 0) {
+            personDetails = personDirectory.getPersonList().stream().filter(item -> elementAt.get(0).equals(item.getId())).findFirst().orElse(null);
+        }
+        Person person = (Person) model.getValueAt(rowIndex, colIndex);
+        if (!elementAt.get(1).toString().isEmpty() && !elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty() 
+                && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty()) {
+
+            try {
+                if (personDetails == null) {
+                    person.setId(Integer.parseInt(elementAt.get(1).toString()));
+                    person.setName(elementAt.get(2).toString());
+                    person.setEmail(elementAt.get(3).toString());
+                    person.setPhoneNum(Long.parseLong(elementAt.get(4).toString()));
+                    person.setBloodGroup(elementAt.get(4).toString());
+                    
+
+                    JOptionPane.showMessageDialog(this, "Value updated successfully!");
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Patient with given id already exists!");
+                }
+            } catch (NumberFormatException | NullPointerException exception) {
+
+                JOptionPane.showMessageDialog(this, "Please enter all values.");
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please enter all values.");
+        }
+
+    }//GEN-LAST:event_btnUpdateDonorActionPerformed
+
+    private void btnDeleteDonorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteDonorActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = donorTable.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) donorTable.getModel();
+        Person person = (Person) model.getValueAt(selectedRowIndex, 0);
+        personDirectory.removePerson(person);
+        DefaultTableModel modelTrn = (DefaultTableModel) donorTrnTable.getModel();
+        modelTrn.setRowCount(0);
+        viewDonationHist();
+        JOptionPane.showMessageDialog(this, "Donor Details deleted");
+    }//GEN-LAST:event_btnDeleteDonorActionPerformed
+
+    private void btnUpdateTrnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateTrnActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) donorTable.getModel();
+        DefaultTableModel modelTrn = (DefaultTableModel) donorTrnTable.getModel();
+        int rowIndex = donorTable.getSelectedRow();
+        int colIndex = 0;
+        int rowIndexTrn = donorTrnTable.getSelectedRow();
+        int colIndexTrn = donorTrnTable.getSelectedColumn();
+
+        Vector dataVector = modelTrn.getDataVector();
+        Vector elementAt = (Vector) dataVector.elementAt(rowIndexTrn);
+
+        Vector dataVectorDonor = model.getDataVector();
+        Vector elementAtDonor = (Vector) dataVectorDonor.elementAt(rowIndex);
+
+        Person personDetails = personDirectory.getPersonList().stream().filter(item -> Integer.parseInt(elementAtDonor.get(1).toString()) == item.getId()).findFirst().orElse(null);
+
+       // Encounter encounter = (Encounter) model.getValueAt(rowIndexVitals, colIndex);
+        if (personDetails != null ) {
+            
+            DonorTransaction donorT = personDetails.getDonorTransaction().get(rowIndexTrn);
+            
+            Date donoatedDt = new Date(elementAt.get(6).toString());
+            Date lastDonatedDt = new Date(elementAt.get(5).toString());
+            
+            donorT.setAge(Integer.parseInt(elementAt.get(1).toString()));
+            donorT.setWeight(Float.parseFloat(elementAt.get(2).toString()));
+            donorT.setHeight(Float.parseFloat(elementAt.get(3).toString()));
+            donorT.setHblevel(Float.parseFloat(elementAt.get(4).toString()));
+            donorT.setBloodDonationDate(donoatedDt);
+            donorT.setBloodLastDonatedDate(lastDonatedDt);
+            donorT.setNumberOfUnits(Integer.parseInt(elementAt.get(7).toString()));
+            donorT.setOtherDiseases(Boolean.parseBoolean(elementAt.get(8).toString()));
+            donorT.setOtherDiseases(Boolean.parseBoolean(elementAt.get(9).toString()));
+            
+            JOptionPane.showMessageDialog(this, "Value updated successfully!");
+
+        }
+    }//GEN-LAST:event_btnUpdateTrnActionPerformed
+
+    private void btnDeleteTrnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteTrnActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = donorTrnTable.getSelectedRow();
+
+        // Selected patient
+        int selectedRowIndexDonor = donorTable.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) donorTable.getModel();
+        Person person = (Person) model.getValueAt(selectedRowIndexDonor, 0);
+
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete");
+            return;
+        }
+        DefaultTableModel modelTrn = (DefaultTableModel) donorTrnTable.getModel();
+        DonorTransaction donorTransaction = (DonorTransaction) modelTrn.getValueAt(selectedRowIndex, 0);
+        person.removeDonorTransaction(donorTransaction);
+        modelTrn.removeRow(selectedRowIndex);
+        JOptionPane.showMessageDialog(this, "Patient vitals deleted");
+    }//GEN-LAST:event_btnDeleteTrnActionPerformed
 /***
 ***/
     private void viewDonationHist(){
         DefaultTableModel model = (DefaultTableModel) donorTable.getModel();
-        List<Person> person = personDirectory.getPersonList();
+        List<Person> person = EcoSystem.getInstance().getPersonDirectory().getPersonList();
         model.setRowCount(0);
         for (Person data : person) {
             Object[] row = new Object[6];
@@ -275,7 +407,6 @@ public class ViewDonationHistory extends javax.swing.JPanel {
     private javax.swing.JLabel donorLbl;
     private javax.swing.JTable donorTable;
     private javax.swing.JTable donorTrnTable;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
