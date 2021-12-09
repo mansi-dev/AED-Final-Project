@@ -27,5 +27,17 @@ public class PersonDirectory {
     public void removePerson(Person person){
         this.personList.remove(person);
     }
+        public Person getPersonByPhoneNum(long phoneNum){        
+        for(Person p : this.personList){            
+            if(p.getPhoneNum()==phoneNum) return p;
+        }
+        return null;
+    }
+    public Person getPersonByUsername(String userName){        
+        for(Person p : this.personList){            
+            if(p.getName()==userName) return p;
+        }
+        return null;
+    }
     
 }

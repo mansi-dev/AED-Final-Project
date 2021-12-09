@@ -13,8 +13,8 @@ import java.util.List;
  * @author mansizope
  */
 public class Person extends User{
-    private List<DonorTransaction> donorTransaction = new ArrayList<>();
-    private List<ReceiverTransaction> receiverTransaction = new ArrayList<>();
+    private List<DonorTransaction> donorTransactionList = new ArrayList<>();
+    private List<ReceiverTransaction> receiverTransactionList = new ArrayList<>();
     
     private int age;
     private float weight;
@@ -22,24 +22,24 @@ public class Person extends User{
     private String bloodGroup;
 
     public Person(List<DonorTransaction> donorTransaction, List<ReceiverTransaction> receiverTransaction) {
-        this.donorTransaction = donorTransaction;
-        this.receiverTransaction = receiverTransaction;
+        this.donorTransactionList = donorTransaction;
+        this.receiverTransactionList = receiverTransaction;
     }
 
     public List<DonorTransaction> getDonorTransaction() {
-        return donorTransaction;
+        return donorTransactionList;
     }
 
     public void setDonorTransaction(List<DonorTransaction> donorTransaction) {
-        this.donorTransaction = donorTransaction;
+        this.donorTransactionList = donorTransaction;
     }
 
     public List<ReceiverTransaction> getReceiverTransaction() {
-        return receiverTransaction;
+        return receiverTransactionList;
     }
 
     public void setReceiverTransaction(List<ReceiverTransaction> receiverTransaction) {
-        this.receiverTransaction = receiverTransaction;
+        this.receiverTransactionList = receiverTransaction;
     }
 
 
@@ -75,7 +75,25 @@ public class Person extends User{
         this.bloodGroup = bloodGroup;
     }
   
+    public DonorTransaction addNewDonorTransaction(){
+        DonorTransaction donorTransaction = new DonorTransaction();
+        this.donorTransactionList.add(donorTransaction);
+        return donorTransaction;
+    }
+
+    public void removeDonorTransaction(DonorTransaction donorTransaction){
+        this.donorTransactionList.remove(donorTransaction);
+    }
     
+    public ReceiverTransaction addNewReceiverTransaction(){
+        ReceiverTransaction receiverTransaction = new ReceiverTransaction();
+        this.receiverTransactionList.add(receiverTransaction);
+        return receiverTransaction;
+    }
+
+    public void removePerson(ReceiverTransaction receiverTransaction){
+        this.receiverTransactionList.remove(receiverTransaction);
+    }
 
     public Person(int id) {
         super(id);

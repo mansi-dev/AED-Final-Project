@@ -18,6 +18,7 @@ public class DonorTransaction {
     private int numberOfUnits;
     private boolean otherDiseases;
     private boolean isEligible;
+    private float price;
 
     public float getHblevel() {
         return hblevel;
@@ -37,6 +38,14 @@ public class DonorTransaction {
 
     public Date getBloodDonationDate() {
         return BloodDonationDate;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     public void setBloodDonationDate(Date BloodDonationDate) {
