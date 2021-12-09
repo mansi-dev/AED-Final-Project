@@ -30,16 +30,14 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
 
     public SystemAdminWorkAreaJPanel(EcoSystem ecosystem) {
-                
 
         initComponents();
         manageHospital = new ManageHospital();
         manageUsers = new ManageUsers();
         manageHospitalManager = new ManageHospitalManager();
-        this.ecosystem=ecosystem;
+        this.ecosystem = ecosystem;
     }
-    
- 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -150,14 +148,14 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         jPanel1.remove(manageUsers);
         jPanel1.remove(manageHospitalManager);
         jPanel1.add(manageHospital);
-        
+
         CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
         cardLayout.next(jPanel1);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+
         jPanel1.remove(manageHospital);
         jPanel1.remove(manageHospitalManager);
         jPanel1.add(manageUsers);
@@ -167,15 +165,12 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
-       
+
         JFrame frame = (JFrame) SwingUtilities.getRoot(this);
         frame.remove(this);
         frame.pack();
-//        frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-//        frame.setUndecorated(true);
-//        frame.setVisible(true);
-        MainJFrame mf = new MainJFrame();
-        mf.setVisible(true);
+        frame.setSize(1425, 988);
+        frame.add(new LoginForm(ecosystem));
         dB4OUtil.storeSystem(EcoSystem.getInstance());
     }//GEN-LAST:event_btnLogoutActionPerformed
 
@@ -184,12 +179,10 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         jPanel1.remove(manageUsers);
         jPanel1.remove(manageHospital);
         jPanel1.add(manageHospitalManager);
-        
+
         CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
         cardLayout.next(jPanel1);
     }//GEN-LAST:event_btnManageHospitalManagerActionPerformed
-
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
