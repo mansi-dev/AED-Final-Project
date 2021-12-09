@@ -5,11 +5,26 @@
  */
 package Business.Government;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author mayan
  */
 public class TrainingOraganization {
+    
+    
+    
+    
+    public TrainingOraganization(){
+        
+    }
+
+    
+    
+//    private TrainingOraganization() {
+//         //To change body of generated methods, choose Tools | Templates.
+//    }
 
     public Boolean getPatientIdentity() {
         return patientIdentity;
@@ -100,6 +115,8 @@ public class TrainingOraganization {
     public String toString() {
         return "TrainingOraganization{" + "patientIdentity=" + patientIdentity + ", crossMatching=" + crossMatching + ", compatibility=" + compatibility + ", problems=" + problems + ", troubleShooting=" + troubleShooting + ", issueOfBlood=" + issueOfBlood + ", transfusionReactions=" + transfusionReactions + ", bagDisposal=" + bagDisposal + '}';
     }
+
+
     
     
 }
