@@ -14,6 +14,33 @@ public class ReceiverTransaction {
     private String organizationName;
     private float price;
     private float hblevel;
+    private float weight;
+    private float height;
+    private int age;
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public ReceiverTransaction() {
     }
@@ -59,6 +86,6 @@ public class ReceiverTransaction {
     }
     @Override
     public String toString() {
-        return "ReceiverTransaction{" + "hblevel=" + hblevel + "numberOfUnits=" + numberOfUnits + ", organizationName=" + organizationName + '}';
+        return "ReceiverTransaction{" + "hblevel=" + hblevel + "age=" + age +"height=" + height +"weight=" + weight +"numberOfUnits=" + numberOfUnits + ", organizationName=" + organizationName + '}';
     }
 }
