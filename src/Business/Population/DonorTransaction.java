@@ -19,6 +19,33 @@ public class DonorTransaction {
     private boolean otherDiseases;
     private boolean isEligible;
     private float price;
+    private float weight;
+    private float height;
+    private int age;
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public float getHblevel() {
         return hblevel;
@@ -81,7 +108,7 @@ public class DonorTransaction {
 
     @Override
     public String toString() {
-        return "DonorTransaction{" + "hblevel=" + hblevel + ", bloodLastDonatedDate=" + bloodLastDonatedDate + ", BloodDonationDate=" + BloodDonationDate + ", numberOfUnits=" + numberOfUnits + ", otherDiseases=" + otherDiseases + ", isEligible=" + isEligible + '}';
+        return "DonorTransaction{" + "hblevel=" + hblevel +"age=" + age +"height=" + height +"weight=" + weight + ", bloodLastDonatedDate=" + bloodLastDonatedDate + ", BloodDonationDate=" + BloodDonationDate + ", numberOfUnits=" + numberOfUnits + ", otherDiseases=" + otherDiseases + ", isEligible=" + isEligible + '}';
     }
     
     
