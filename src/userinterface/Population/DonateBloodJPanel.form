@@ -25,6 +25,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" pref="811" max="32767" attributes="0"/>
           </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="saveBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="345" max="-2" attributes="0"/>
+          </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -39,11 +44,10 @@
                   <Component id="unitsLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="donationDateLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="diseasesLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="eligibleLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="emailLbl" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="eligibleCheck" min="-2" max="-2" attributes="0"/>
                   <Component id="donorTxt" alignment="0" pref="202" max="32767" attributes="0"/>
                   <Component id="phoneNoTxt" alignment="0" max="32767" attributes="0"/>
                   <Component id="ageTxt" alignment="0" max="32767" attributes="0"/>
@@ -55,13 +59,9 @@
                   <Component id="diseasesCheck" min="-2" max="-2" attributes="0"/>
                   <Component id="donationDate" alignment="0" max="32767" attributes="0"/>
                   <Component id="lastDonatedDate" alignment="0" max="32767" attributes="0"/>
+                  <Component id="emailTxt" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="saveBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="343" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -79,6 +79,11 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="phoneNoLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="phoneNoTxt" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="emailLbl" min="-2" max="-2" attributes="0"/>
+                  <Component id="emailTxt" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -125,14 +130,9 @@
                   <Component id="diseasesLbl" min="-2" max="-2" attributes="0"/>
                   <Component id="diseasesCheck" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="eligibleLbl" min="-2" max="-2" attributes="0"/>
-                  <Component id="eligibleCheck" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="58" max="32767" attributes="0"/>
               <Component id="saveBtn" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -198,20 +198,9 @@
         <Property name="text" type="java.lang.String" value="Other Diseases"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="eligibleLbl">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Is Eligible"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JTextField" name="donorTxt">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="donorTxtActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="phoneNoTxt">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="phoneNoTxtActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="ageTxt">
     </Component>
@@ -227,16 +216,24 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="diseasesCheck">
     </Component>
-    <Component class="javax.swing.JCheckBox" name="eligibleCheck">
-    </Component>
     <Component class="javax.swing.JButton" name="saveBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Save"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="lastDonatedDate">
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="donationDate">
+    </Component>
+    <Component class="javax.swing.JLabel" name="emailLbl">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Email ID:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="emailTxt">
     </Component>
   </SubComponents>
 </Form>
