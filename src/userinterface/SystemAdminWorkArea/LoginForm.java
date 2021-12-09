@@ -15,7 +15,7 @@ import userinterface.MainJFrame;
 import userinterface.Population.ChooseUserJPanel;
 
 /**
- *
+ * Login form
  * @author mansizope
  */
 public class LoginForm extends javax.swing.JPanel {
