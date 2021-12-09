@@ -4,15 +4,9 @@
  */
 package userinterface;
 
-import Business.Admin.Admin;
 import Business.EcoSystem;
 import Business.DB4OUtil.DB4OUtil;
-import Business.UserAccount.User.Role;
-import Business.UserAccount.UserAccount;
-import java.awt.CardLayout;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import userinterface.SystemAdminWorkArea.SystemAdminWorkAreaJPanel;
+import userinterface.SystemAdminWorkArea.LoginForm;
 
 /**
  *
@@ -30,6 +24,8 @@ public class MainJFrame extends javax.swing.JFrame {
         initComponents();
         system = dB4OUtil.retrieveSystem();
         this.setSize(1680, 1050);
+        LoginForm logForm = new LoginForm(system);
+        jPanel4.add(logForm);
     }
 
     /**
@@ -41,121 +37,16 @@ public class MainJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jPanel1 = new javax.swing.JPanel();
-        loginJButton = new javax.swing.JButton();
-        userNameJTextField = new javax.swing.JTextField();
-        passwordField = new javax.swing.JPasswordField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        loginJLabel = new javax.swing.JLabel();
-        logoutJButton = new javax.swing.JButton();
-        container = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
-        loginJButton.setText("Login");
-        loginJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginJButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("User Name");
-
-        jLabel2.setText("Password");
-
-        logoutJButton.setText("Logout");
-        logoutJButton.setEnabled(false);
-        logoutJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutJButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(userNameJTextField)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(logoutJButton, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                        .addGap(26, 26, 26)
-                        .addComponent(loginJLabel))
-                    .addComponent(loginJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordField, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {loginJButton, logoutJButton, passwordField, userNameJTextField});
-
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(userNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(loginJButton)
-                .addGap(34, 34, 34)
-                .addComponent(logoutJButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loginJLabel)
-                .addContainerGap(192, Short.MAX_VALUE))
-        );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {loginJButton, logoutJButton, passwordField, userNameJTextField});
-
-        jSplitPane1.setLeftComponent(jPanel1);
-
-        container.setLayout(new java.awt.CardLayout());
-        jSplitPane1.setRightComponent(container);
-
-        getContentPane().add(jSplitPane1, java.awt.BorderLayout.CENTER);
+        jPanel4.setLayout(new java.awt.GridLayout());
+        getContentPane().add(jPanel4);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void loginJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginJButtonActionPerformed
-        logoutJButton.setEnabled(true);
-        UserAccount auth = system.getUserAccountDirectory().authenticateUser(userNameJTextField.getText(), passwordField.getText());// getUserAccountList() authenticateUser(userNameJTextField,passwordField);        
-        if(auth==null){
-           System.out.println("Enter correct credentials"); 
-            JOptionPane.showMessageDialog(this,"Enter correct credentials");
-        } else if (auth.getRole()==Role.Admin){
-            Admin ad = (Admin) auth.getUser();
-            //SystemAdminWorkAreaJPanel yoyo = new SystemAdminWorkAreaJPanel(); 
-            SystemAdminWorkAreaJPanel yoyo = new SystemAdminWorkAreaJPanel(container,system); 
-            jSplitPane1.setRightComponent(yoyo);
-        }   
-    }//GEN-LAST:event_loginJButtonActionPerformed
-
-    private void logoutJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutJButtonActionPerformed
-        logoutJButton.setEnabled(false);
-        userNameJTextField.setEnabled(true);
-        passwordField.setEnabled(true);
-        loginJButton.setEnabled(true);
-
-        userNameJTextField.setText("");
-        passwordField.setText("");
-
-        container.removeAll();
-        JPanel blankJP = new JPanel();
-        container.add("blank", blankJP);
-              jSplitPane1.setRightComponent(container);
-
-        dB4OUtil.storeSystem(system);
-    }//GEN-LAST:event_logoutJButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,15 +83,6 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel container;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JButton loginJButton;
-    private javax.swing.JLabel loginJLabel;
-    private javax.swing.JButton logoutJButton;
-    private javax.swing.JPasswordField passwordField;
-    private javax.swing.JTextField userNameJTextField;
+    private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
 }
