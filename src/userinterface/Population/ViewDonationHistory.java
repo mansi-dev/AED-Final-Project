@@ -5,6 +5,13 @@
  */
 package userinterface.Population;
 
+import Business.Population.DonorTransaction;
+import Business.Population.Person;
+import Business.Population.PersonDirectory;
+import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author neeraja
@@ -14,8 +21,10 @@ public class ViewDonationHistory extends javax.swing.JPanel {
     /**
      * Creates new form ViewDonationHistory
      */
+    PersonDirectory personDirectory;
     public ViewDonationHistory() {
         initComponents();
+        viewDonationHist();
     }
 
     /**
@@ -61,6 +70,11 @@ public class ViewDonationHistory extends javax.swing.JPanel {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        donorTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                donorTableMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(donorTable);
@@ -201,8 +215,58 @@ public class ViewDonationHistory extends javax.swing.JPanel {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void donorTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_donorTableMouseClicked
+        // TODO add your handling code here:
+        System.out.println("Table row clicked");
+        DefaultTableModel model = (DefaultTableModel) donorTrnTable.getModel();
+
+        JTable target = (JTable) evt.getSource();
+        int row = target.getSelectedRow(); // select a row
+        Person person = (Person) donorTable.getValueAt(row, 0);
+        List<DonorTransaction> transaction = person.getDonorTransaction();
+        model.setRowCount(0);
+        String bloodGroup = person.getBloodGroup();
+        for (DonorTransaction data : transaction) {
+            Object[] rowTrn = new Object[10];
+            //row[0] = ++index;
+
+            rowTrn[0] = data;
+            rowTrn[1] = data.getAge();
+            rowTrn[2] = data.getWeight();
+            rowTrn[3] = data.getHeight();
+            rowTrn[4] = data.getHblevel();
+            rowTrn[5] = data.getBloodLastDonatedDate();
+            rowTrn[6] = data.getBloodDonationDate();
+            rowTrn[7] = data.getNumberOfUnits();
+            rowTrn[8] = data.isOtherDiseases();
+            rowTrn[9] = data.getPrice();
+
+            model.addRow(rowTrn);
+        }
+    }//GEN-LAST:event_donorTableMouseClicked
 /***
 ***/
+    private void viewDonationHist(){
+        DefaultTableModel model = (DefaultTableModel) donorTable.getModel();
+        List<Person> person = personDirectory.getPersonList();
+        model.setRowCount(0);
+        for (Person data : person) {
+            Object[] row = new Object[6];
+            //row[0] = ++index;
+
+            row[0] = data;
+            row[1] = data.getId();
+            row[2] = data.getName();
+            row[3] = data.getEmail();
+            row[4] = data.getPhoneNum();
+            row[5] = data.getBloodGroup();
+           
+            model.addRow(row);
+
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteDonor;
     private javax.swing.JButton btnDeleteTrn;

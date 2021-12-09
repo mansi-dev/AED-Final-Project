@@ -111,10 +111,10 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 811, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(397, 397, 397)
                 .addComponent(saveBtn)
-                .addGap(345, 345, 345))
+                .addContainerGap(345, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,7 +199,7 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(diseasesLbl)
                     .addComponent(diseasesCheck))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addGap(58, 58, 58)
                 .addComponent(saveBtn)
                 .addGap(26, 26, 26))
         );
@@ -228,10 +228,10 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
             dt.setBloodLastDonatedDate(lastDonatedDate.getDate());
             dt.setNumberOfUnits(Integer.parseInt(unitsTxt.getText()));
             dt.setOtherDiseases(diseasesCheck.isSelected());
-            person.setAge(Integer.parseInt(ageTxt.getText()));
+            dt.setAge(Integer.parseInt(ageTxt.getText()));
             person.setBloodGroup(bloodGrpTxt.getText());
-            person.setHeight(Float.parseFloat(heightTxt.getText()));
-            person.setWeight(Float.parseFloat(weightTxt.getText()));
+            dt.setHeight(Float.parseFloat(heightTxt.getText()));
+            dt.setWeight(Float.parseFloat(weightTxt.getText()));
            
 //            person.setName(donorTxt.getText());
 //            person.setEmail(emailTxt.getText());

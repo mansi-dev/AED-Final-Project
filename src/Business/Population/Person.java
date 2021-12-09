@@ -16,9 +16,6 @@ public class Person extends User{
     private List<DonorTransaction> donorTransactionList = new ArrayList<>();
     private List<ReceiverTransaction> receiverTransactionList = new ArrayList<>();
     
-    private int age;
-    private float weight;
-    private float height;
     private String bloodGroup;
 
     public Person(List<DonorTransaction> donorTransaction, List<ReceiverTransaction> receiverTransaction) {
@@ -40,31 +37,6 @@ public class Person extends User{
 
     public void setReceiverTransaction(List<ReceiverTransaction> receiverTransaction) {
         this.receiverTransactionList = receiverTransaction;
-    }
-
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(float weight) {
-        this.weight = weight;
-    }
-
-    public float getHeight() {
-        return height;
-    }
-
-    public void setHeight(float height) {
-        this.height = height;
     }
 
     public String getBloodGroup() {
