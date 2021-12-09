@@ -1,34 +1,33 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package userinterface.SystemAdminWorkArea;
 
 import Business.EcoSystem;
 import Business.Population.Person;
-import Business.UserAccount.User;
+import static Business.UserAccount.User.Role.Person;
 import Business.UserAccount.UserAccount;
+import Government.Admin.GovernmentAdmin;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.BadLocationException;
+import Business.UserAccount.User;
 
 /**
  *
- * @author mansizope
+ * @author Mayan Mishra
  */
-public class ManageUsers extends javax.swing.JPanel {
+public class ManageGovernmentAdmin extends javax.swing.JPanel {
 
     /**
-     * Creates new form ManageUsers
+     * Creates new form ManageGovernmentAdmin
      */
-    public ManageUsers() {
+    public ManageGovernmentAdmin() {
         initComponents();
-        addListeners();
     }
 
     /**
@@ -66,7 +65,6 @@ public class ManageUsers extends javax.swing.JPanel {
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new java.awt.CardLayout());
 
         usersTabbedPane.setBackground(new java.awt.Color(102, 102, 102));
@@ -146,9 +144,6 @@ public class ManageUsers extends javax.swing.JPanel {
                             .addComponent(txtPhoneNum, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
-
-        jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {brandLbl, brandLbl1, brandLbl2, brandLbl3, brandLbl4, brandLbl5, brandLbl8, brandLbl9, txtAddress, txtCity, txtName, txtPassword, txtPhoneNum, txtState, txtUsername, txtZipCode});
-
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -187,8 +182,6 @@ public class ManageUsers extends javax.swing.JPanel {
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {brandLbl, brandLbl1, brandLbl2, brandLbl3, brandLbl4, brandLbl5, brandLbl8, brandLbl9, txtAddress, txtCity, txtName, txtPassword, txtPhoneNum, txtState, txtUsername, txtZipCode});
-
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,7 +210,7 @@ public class ManageUsers extends javax.swing.JPanel {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSave)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap(234, Short.MAX_VALUE))
         );
 
         usersTabbedPane.addTab("Create", jPanel1);
@@ -289,7 +282,7 @@ public class ManageUsers extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
                     .addComponent(btnDelete))
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         usersTabbedPane.addTab("View", jPanel2);
@@ -310,10 +303,10 @@ public class ManageUsers extends javax.swing.JPanel {
         if (!txtName.getText().isEmpty() && !txtUsername.getText().isEmpty()
             && !txtPassword.getText().isEmpty() && !txtAddress.getText().isEmpty() && !txtCity.getText().isEmpty()
             && !txtState.getText().isEmpty() && !txtZipCode.getText().isEmpty() && !txtPhoneNum.getText().isEmpty()) {
-            UserAccount temp = EcoSystem.getInstance().getUserAccountDirectory().createUserAccount(txtName.getText(), txtUsername.getText(),
-                txtPassword.getText(), User.Role.Person);
+           UserAccount temp = EcoSystem.getInstance().getUserAccountDirectory().createUserAccount(txtName.getText(), txtUsername.getText(),
+                txtPassword.getText(), User.Role.GovernmentAdmin);
 
-            Person customer = (Person) temp.getUser();
+            GovernmentAdmin customer = (GovernmentAdmin) temp.getUser();
             customer.setName(txtName.getText());
             customer.setAddress(txtAddress.getText());
             customer.setCity(txtCity.getText());
@@ -327,28 +320,6 @@ public class ManageUsers extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void populateResTable() {
-    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-    List<Person> userList = EcoSystem.getInstance().getPersonDirectory().getPersonList();
-    model.setRowCount(0);
-    for (User data : userList) {
-        Object[] row = new Object[8];
-        //row[0] = ++index;
-
-        row[0] = data;
-        row[1] = data.getId();
-        row[2] = data.getName();
-        row[3] = data.getAddress();
-        row[4] = data.getCity();
-        row[5] = data.getState();
-        row[6] = data.getPhoneNum();
-        row[7] = data.getZipCode();
-
-        model.addRow(row);
-
-    }
-}
-        
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -376,6 +347,27 @@ public class ManageUsers extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
+     private void populateResTable() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            List<GovernmentAdmin> userList = EcoSystem.getInstance().getGovernmentAdminDirectory().getGovernmentAdminList();
+        model.setRowCount(0);
+        for (User data : userList) {
+            Object[] row = new Object[8];
+            //row[0] = ++index;
+
+            row[0] = data;
+            row[1] = data.getId();
+            row[2] = data.getName();
+            row[3] = data.getAddress();
+            row[4] = data.getCity();
+            row[5] = data.getState();
+            row[6] = data.getPhoneNum();
+            row[7] = data.getZipCode();
+
+            model.addRow(row);
+
+        }
+    }
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         int rowIndex = jTable1.getSelectedRow();
@@ -427,193 +419,4 @@ public class ManageUsers extends javax.swing.JPanel {
     private javax.swing.JTextField txtZipCode;
     private javax.swing.JTabbedPane usersTabbedPane;
     // End of variables declaration//GEN-END:variables
-
-        /**
-     * Function to validate number input. To check if text fields contain any
-     * alphabets.
-     */
-    void validateNumberInput(DocumentEvent e) {
-        String charRegex = ".*[a-zA-z].*";
-        int length = e.getDocument().getLength();
-        try {
-            String text = e.getDocument().getText(0, length);
-            if (text.matches(charRegex)) {
-                JOptionPane.showMessageDialog(this, "Characters are not allowed in Number field!");
-
-            }
-        } catch (BadLocationException ex) {
-        }
-    }
-
-    /**
-     * Function to validate input length.
-     */
-    void validateInputLength(DocumentEvent e, int len) {
-        String charRegex = ".{" + len + "}";
-        int length = e.getDocument().getLength();
-        try {
-            String text = e.getDocument().getText(0, length);
-            if (text.matches(charRegex)) {
-                JOptionPane.showMessageDialog(this, "Maximum characters allowed: " + (len - 1));
-
-            }
-        } catch (BadLocationException ex) {
-        }
-    }
-
-    /**
-     * Function to validate email input. To check if text fields contain any
-     * special characters.
-     */
-    void validateEmailInput(String email) {
-        String charRegex = ".*@[a-z]+\\.[a-z]+";
-
-        System.out.println(email);
-        if (!email.matches(charRegex)) {
-            JOptionPane.showMessageDialog(this, "Email is not proper format!");
-
-        }
-
-    }
-
-    /**
-     * Function to validate text input. To check if text fields contain any
-     * special characters.
-     */
-    void validateSpecialInput(DocumentEvent e) {
-        String charRegex = ".*[./\\$)(?*%@].*";
-        int length = e.getDocument().getLength();
-        try {
-            String text = e.getDocument().getText(0, length);
-            if (text.matches(charRegex)) {
-                JOptionPane.showMessageDialog(this, "Special characters are not allowed!");
-
-            }
-        } catch (BadLocationException ex) {
-        }
-    }
-
-    /**
-     * Function to validate text input. To check if text fields contain any
-     * digits.
-     */
-    void validateTextInput(DocumentEvent e) {
-        String digitRegex = ".*\\d.*";
-        int length = e.getDocument().getLength();
-        try {
-            String text = e.getDocument().getText(0, length);
-            if (text.matches(digitRegex)) {
-                JOptionPane.showMessageDialog(this, "Digits are not allowed in text field!");
-
-            }
-        } catch (BadLocationException ex) {
-        }
-    }
-    
-    private void addListeners() {
-        txtPhoneNum.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                validateNumberInput(e);
-                validateInputLength(e, 11);
-                validateSpecialInput(e);
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                validateNumberInput(e);
-                validateInputLength(e, 11);
-                validateSpecialInput(e);
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                validateNumberInput(e);
-                validateInputLength(e, 11);
-                validateSpecialInput(e);
-            }
-
-        });
-
-        txtName.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                validateTextInput(e);
-                validateSpecialInput(e);
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                validateTextInput(e);
-                validateSpecialInput(e);
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                validateTextInput(e);
-                validateSpecialInput(e);
-            }
-
-        });
-        txtCity.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                validateTextInput(e);
-                validateSpecialInput(e);
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                validateTextInput(e);
-                validateSpecialInput(e);
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                validateTextInput(e);
-                validateSpecialInput(e);
-            }
-
-        });
-        txtState.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                validateTextInput(e);
-                validateSpecialInput(e);
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                validateTextInput(e);
-                validateSpecialInput(e);
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                validateTextInput(e);
-                validateSpecialInput(e);
-            }
-
-        });
-        txtZipCode.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                validateNumberInput(e);
-                validateSpecialInput(e);
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                validateNumberInput(e);
-                validateSpecialInput(e);
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                validateNumberInput(e);
-                validateSpecialInput(e);
-            }
-
-        });
-    }
 }

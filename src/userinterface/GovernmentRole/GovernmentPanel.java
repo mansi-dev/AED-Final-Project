@@ -5,6 +5,7 @@
  */
 package userinterface.GovernmentRole;
 
+import Business.EcoSystem;
 import Business.Government.LicenseDirectory;
 import Business.Government.LicenseOrganization;
 import Business.Government.TrainingDirectory;
@@ -30,10 +31,8 @@ public class GovernmentPanel extends javax.swing.JPanel {
     LicenseDirectory licenseDir;
     TrainingDirectory trainingDir;
     
-    public GovernmentPanel(TrainingOraganization training, LicenseOrganization license) {
+    public GovernmentPanel() {
         initComponents();
-        training = this.training;
-        license = this.license;
     }
 
     /**
@@ -46,20 +45,6 @@ public class GovernmentPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel2 = new javax.swing.JPanel();
-        lblExpiryDate = new javax.swing.JLabel();
-        lblIssueDate = new javax.swing.JLabel();
-        txtLicenseNumber = new javax.swing.JTextField();
-        lblLicenseNumber = new javax.swing.JLabel();
-        lblLicenseName = new javax.swing.JLabel();
-        txtLicenseName = new javax.swing.JTextField();
-        cmbNGO1 = new javax.swing.JComboBox<>();
-        lblNGO1 = new javax.swing.JLabel();
-        cmbHospital1 = new javax.swing.JComboBox<>();
-        lblHospital1 = new javax.swing.JLabel();
-        btnSaveLicense = new javax.swing.JButton();
-        dteIssueDate = new com.toedter.calendar.JDateChooser();
-        dteExpiryDate = new com.toedter.calendar.JDateChooser();
         jPanel1 = new javax.swing.JPanel();
         lblProblems = new javax.swing.JLabel();
         lblPatientId = new javax.swing.JLabel();
@@ -82,128 +67,24 @@ public class GovernmentPanel extends javax.swing.JPanel {
         cmbNGO = new javax.swing.JComboBox<>();
         lblNGO = new javax.swing.JLabel();
         btnSaveTraining = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        lblExpiryDate = new javax.swing.JLabel();
+        lblIssueDate = new javax.swing.JLabel();
+        txtLicenseNumber = new javax.swing.JTextField();
+        lblLicenseNumber = new javax.swing.JLabel();
+        lblLicenseName = new javax.swing.JLabel();
+        txtLicenseName = new javax.swing.JTextField();
+        cmbNGO1 = new javax.swing.JComboBox<>();
+        lblNGO1 = new javax.swing.JLabel();
+        cmbHospital1 = new javax.swing.JComboBox<>();
+        lblHospital1 = new javax.swing.JLabel();
+        btnSaveLicense = new javax.swing.JButton();
+        dteIssueDate = new com.toedter.calendar.JDateChooser();
+        dteExpiryDate = new com.toedter.calendar.JDateChooser();
 
         setPreferredSize(new java.awt.Dimension(900, 700));
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 0, 51));
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-
-        lblExpiryDate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblExpiryDate.setText("Expiry Date:");
-
-        lblIssueDate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblIssueDate.setText("Issue Date:");
-
-        txtLicenseNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLicenseNumberActionPerformed(evt);
-            }
-        });
-
-        lblLicenseNumber.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblLicenseNumber.setText("License Number:");
-
-        lblLicenseName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblLicenseName.setText("License Name:");
-
-        txtLicenseName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLicenseNameActionPerformed(evt);
-            }
-        });
-
-        cmbNGO1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        lblNGO1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblNGO1.setText("Select NGO:");
-
-        cmbHospital1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        lblHospital1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblHospital1.setText("Select Hospital:");
-
-        btnSaveLicense.setText("SAVE");
-        btnSaveLicense.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveLicenseActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(lblHospital1)
-                        .addGap(36, 36, 36)
-                        .addComponent(cmbHospital1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(190, 190, 190)
-                        .addComponent(lblNGO1)
-                        .addGap(40, 40, 40)
-                        .addComponent(cmbNGO1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(226, 226, 226)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtLicenseName, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGap(194, 194, 194)
-                                    .addComponent(txtLicenseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(lblLicenseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblLicenseName, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblIssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addGap(22, 22, 22)
-                                            .addComponent(lblExpiryDate, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(68, 68, 68)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(dteIssueDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(dteExpiryDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(375, 375, 375)
-                        .addComponent(btnSaveLicense)))
-                .addContainerGap(215, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHospital1)
-                    .addComponent(cmbHospital1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblNGO1)
-                    .addComponent(cmbNGO1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(65, 65, 65)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtLicenseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblLicenseNumber))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtLicenseName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblLicenseName))
-                .addGap(52, 52, 52)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblIssueDate)
-                        .addGap(44, 44, 44)
-                        .addComponent(lblExpiryDate)
-                        .addGap(83, 83, 83)
-                        .addComponent(btnSaveLicense))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(dteIssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(dteExpiryDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(154, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("License", jPanel2);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -402,6 +283,123 @@ public class GovernmentPanel extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Training", jPanel1);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblExpiryDate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblExpiryDate.setText("Expiry Date:");
+
+        lblIssueDate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblIssueDate.setText("Issue Date:");
+
+        txtLicenseNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLicenseNumberActionPerformed(evt);
+            }
+        });
+
+        lblLicenseNumber.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblLicenseNumber.setText("License Number:");
+
+        lblLicenseName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblLicenseName.setText("License Name:");
+
+        txtLicenseName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLicenseNameActionPerformed(evt);
+            }
+        });
+
+        cmbNGO1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lblNGO1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblNGO1.setText("Select NGO:");
+
+        cmbHospital1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lblHospital1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblHospital1.setText("Select Hospital:");
+
+        btnSaveLicense.setText("SAVE");
+        btnSaveLicense.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveLicenseActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(226, 226, 226)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(194, 194, 194)
+                                .addComponent(txtLicenseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lblLicenseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblLicenseName, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblIssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(22, 22, 22)
+                                        .addComponent(lblExpiryDate, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(68, 68, 68)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtLicenseName, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                                    .addComponent(dteIssueDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(dteExpiryDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(lblHospital1)
+                        .addGap(36, 36, 36)
+                        .addComponent(cmbHospital1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(190, 190, 190)
+                        .addComponent(lblNGO1)
+                        .addGap(40, 40, 40)
+                        .addComponent(cmbNGO1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(375, 375, 375)
+                        .addComponent(btnSaveLicense)))
+                .addContainerGap(215, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(128, 128, 128)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHospital1)
+                    .addComponent(cmbHospital1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNGO1)
+                    .addComponent(cmbNGO1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(65, 65, 65)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtLicenseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLicenseNumber))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtLicenseName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLicenseName))
+                .addGap(52, 52, 52)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblIssueDate)
+                        .addGap(44, 44, 44)
+                        .addComponent(lblExpiryDate))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(dteIssueDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dteExpiryDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(83, 83, 83)
+                .addComponent(btnSaveLicense)
+                .addContainerGap(154, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("License", jPanel2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -466,7 +464,7 @@ public class GovernmentPanel extends javax.swing.JPanel {
     Boolean transfusionReactions = chkTransfusion.isSelected();
     Boolean bagDisposal = chkDisposal.isSelected();
     
-    TrainingOraganization t = trainingDir.addNewEntry();
+    TrainingOraganization t =  EcoSystem.getInstance().getTrainingDirectory().addNewEntry();
         
     t.setBagDisposal(bagDisposal);
     t.setCompatibility(compatibility);
@@ -504,7 +502,7 @@ public class GovernmentPanel extends javax.swing.JPanel {
     Date expiryDate = dteExpiryDate.getDate();
     Long licenseNumber = Long.parseLong(txtLicenseNumber.getText());   
         
-    LicenseOrganization l = licenseDir.addNewEntry();
+    LicenseOrganization l = EcoSystem.getInstance().getLicenseDirectory().addNewEntry();
     
     l.setExpiryDate(expiryDate);
     l.setIssueDate(issueDate);

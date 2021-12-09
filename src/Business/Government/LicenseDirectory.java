@@ -12,23 +12,27 @@ import java.util.ArrayList;
  * @author Mayan Mishra
  */
 public class LicenseDirectory {
-    private ArrayList<LicenseOrganization> license;
+    private ArrayList<LicenseOrganization> licenseOrg;
 
     public ArrayList<LicenseOrganization> getLicense() {
-        return license;
+        return licenseOrg;
     }
 
-    public void setLicense(ArrayList<LicenseOrganization> license) {
-        this.license = license;
+    public void setLicense(ArrayList<LicenseOrganization> licenseOrg) {
+        this.licenseOrg = licenseOrg;
     }
     
         
     public LicenseOrganization addNewEntry() {
         
     LicenseOrganization newEntry = new LicenseOrganization();
-    license.add(newEntry);
+    licenseOrg.add(newEntry);
     return newEntry;
 
+    }
+
+    public void deleteRows(TrainingOraganization selectedRow) {
+        licenseOrg.remove(selectedRow);
     }
 
     

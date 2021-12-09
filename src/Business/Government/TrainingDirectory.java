@@ -13,22 +13,26 @@ import java.util.ArrayList;
  */
 public class TrainingDirectory {
     
-    private ArrayList<TrainingOraganization> training;
+    private ArrayList<TrainingOraganization> trainingOrg;
     
     public ArrayList<TrainingOraganization> getTraining() {
-        return training;
+        return trainingOrg;
     }
 
-    public void setTraining(ArrayList<TrainingOraganization> training) {
-        this.training = training;
+    public void setTraining(ArrayList<TrainingOraganization> trainingOrg) {
+        this.trainingOrg = trainingOrg;
     }
     
         public TrainingOraganization addNewEntry() {
         
         TrainingOraganization newEntry = new TrainingOraganization();
-        training.add(newEntry);
+        trainingOrg.add(newEntry);
         return newEntry;
 
+    }
+
+    public void deleteRows(TrainingOraganization selectedRow) {
+        trainingOrg.remove(selectedRow);
     }
 
     

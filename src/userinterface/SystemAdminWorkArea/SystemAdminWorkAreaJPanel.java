@@ -27,6 +27,8 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     ManageHospital manageHospital;
     ManageUsers manageUsers;
     ManageHospitalManager manageHospitalManager;
+    ManageGovernmentAdmin manageGovernmentAdmin;
+    
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
 
     public SystemAdminWorkAreaJPanel(EcoSystem ecosystem) {
@@ -35,6 +37,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         manageHospital = new ManageHospital();
         manageUsers = new ManageUsers();
         manageHospitalManager = new ManageHospitalManager();
+        manageGovernmentAdmin = new ManageGovernmentAdmin();
         this.ecosystem = ecosystem;
     }
 
@@ -55,6 +58,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         btnManageHospitalManager = new javax.swing.JButton();
+        btnManageGovernment = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
         setLayout(new java.awt.GridLayout(1, 0));
@@ -98,6 +102,13 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnManageGovernment.setText("Manage Government");
+        btnManageGovernment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageGovernmentActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -110,9 +121,10 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(btnManageHospitalManager, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                    .addComponent(btnManageHospitalManager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnManageGovernment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -128,7 +140,9 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnManageHospitalManager)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 411, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnManageGovernment)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 380, Short.MAX_VALUE)
                 .addComponent(btnLogout))
         );
 
@@ -184,9 +198,19 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         cardLayout.next(jPanel1);
     }//GEN-LAST:event_btnManageHospitalManagerActionPerformed
 
+    private void btnManageGovernmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageGovernmentActionPerformed
+        // TODO add your handling code here:
+        jPanel1.removeAll();
+        jPanel1.add(manageGovernmentAdmin);
+        
+        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
+        cardLayout.next(jPanel1);
+    }//GEN-LAST:event_btnManageGovernmentActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnManageGovernment;
     private javax.swing.JButton btnManageHospitalManager;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
