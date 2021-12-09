@@ -5,17 +5,32 @@
  */
 package userinterface.Population;
 
+import Business.EcoSystem;
+import Business.Population.DonorTransaction;
+import Business.Population.Person;
+import Business.UserAccount.User;
+import static Business.UserAccount.User.Role.Person;
+import Business.UserAccount.UserAccount;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+
 /**
  *
  * @author neeraja
  */
 public class DonateBloodJPanel extends javax.swing.JPanel {
-
+    String loggedInUser;
     /**
      * Creates new form DonateBloodJPanel
      */
-    public DonateBloodJPanel() {
+    public DonateBloodJPanel(String loggedInUser) {
+        this.loggedInUser = loggedInUser;
         initComponents();
+        addListeners();
+        ///populateInitialValues();
+        
     }
 
     /**
@@ -39,7 +54,6 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         unitsLbl = new javax.swing.JLabel();
         donationDateLbl = new javax.swing.JLabel();
         diseasesLbl = new javax.swing.JLabel();
-        eligibleLbl = new javax.swing.JLabel();
         donorTxt = new javax.swing.JTextField();
         phoneNoTxt = new javax.swing.JTextField();
         ageTxt = new javax.swing.JTextField();
@@ -49,10 +63,11 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         bloodGrpTxt = new javax.swing.JTextField();
         unitsTxt = new javax.swing.JTextField();
         diseasesCheck = new javax.swing.JCheckBox();
-        eligibleCheck = new javax.swing.JCheckBox();
         saveBtn = new javax.swing.JButton();
         lastDonatedDate = new com.toedter.calendar.JDateChooser();
         donationDate = new com.toedter.calendar.JDateChooser();
+        emailLbl = new javax.swing.JLabel();
+        emailTxt = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -80,21 +95,14 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
 
         diseasesLbl.setText("Other Diseases");
 
-        eligibleLbl.setText("Is Eligible");
-
-        donorTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                donorTxtActionPerformed(evt);
-            }
-        });
-
-        phoneNoTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                phoneNoTxtActionPerformed(evt);
-            }
-        });
-
         saveBtn.setText("Save");
+        saveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveBtnActionPerformed(evt);
+            }
+        });
+
+        emailLbl.setText("Email ID:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -103,6 +111,10 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 811, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(saveBtn)
+                .addGap(345, 345, 345))
             .addGroup(layout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,10 +129,9 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
                     .addComponent(unitsLbl)
                     .addComponent(donationDateLbl)
                     .addComponent(diseasesLbl)
-                    .addComponent(eligibleLbl))
+                    .addComponent(emailLbl))
                 .addGap(89, 89, 89)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(eligibleCheck)
                     .addComponent(donorTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                     .addComponent(phoneNoTxt)
                     .addComponent(ageTxt)
@@ -131,12 +142,9 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
                     .addComponent(unitsTxt)
                     .addComponent(diseasesCheck)
                     .addComponent(donationDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lastDonatedDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lastDonatedDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(emailTxt))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(saveBtn)
-                .addGap(343, 343, 343))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,6 +159,10 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(phoneNoLbl)
                     .addComponent(phoneNoTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(emailLbl)
+                    .addComponent(emailTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ageLbl)
@@ -187,23 +199,247 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(diseasesLbl)
                     .addComponent(diseasesCheck))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(eligibleLbl)
-                    .addComponent(eligibleCheck))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(saveBtn)
-                .addGap(25, 25, 25))
+                .addGap(26, 26, 26))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void donorTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_donorTxtActionPerformed
+    private void populateInitialValues(){
+        Person person = EcoSystem.getInstance().getPersonDirectory().getPersonByUsername(loggedInUser);
+        String name = person.getName();
+        String email = person.getEmail();
+        long phoneNum = person.getPhoneNum();
+        donorTxt.setText(name);
+        emailTxt.setText(email);
+        phoneNoTxt.setText(String.valueOf(phoneNum));
+    }
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_donorTxtActionPerformed
+        if (!ageTxt.getText().isEmpty() && !bloodGrpTxt.getText().isEmpty()
+            && !donorTxt.getText().isEmpty() && !emailTxt.getText().isEmpty() && !hbTxt.getText().isEmpty()
+            && !heightTxt.getText().isEmpty() && !phoneNoTxt.getText().isEmpty() && !unitsTxt.getText().isEmpty()
+            && !weightTxt.getText().isEmpty() && !lastDonatedDate.getDate().toString().isEmpty() && !donationDate.getDate().toString().isEmpty() ) {
+         
+            Person person = EcoSystem.getInstance().getPersonDirectory().getPersonByPhoneNum(Long.parseLong(phoneNoTxt.getText()));
+            
+            DonorTransaction dt = person.addNewDonorTransaction();
+            dt.setHblevel(Float.parseFloat(hbTxt.getText()));
+            dt.setBloodDonationDate(donationDate.getDate());
+            dt.setBloodLastDonatedDate(lastDonatedDate.getDate());
+            dt.setNumberOfUnits(Integer.parseInt(unitsTxt.getText()));
+            dt.setOtherDiseases(diseasesCheck.isSelected());
+            person.setAge(Integer.parseInt(ageTxt.getText()));
+            person.setBloodGroup(bloodGrpTxt.getText());
+            person.setHeight(Float.parseFloat(heightTxt.getText()));
+            person.setWeight(Float.parseFloat(weightTxt.getText()));
+           
+//            person.setName(donorTxt.getText());
+//            person.setEmail(emailTxt.getText());
+//            
+            
+          
+            JOptionPane.showMessageDialog(this, "Added donor details to the system");
+        } else {
+            JOptionPane.showMessageDialog(this, "Fields cannot be empty");
 
-    private void phoneNoTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phoneNoTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_phoneNoTxtActionPerformed
+        }
+    }//GEN-LAST:event_saveBtnActionPerformed
+
+            /**
+     * Function to validate number input. To check if text fields contain any
+     * alphabets.
+     */
+    void validateNumberInput(DocumentEvent e) {
+        String charRegex = ".*[a-zA-z].*";
+        int length = e.getDocument().getLength();
+        try {
+            String text = e.getDocument().getText(0, length);
+            if (text.matches(charRegex)) {
+                JOptionPane.showMessageDialog(this, "Characters are not allowed in Number field!");
+
+            }
+        } catch (BadLocationException ex) {
+        }
+    }
+
+    /**
+     * Function to validate input length.
+     */
+    void validateInputLength(DocumentEvent e, int len) {
+        String charRegex = ".{" + len + "}";
+        int length = e.getDocument().getLength();
+        try {
+            String text = e.getDocument().getText(0, length);
+            if (text.matches(charRegex)) {
+                JOptionPane.showMessageDialog(this, "Maximum characters allowed: " + (len - 1));
+
+            }
+        } catch (BadLocationException ex) {
+        }
+    }
+
+    /**
+     * Function to validate email input. To check if text fields contain any
+     * special characters.
+     */
+    void validateEmailInput(String email) {
+        String charRegex = ".*@[a-z]+\\.[a-z]+";
+
+        System.out.println(email);
+        if (!email.matches(charRegex)) {
+            JOptionPane.showMessageDialog(this, "Email is not proper format!");
+
+        }
+
+    }
+
+    /**
+     * Function to validate text input. To check if text fields contain any
+     * special characters.
+     */
+    void validateSpecialInput(DocumentEvent e) {
+        String charRegex = ".*[./\\$)(?*%@].*";
+        int length = e.getDocument().getLength();
+        try {
+            String text = e.getDocument().getText(0, length);
+            if (text.matches(charRegex)) {
+                JOptionPane.showMessageDialog(this, "Special characters are not allowed!");
+
+            }
+        } catch (BadLocationException ex) {
+        }
+    }
+
+    /**
+     * Function to validate text input. To check if text fields contain any
+     * digits.
+     */
+    void validateTextInput(DocumentEvent e) {
+        String digitRegex = ".*\\d.*";
+        int length = e.getDocument().getLength();
+        try {
+            String text = e.getDocument().getText(0, length);
+            if (text.matches(digitRegex)) {
+                JOptionPane.showMessageDialog(this, "Digits are not allowed in text field!");
+
+            }
+        } catch (BadLocationException ex) {
+        }
+    }
+    private void addListeners() {
+        ageTxt.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+        });
+
+        heightTxt.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                 validateNumberInput(e);
+               
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                  validateNumberInput(e);
+                
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                  validateNumberInput(e);
+                
+            }
+
+        });
+        weightTxt.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+            }
+
+        });
+        hbTxt.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+            }
+
+        });
+        bloodGrpTxt.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateTextInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateTextInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateTextInput(e);
+            }
+
+        });
+        unitsTxt.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+                validateSpecialInput(e);
+            }
+
+        });
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -217,8 +453,8 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel donationDateLbl;
     private javax.swing.JLabel donorLbl;
     private javax.swing.JTextField donorTxt;
-    private javax.swing.JCheckBox eligibleCheck;
-    private javax.swing.JLabel eligibleLbl;
+    private javax.swing.JLabel emailLbl;
+    private javax.swing.JTextField emailTxt;
     private javax.swing.JLabel hbLbl;
     private javax.swing.JTextField hbTxt;
     private javax.swing.JLabel heightLbl;

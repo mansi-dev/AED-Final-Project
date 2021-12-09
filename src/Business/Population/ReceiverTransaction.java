@@ -12,13 +12,16 @@ package Business.Population;
 public class ReceiverTransaction {
     private int numberOfUnits;
     private String organizationName;
+    private float price;
+    private float hblevel;
 
     public ReceiverTransaction() {
     }
 
-    public ReceiverTransaction(int numberOfUnits, String organizationName) {
+    public ReceiverTransaction(float hblevel,int numberOfUnits, String organizationName) {
         this.numberOfUnits = numberOfUnits;
         this.organizationName = organizationName;
+        this.hblevel = hblevel;
     }
 
     
@@ -31,6 +34,22 @@ public class ReceiverTransaction {
         this.numberOfUnits = numberOfUnits;
     }
 
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public float getHblevel() {
+        return hblevel;
+    }
+
+    public void setHblevel(float hblevel) {
+        this.hblevel = hblevel;
+    }
+
     public String getOrganizationName() {
         return organizationName;
     }
@@ -40,6 +59,6 @@ public class ReceiverTransaction {
     }
     @Override
     public String toString() {
-        return "ReceiverTransaction{" + "numberOfUnits=" + numberOfUnits + ", organizationName=" + organizationName + '}';
+        return "ReceiverTransaction{" + "hblevel=" + hblevel + "numberOfUnits=" + numberOfUnits + ", organizationName=" + organizationName + '}';
     }
 }

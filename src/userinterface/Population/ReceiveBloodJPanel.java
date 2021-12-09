@@ -5,17 +5,29 @@
  */
 package userinterface.Population;
 
+import Business.EcoSystem;
+import Business.Population.Person;
+import Business.Population.ReceiverTransaction;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+
 /**
  *
  * @author neeraja
  */
 public class ReceiveBloodJPanel extends javax.swing.JPanel {
-
+    
+    String loggedInUser;
     /**
      * Creates new form ReceiveBloodJPanel
      */
-    public ReceiveBloodJPanel() {
+    public ReceiveBloodJPanel(String loggedInUser) {
+        this.loggedInUser = loggedInUser;
         initComponents();
+        addListeners();
+        populateInitialValues();
     }
 
     /**
@@ -37,14 +49,16 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
         phoneNumberTxt = new javax.swing.JTextField();
         bloodGrpTxt = new javax.swing.JTextField();
         unitsTxt = new javax.swing.JTextField();
-        orgNameTxt = new javax.swing.JTextField();
         saveBtn = new javax.swing.JButton();
         hbLvl = new javax.swing.JLabel();
         hbTxt = new javax.swing.JTextField();
+        emailLbl = new javax.swing.JLabel();
+        emailTxt = new javax.swing.JTextField();
+        orgCombo = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("Receive Blood");
+        jLabel1.setText("Request Blood");
 
         receiverLbl.setText("Receiver Name:");
 
@@ -63,8 +77,17 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
         });
 
         saveBtn.setText("Save");
+        saveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveBtnActionPerformed(evt);
+            }
+        });
 
         hbLvl.setText("Hemoglobin Level:");
+
+        emailLbl.setText("Email:");
+
+        orgCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -92,13 +115,15 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
                             .addComponent(bloodGrpLbl)
                             .addComponent(unitsLbl)
                             .addComponent(orgNameLbl)
-                            .addComponent(hbLvl))
+                            .addComponent(hbLvl)
+                            .addComponent(emailLbl))
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(bloodGrpTxt)
                             .addComponent(unitsTxt)
-                            .addComponent(orgNameTxt)
-                            .addComponent(hbTxt))))
+                            .addComponent(hbTxt)
+                            .addComponent(emailTxt)
+                            .addComponent(orgCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(390, 390, 390))
         );
         layout.setVerticalGroup(
@@ -116,6 +141,10 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
                     .addComponent(phoneNumberTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emailLbl)
+                    .addComponent(emailTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bloodGrpLbl)
                     .addComponent(bloodGrpTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -127,28 +156,205 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
                     .addComponent(unitsLbl)
                     .addComponent(unitsTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(orgNameLbl)
-                    .addComponent(orgNameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(77, 77, 77)
+                    .addComponent(orgCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(88, 88, 88)
                 .addComponent(saveBtn)
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    private void populateInitialValues(){
+        Person person = EcoSystem.getInstance().getPersonDirectory().getPersonByUsername(loggedInUser);
+        String name = person.getName();
+        String email = person.getEmail();
+        long phoneNum = person.getPhoneNum();
+        receiverTxt.setText(name);
+        phoneNumberTxt.setText(String.valueOf(phoneNum));
+        emailTxt.setText(String.valueOf(phoneNum));
+    }
+    
     private void receiverTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receiverTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_receiverTxtActionPerformed
 
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
+        // TODO add your handling code here:
+        if (!receiverTxt.getText().isEmpty() && !bloodGrpTxt.getText().isEmpty()
+            && !phoneNumberTxt.getText().isEmpty() && !hbLvl.getText().isEmpty() && !unitsTxt.getText().isEmpty()
+            && orgCombo.getSelectedItem()!= null && !emailTxt.getText().isEmpty()) {
+         
+            Person person = EcoSystem.getInstance().getPersonDirectory().getPersonByPhoneNum(Long.parseLong(phoneNumberTxt.getText()));
+            
+            ReceiverTransaction rt = person.addNewReceiverTransaction();
+            rt.setHblevel(Float.parseFloat(hbTxt.getText()));
+            rt.setNumberOfUnits(Integer.parseInt(unitsTxt.getText()));
+            person.setBloodGroup(bloodGrpTxt.getText());
+            String org = (String) orgCombo.getSelectedItem();
+            rt.setOrganizationName(org);
+           
+//            person.setName(donorTxt.getText());
+//            person.setEmail(emailTxt.getText());
+//            
+            
+          
+            JOptionPane.showMessageDialog(this, "Added donor details to the system");
+        } else {
+            JOptionPane.showMessageDialog(this, "Fields cannot be empty");
+
+        }
+    }//GEN-LAST:event_saveBtnActionPerformed
+          /**
+     * Function to validate number input. To check if text fields contain any
+     * alphabets.
+     */
+    void validateNumberInput(DocumentEvent e) {
+        String charRegex = ".*[a-zA-z].*";
+        int length = e.getDocument().getLength();
+        try {
+            String text = e.getDocument().getText(0, length);
+            if (text.matches(charRegex)) {
+                JOptionPane.showMessageDialog(this, "Characters are not allowed in Number field!");
+
+            }
+        } catch (BadLocationException ex) {
+        }
+    }
+
+    /**
+     * Function to validate input length.
+     */
+    void validateInputLength(DocumentEvent e, int len) {
+        String charRegex = ".{" + len + "}";
+        int length = e.getDocument().getLength();
+        try {
+            String text = e.getDocument().getText(0, length);
+            if (text.matches(charRegex)) {
+                JOptionPane.showMessageDialog(this, "Maximum characters allowed: " + (len - 1));
+
+            }
+        } catch (BadLocationException ex) {
+        }
+    }
+
+    /**
+     * Function to validate email input. To check if text fields contain any
+     * special characters.
+     */
+    void validateEmailInput(String email) {
+        String charRegex = ".*@[a-z]+\\.[a-z]+";
+
+        System.out.println(email);
+        if (!email.matches(charRegex)) {
+            JOptionPane.showMessageDialog(this, "Email is not proper format!");
+
+        }
+
+    }
+
+    /**
+     * Function to validate text input. To check if text fields contain any
+     * special characters.
+     */
+    void validateSpecialInput(DocumentEvent e) {
+        String charRegex = ".*[./\\$)(?*%@].*";
+        int length = e.getDocument().getLength();
+        try {
+            String text = e.getDocument().getText(0, length);
+            if (text.matches(charRegex)) {
+                JOptionPane.showMessageDialog(this, "Special characters are not allowed!");
+
+            }
+        } catch (BadLocationException ex) {
+        }
+    }
+
+    /**
+     * Function to validate text input. To check if text fields contain any
+     * digits.
+     */
+    void validateTextInput(DocumentEvent e) {
+        String digitRegex = ".*\\d.*";
+        int length = e.getDocument().getLength();
+        try {
+            String text = e.getDocument().getText(0, length);
+            if (text.matches(digitRegex)) {
+                JOptionPane.showMessageDialog(this, "Digits are not allowed in text field!");
+
+            }
+        } catch (BadLocationException ex) {
+        }
+    }
+    private void addListeners() {
+        bloodGrpTxt.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateTextInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateTextInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+               validateTextInput(e);
+            }
+
+        });
+
+        hbTxt.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                 validateNumberInput(e);
+               
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                  validateNumberInput(e);
+                
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                  validateNumberInput(e);
+                
+            }
+
+        });
+        unitsTxt.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateNumberInput(e);
+            }
+
+        });
+       
+            
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bloodGrpLbl;
     private javax.swing.JTextField bloodGrpTxt;
+    private javax.swing.JLabel emailLbl;
+    private javax.swing.JTextField emailTxt;
     private javax.swing.JLabel hbLvl;
     private javax.swing.JTextField hbTxt;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> orgCombo;
     private javax.swing.JLabel orgNameLbl;
-    private javax.swing.JTextField orgNameTxt;
     private javax.swing.JLabel phoneNumberLbl;
     private javax.swing.JTextField phoneNumberTxt;
     private javax.swing.JLabel receiverLbl;

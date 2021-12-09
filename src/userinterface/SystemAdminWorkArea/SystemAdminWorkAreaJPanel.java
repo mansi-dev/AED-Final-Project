@@ -165,7 +165,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 //        frame.setVisible(true);
         MainJFrame mf = new MainJFrame();
         mf.setVisible(true);
-        dB4OUtil.storeSystem(ecosystem);
+        dB4OUtil.storeSystem(EcoSystem.getInstance());
     }//GEN-LAST:event_btnLogoutActionPerformed
 
 

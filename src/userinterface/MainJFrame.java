@@ -189,7 +189,7 @@ public class MainJFrame extends javax.swing.JFrame {
             
             this.pack();
         } else if (auth.getRole()==Role.Person){
-            ChooseUserJPanel chooseUserJPanel = new ChooseUserJPanel(system); 
+            ChooseUserJPanel chooseUserJPanel = new ChooseUserJPanel(system,txtUsername.getText()); 
             
             this.remove(jPanel2);
             this.remove(jPanel3);
