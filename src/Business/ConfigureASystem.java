@@ -3,6 +3,7 @@ package Business;
 import Business.Admin.AdminDirectory;
 import Business.Hospital.DoctorDirectory;
 import Business.Hospital.HospitalDirectory;
+import Business.Manager.ManagerDirectory;
 import Business.Population.PersonDirectory;
 import Business.UserAccount.User;
 import Business.UserAccount.UserAccount;
@@ -20,6 +21,7 @@ public class ConfigureASystem {
         system.setPersonDirectory(new PersonDirectory());
         system.setDoctorDirectory(new DoctorDirectory());
         system.setHospitalDirectory(new HospitalDirectory());
+        system.setManagerDirectory(new ManagerDirectory());
         //Create a network
         //create an enterprise
         //initialize some organizations

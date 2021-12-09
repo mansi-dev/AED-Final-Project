@@ -9,6 +9,7 @@ import Business.DB4OUtil.DB4OUtil;
 import Business.UserAccount.User.Role;
 import Business.UserAccount.UserAccount;
 import javax.swing.JOptionPane;
+import userinterface.HospitalWorkArea.HospitalJPanel;
 import userinterface.Population.ChooseUserJPanel;
 import userinterface.SystemAdminWorkArea.SystemAdminWorkAreaJPanel;
 
@@ -196,7 +197,15 @@ public class MainJFrame extends javax.swing.JFrame {
             this.add(chooseUserJPanel);
             
             this.pack();
-        }      
+        }   else if(auth.getRole()==Role.Manager){
+            HospitalJPanel hospitalJPanel = new HospitalJPanel(system); 
+            
+            this.remove(jPanel2);
+            this.remove(jPanel3);
+            this.add(hospitalJPanel);
+            
+            this.pack();
+        }   
     }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
