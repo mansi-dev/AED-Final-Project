@@ -5,6 +5,7 @@
  */
 package Business.Government;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -13,6 +14,13 @@ import java.util.Date;
  */
 public class LicenseOrganization {
 
+    
+    
+    
+    public LicenseOrganization(){
+    //this.license = new LicenseOrganization();
+    }
+    
     public int getLicenseId() {
         return licenseId;
     }
@@ -58,9 +66,10 @@ public class LicenseOrganization {
     private Date issueDate;
     private Date expiryDate;
     private Long licenseNumber;
+    private static int counter =0 ;
 
     public LicenseOrganization(int licenseId, String licenseName, Date issueDate, Date expiryDate, Long licenseNumber) {
-        this.licenseId = licenseId;
+        this.licenseId = counter++;
         this.licenseName = licenseName;
         this.issueDate = issueDate;
         this.expiryDate = expiryDate;
@@ -71,6 +80,8 @@ public class LicenseOrganization {
     public String toString() {
         return "LicenseOrganization{" + "licenseId=" + licenseId + ", licenseName=" + licenseName + ", issueDate=" + issueDate + ", expiryDate=" + expiryDate + ", licenseNumber=" + licenseNumber + '}';
     }
+    
+
     
         
 }
