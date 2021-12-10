@@ -5,10 +5,12 @@
  */
 package userinterface.GovernmentRole;
 
+import Business.EcoSystem;
 import Business.Government.LicenseDirectory;
 import Business.Government.LicenseOrganization;
 import Business.Government.TrainingDirectory;
 import Business.Government.TrainingOraganization;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -40,6 +42,11 @@ public class ViewJPanel extends javax.swing.JPanel {
         
     }
 
+    public ViewJPanel() {
+    }
+
+ 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,6 +65,8 @@ public class ViewJPanel extends javax.swing.JPanel {
         btnDeleteLicense = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(853, 647));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         tblLicense.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -206,11 +215,12 @@ public class ViewJPanel extends javax.swing.JPanel {
 
     private void populateTableLicense() {
         DefaultTableModel model = (DefaultTableModel)tblLicense.getModel();
+         List<LicenseOrganization> license = EcoSystem.getInstance().getLicenseDirectory().getLicense();
         model.setRowCount(0);
         
-        for(LicenseOrganization l : licenseDir.getLicense()){
+        for(LicenseOrganization l : license){
             
-            Object[] col = new Object[10];
+            Object[] col = new Object[5];
             col[0] = l;
             col[1] = l.getIssueNumber();
             col[2] = l.getLicenseName();
@@ -226,10 +236,10 @@ public class ViewJPanel extends javax.swing.JPanel {
     private void populateTableTraining() {
         DefaultTableModel model = (DefaultTableModel)tblTraining.getModel();
         model.setRowCount(0);
-        
-        for(TrainingOraganization t : trainingDir.getTraining()){
+        List<TrainingOraganization> training = EcoSystem.getInstance().getTrainingDirectory().getTraining();
+        for(TrainingOraganization t : training){
             
-            Object[] col = new Object[10];
+            Object[] col = new Object[8];
             col[0] = t;
             col[1] = t.getCrossMatching();
             col[2] = t.getCompatibility();

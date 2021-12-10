@@ -30,8 +30,8 @@ public class GovernmentAdminDirectory {
     return temp;
     }
     
-    public void removeAdmin(GovernmentAdmin u){
-        governmentAdminList.remove(u);
+    public void removeAdmin(GovernmentAdmin government){
+        governmentAdminList.remove(government);
     }
     
     
