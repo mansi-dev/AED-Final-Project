@@ -455,7 +455,7 @@ public class GovernmentPanel extends javax.swing.JPanel {
     private void btnSaveTrainingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveTrainingActionPerformed
         // TODO add your handling code here:
         
-    Boolean patientIdentity = chkPatientId.isSelected();;
+    Boolean patientIdentity = chkPatientId.isSelected();
     Boolean crossMatching = chkCrossMatching.isSelected();
     Boolean compatibility = chkCompatibility.isSelected();
     Boolean problems = chkProblems.isSelected();
@@ -485,7 +485,10 @@ public class GovernmentPanel extends javax.swing.JPanel {
     chkBloodIssue.setSelected(false);
     chkTransfusion.setSelected(false);
     chkDisposal.setSelected(false);
-    
+   
+//   catch(Exception e){
+//       JOptionPane.showMessageDialog(this,"Exception");
+//   }
     }//GEN-LAST:event_btnSaveTrainingActionPerformed
 
     private void btnSaveLicenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveLicenseActionPerformed

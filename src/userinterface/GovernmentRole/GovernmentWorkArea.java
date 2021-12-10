@@ -52,7 +52,7 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
         btnLogout = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
-        setLayout(new java.awt.GridLayout());
+        setLayout(new java.awt.GridLayout(1, 0));
 
         GovernmentSplitPane.setDividerSize(1);
         GovernmentSplitPane.setPreferredSize(new java.awt.Dimension(141, 243));
@@ -116,7 +116,7 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
                 .addComponent(btnCreateLicenseTraining)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnViewLicenseTraining)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 429, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 562, Short.MAX_VALUE)
                 .addComponent(btnLogout)
                 .addGap(33, 33, 33))
         );
@@ -124,6 +124,8 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
         GovernmentSplitPane.setLeftComponent(jPanel2);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMinimumSize(new java.awt.Dimension(950, 780));
+        jPanel1.setPreferredSize(new java.awt.Dimension(950, 780));
         jPanel1.setLayout(new java.awt.CardLayout());
         GovernmentSplitPane.setRightComponent(jPanel1);
 
@@ -148,7 +150,8 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
         //
         //        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
         //        cardLayout.next(jPanel1);
-        
+        ViewJPanel viewPanel = new ViewJPanel();
+        GovernmentSplitPane.setRightComponent(viewPanel);           
     }//GEN-LAST:event_btnViewLicenseTrainingActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed

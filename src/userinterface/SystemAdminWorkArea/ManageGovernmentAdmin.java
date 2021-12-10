@@ -61,7 +61,7 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
         btnSave = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblGovtView = new javax.swing.JTable();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
 
@@ -217,8 +217,8 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblGovtView.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        tblGovtView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -237,11 +237,11 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(1);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(1);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(1);
+        jScrollPane1.setViewportView(tblGovtView);
+        if (tblGovtView.getColumnModel().getColumnCount() > 0) {
+            tblGovtView.getColumnModel().getColumn(0).setMinWidth(1);
+            tblGovtView.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tblGovtView.getColumnModel().getColumn(0).setMaxWidth(1);
         }
 
         btnUpdate.setText("Update");
@@ -314,16 +314,34 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
             customer.setZipCode(txtZipCode.getText());
             customer.setPhoneNum(Long.parseLong(txtPhoneNum.getText()));
             JOptionPane.showMessageDialog(this, "Added user details");
+            
+            txtName.setText("");
+            txtAddress.setText("");
+            txtCity.setText("");
+            txtState.setText("");
+            txtZipCode.setText("");
+            txtPhoneNum.setText("");
+            txtUsername.setText("");
+            txtPassword.setText("");            
+            
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
-
+            
+            txtName.setText("");
+            txtAddress.setText("");
+            txtCity.setText("");
+            txtState.setText("");
+            txtZipCode.setText("");
+            txtPhoneNum.setText("");
+            txtUsername.setText("");
+            txtPassword.setText("");
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        int rowIndex = jTable1.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tblGovtView.getModel();
+        int rowIndex = tblGovtView.getSelectedRow();
 
         Vector dataVector = model.getDataVector();
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
@@ -331,7 +349,7 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
         if (!elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
             && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
             && !elementAt.get(7).toString().isEmpty()) {
-            Person res = (Person) elementAt.get(0);
+            GovernmentAdmin res = (GovernmentAdmin) elementAt.get(0);
             res.setName(elementAt.get(2).toString());
             res.setAddress(elementAt.get(3).toString());
             res.setCity(elementAt.get(4).toString());
@@ -348,7 +366,7 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
      private void populateResTable() {
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblGovtView.getModel();
             List<GovernmentAdmin> userList = EcoSystem.getInstance().getGovernmentAdminDirectory().getGovernmentAdminList();
         model.setRowCount(0);
         for (User data : userList) {
@@ -369,10 +387,10 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
         }
     }
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        int rowIndex = jTable1.getSelectedRow();
-        Person valueAt = (Person) model.getValueAt(rowIndex, 0);
-        EcoSystem.getInstance().getPersonDirectory().removePerson(valueAt);
+        DefaultTableModel model = (DefaultTableModel) tblGovtView.getModel();
+        int rowIndex = tblGovtView.getSelectedRow();
+        GovernmentAdmin valueAt = (GovernmentAdmin) model.getValueAt(rowIndex, 0);
+        EcoSystem.getInstance().getGovernmentAdminDirectory().removeAdmin(valueAt);
 
         EcoSystem.getInstance().getUserAccountDirectory().deleteAccount(valueAt.getId());
         JOptionPane.showMessageDialog(this, "Values deleted successfully");
@@ -408,7 +426,7 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblGovtView;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtName;
