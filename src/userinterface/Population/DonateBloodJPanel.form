@@ -33,33 +33,41 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="donorLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="phoneNoLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="ageLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="heightLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="weightLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="hbLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="bloodGrpLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="lastDonateLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="unitsLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="donationDateLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="diseasesLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="emailLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="donorTxt" alignment="0" pref="202" max="32767" attributes="0"/>
-                  <Component id="phoneNoTxt" alignment="0" max="32767" attributes="0"/>
-                  <Component id="ageTxt" alignment="0" max="32767" attributes="0"/>
-                  <Component id="heightTxt" alignment="0" max="32767" attributes="0"/>
-                  <Component id="weightTxt" alignment="0" max="32767" attributes="0"/>
-                  <Component id="hbTxt" alignment="0" max="32767" attributes="0"/>
-                  <Component id="bloodGrpTxt" alignment="0" max="32767" attributes="0"/>
-                  <Component id="unitsTxt" alignment="0" max="32767" attributes="0"/>
-                  <Component id="diseasesCheck" min="-2" max="-2" attributes="0"/>
-                  <Component id="emailTxt" max="32767" attributes="0"/>
-                  <Component id="donationDate" max="32767" attributes="0"/>
-                  <Component id="lastDonatedDate" max="32767" attributes="0"/>
+                  <Component id="bloodbankLbl" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="donorLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="phoneNoLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="ageLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="heightLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="weightLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="hbLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="bloodGrpLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lastDonateLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="unitsLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="donationDateLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="diseasesLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="emailLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="bloodbankCombo" pref="202" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="donorTxt" alignment="0" pref="202" max="32767" attributes="0"/>
+                              <Component id="phoneNoTxt" alignment="0" max="32767" attributes="0"/>
+                              <Component id="ageTxt" alignment="0" max="32767" attributes="0"/>
+                              <Component id="heightTxt" alignment="0" max="32767" attributes="0"/>
+                              <Component id="weightTxt" alignment="0" max="32767" attributes="0"/>
+                              <Component id="hbTxt" alignment="0" max="32767" attributes="0"/>
+                              <Component id="bloodGrpTxt" alignment="0" max="32767" attributes="0"/>
+                              <Component id="unitsTxt" alignment="0" max="32767" attributes="0"/>
+                              <Component id="diseasesCheck" min="-2" max="-2" attributes="0"/>
+                              <Component id="emailTxt" max="32767" attributes="0"/>
+                              <Component id="donationDate" max="32767" attributes="0"/>
+                              <Component id="lastDonatedDate" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
               </Group>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
@@ -129,12 +137,17 @@
                           <Component id="diseasesLbl" min="-2" max="-2" attributes="0"/>
                           <Component id="diseasesCheck" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                      <Component id="saveBtn" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="donationDate" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="bloodbankLbl" min="-2" max="-2" attributes="0"/>
+                  <Component id="bloodbankCombo" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="39" max="32767" attributes="0"/>
+              <Component id="saveBtn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -236,6 +249,21 @@
     <Component class="com.toedter.calendar.JDateChooser" name="donationDate">
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="lastDonatedDate">
+    </Component>
+    <Component class="javax.swing.JLabel" name="bloodbankLbl">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Blood Banks:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="bloodbankCombo">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
