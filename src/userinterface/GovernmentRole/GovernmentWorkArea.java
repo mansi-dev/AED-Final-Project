@@ -19,7 +19,7 @@ import userinterface.SystemAdminWorkArea.LoginForm;
  */
 public class GovernmentWorkArea extends javax.swing.JPanel {
 
-    
+    ViewJPanel viewPanel;
         
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
     EcoSystem ecosystem;
@@ -150,6 +150,8 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
         //
         //        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
         //        cardLayout.next(jPanel1);
+        
+        
         ViewJPanel viewPanel = new ViewJPanel();
         GovernmentSplitPane.setRightComponent(viewPanel);           
     }//GEN-LAST:event_btnViewLicenseTrainingActionPerformed

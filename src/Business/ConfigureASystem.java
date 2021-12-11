@@ -1,6 +1,8 @@
 package Business;
 
 import Business.Admin.AdminDirectory;
+import Business.Government.LicenseDirectory;
+import Business.Government.TrainingDirectory;
 import Business.BloodBank.BloodBankDirectory;
 import Business.BloodBank.BloodBankManagerDirectory;
 import Business.Hospital.DoctorDirectory;
@@ -26,6 +28,8 @@ public class ConfigureASystem {
         system.setHospitalDirectory(new HospitalDirectory());
         system.setManagerDirectory(new ManagerDirectory());
         system.setGovernmentAdminDirectory(new GovernmentAdminDirectory());
+        system.setLicenseDirectory(new LicenseDirectory());
+        system.setTrainingDirectory(new TrainingDirectory());
         system.setBloodBankDirectory(new BloodBankDirectory());
         system.setBankManagerDirectory(new BloodBankManagerDirectory());
         //Create a network
