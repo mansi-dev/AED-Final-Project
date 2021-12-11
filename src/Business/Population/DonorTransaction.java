@@ -5,12 +5,15 @@
  */
 package Business.Population;
 
+import Business.BloodBank.BloodBank;
+import Business.EcoSystem;
 import java.util.Date;
 
 /**
  *
  * @author neeraja
  */
+
 public class DonorTransaction {
     private float hblevel;
     private Date bloodLastDonatedDate;
@@ -22,6 +25,20 @@ public class DonorTransaction {
     private float weight;
     private float height;
     private int age;
+    
+    BloodBank bloodbank;
+
+    public BloodBank getBloodbank() {
+        return bloodbank;
+    }
+    public void setBloodBankByID(String name){
+        
+        this.bloodbank=EcoSystem.getInstance().getBloodBankDirectory().getBloodBankList().stream().filter(item -> name.equals(item.getName())).findFirst().orElse(null);
+    }
+
+    public void setBloodbank(BloodBank bloodbank) {
+        this.bloodbank = bloodbank;
+    }
     
     public float getWeight() {
         return weight;

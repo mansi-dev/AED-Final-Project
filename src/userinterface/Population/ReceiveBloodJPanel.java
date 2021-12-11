@@ -5,9 +5,12 @@
  */
 package userinterface.Population;
 
+import Business.BloodBank.BloodBank;
 import Business.EcoSystem;
+import Business.Hospital.Hospital;
 import Business.Population.Person;
 import Business.Population.ReceiverTransaction;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -28,6 +31,7 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
         initComponents();
         addListeners();
        // populateInitialValues();
+       populateHospital();
     }
 
     /**
@@ -86,8 +90,6 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
         hbLvl.setText("Hemoglobin Level:");
 
         emailLbl.setText("Email:");
-
-        orgCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         ageLbl.setText("Age:");
 
@@ -197,6 +199,12 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
                 .addGap(50, 50, 50))
         );
     }// </editor-fold>//GEN-END:initComponents
+    private void populateHospital(){
+        List<Hospital> hospitalList = EcoSystem.getInstance().getHospitalDirectory().getHospitalList();
+        for (Hospital hospital : hospitalList) {
+            orgCombo.addItem(hospital.getName());
+        }
+    }
     private void populateInitialValues(){
         Person person = EcoSystem.getInstance().getPersonDirectory().getPersonByUsername(loggedInUser);
         String name = person.getName();

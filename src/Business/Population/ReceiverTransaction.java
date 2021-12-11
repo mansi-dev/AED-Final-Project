@@ -50,9 +50,6 @@ public class ReceiverTransaction {
         this.organizationName = organizationName;
         this.hblevel = hblevel;
     }
-
-    
-
     public int getNumberOfUnits() {
         return numberOfUnits;
     }

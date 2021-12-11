@@ -5,12 +5,15 @@
  */
 package userinterface.Population;
 
+import Business.BloodBank.BloodBank;
 import Business.EcoSystem;
 import Business.Population.DonorTransaction;
 import Business.Population.Person;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.BadLocationException;
 
 /**
@@ -27,7 +30,7 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         initComponents();
         addListeners();
         ///populateInitialValues();
-        
+        populateBloodBank();
     }
 
     /**
@@ -65,6 +68,8 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         emailTxt = new javax.swing.JTextField();
         donationDate = new com.toedter.calendar.JDateChooser();
         lastDonatedDate = new com.toedter.calendar.JDateChooser();
+        bloodbankLbl = new javax.swing.JLabel();
+        bloodbankCombo = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -101,6 +106,8 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
 
         emailLbl.setText("Email ID:");
 
+        bloodbankLbl.setText("Blood Banks:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,32 +122,37 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(donorLbl)
-                    .addComponent(phoneNoLbl)
-                    .addComponent(ageLbl)
-                    .addComponent(heightLbl)
-                    .addComponent(weightLbl)
-                    .addComponent(hbLbl)
-                    .addComponent(bloodGrpLbl)
-                    .addComponent(lastDonateLbl)
-                    .addComponent(unitsLbl)
-                    .addComponent(donationDateLbl)
-                    .addComponent(diseasesLbl)
-                    .addComponent(emailLbl))
-                .addGap(89, 89, 89)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(donorTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                    .addComponent(phoneNoTxt)
-                    .addComponent(ageTxt)
-                    .addComponent(heightTxt)
-                    .addComponent(weightTxt)
-                    .addComponent(hbTxt)
-                    .addComponent(bloodGrpTxt)
-                    .addComponent(unitsTxt)
-                    .addComponent(diseasesCheck)
-                    .addComponent(emailTxt)
-                    .addComponent(donationDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lastDonatedDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(bloodbankLbl)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(donorLbl)
+                            .addComponent(phoneNoLbl)
+                            .addComponent(ageLbl)
+                            .addComponent(heightLbl)
+                            .addComponent(weightLbl)
+                            .addComponent(hbLbl)
+                            .addComponent(bloodGrpLbl)
+                            .addComponent(lastDonateLbl)
+                            .addComponent(unitsLbl)
+                            .addComponent(donationDateLbl)
+                            .addComponent(diseasesLbl)
+                            .addComponent(emailLbl))
+                        .addGap(89, 89, 89)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bloodbankCombo, 0, 202, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(donorTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                                .addComponent(phoneNoTxt)
+                                .addComponent(ageTxt)
+                                .addComponent(heightTxt)
+                                .addComponent(weightTxt)
+                                .addComponent(hbTxt)
+                                .addComponent(bloodGrpTxt)
+                                .addComponent(unitsTxt)
+                                .addComponent(diseasesCheck)
+                                .addComponent(emailTxt)
+                                .addComponent(donationDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lastDonatedDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -195,13 +207,23 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(diseasesLbl)
-                            .addComponent(diseasesCheck))
-                        .addGap(58, 58, 58)
-                        .addComponent(saveBtn))
+                            .addComponent(diseasesCheck)))
                     .addComponent(donationDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bloodbankLbl)
+                    .addComponent(bloodbankCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(saveBtn)
+                .addGap(30, 30, 30))
         );
     }// </editor-fold>//GEN-END:initComponents
+    private void populateBloodBank(){
+        List<BloodBank> bloodBankList = EcoSystem.getInstance().getBloodBankDirectory().getBloodBankList();
+        for (BloodBank bloodBank : bloodBankList) {
+            bloodbankCombo.addItem(bloodBank.getName());
+        }
+    }
     private void populateInitialValues(){
         Person person = EcoSystem.getInstance().getPersonDirectory().getPersonByUsername(loggedInUser);
         String name = person.getName();
@@ -230,7 +252,7 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
             person.setBloodGroup(bloodGrpTxt.getText());
             dt.setHeight(Float.parseFloat(heightTxt.getText()));
             dt.setWeight(Float.parseFloat(weightTxt.getText()));
-           
+            dt.setBloodBankByID(((String) bloodbankCombo.getSelectedItem()));
 //            person.setName(donorTxt.getText());
 //            person.setEmail(emailTxt.getText());
 //            
@@ -445,6 +467,8 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField ageTxt;
     private javax.swing.JLabel bloodGrpLbl;
     private javax.swing.JTextField bloodGrpTxt;
+    private javax.swing.JComboBox<String> bloodbankCombo;
+    private javax.swing.JLabel bloodbankLbl;
     private javax.swing.JCheckBox diseasesCheck;
     private javax.swing.JLabel diseasesLbl;
     private com.toedter.calendar.JDateChooser donationDate;
