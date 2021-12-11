@@ -113,8 +113,8 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
                             .addComponent(phoneNumberLbl))
                         .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(receiverTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                            .addComponent(phoneNumberTxt)))
+                            .addComponent(phoneNumberTxt)
+                            .addComponent(receiverTxt)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,7 +230,7 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
 //            
             
           
-            JOptionPane.showMessageDialog(this, "Added donor details to the system");
+            JOptionPane.showMessageDialog(this, "Added receiver details to the system");
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
 
