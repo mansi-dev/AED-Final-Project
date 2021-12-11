@@ -42,8 +42,10 @@ public class HospitalJPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnAvailability = new javax.swing.JButton();
+        btnOrderBloodSample = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
+        btnSellBloodSample = new javax.swing.JButton();
+        btnView = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
         setLayout(new java.awt.GridLayout(1, 0));
@@ -59,10 +61,10 @@ public class HospitalJPanel extends javax.swing.JPanel {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
 
-        btnAvailability.setText("Order Blood Sample");
-        btnAvailability.addActionListener(new java.awt.event.ActionListener() {
+        btnOrderBloodSample.setText("Order Blood Sample");
+        btnOrderBloodSample.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAvailabilityActionPerformed(evt);
+                btnOrderBloodSampleActionPerformed(evt);
             }
         });
 
@@ -70,6 +72,20 @@ public class HospitalJPanel extends javax.swing.JPanel {
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);
+            }
+        });
+
+        btnSellBloodSample.setText("Sell Blood Sample");
+        btnSellBloodSample.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSellBloodSampleActionPerformed(evt);
+            }
+        });
+
+        btnView.setText("View Inventory");
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
             }
         });
 
@@ -86,7 +102,10 @@ public class HospitalJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnOrderBloodSample, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSellBloodSample, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -98,8 +117,12 @@ public class HospitalJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(63, 63, 63)
-                .addComponent(btnAvailability)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 458, Short.MAX_VALUE)
+                .addComponent(btnOrderBloodSample)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSellBloodSample)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnView)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 388, Short.MAX_VALUE)
                 .addComponent(btnLogout))
         );
 
@@ -112,7 +135,7 @@ public class HospitalJPanel extends javax.swing.JPanel {
         add(jSplitPane2);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAvailabilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAvailabilityActionPerformed
+    private void btnOrderBloodSampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderBloodSampleActionPerformed
         // TODO add your handling code here:
         jPanel1.removeAll();
         AvailabilityPanel aPanel = new AvailabilityPanel();
@@ -123,7 +146,7 @@ public class HospitalJPanel extends javax.swing.JPanel {
 //        jPanel1.add(manageUsers);
 //        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
 //        cardLayout.next(jPanel1);
-    }//GEN-LAST:event_btnAvailabilityActionPerformed
+    }//GEN-LAST:event_btnOrderBloodSampleActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
@@ -136,10 +159,20 @@ public class HospitalJPanel extends javax.swing.JPanel {
         dB4OUtil.storeSystem(EcoSystem.getInstance());
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    private void btnSellBloodSampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSellBloodSampleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSellBloodSampleActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnViewActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAvailability;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnOrderBloodSample;
+    private javax.swing.JButton btnSellBloodSample;
+    private javax.swing.JButton btnView;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

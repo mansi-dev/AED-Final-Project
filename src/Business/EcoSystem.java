@@ -8,6 +8,8 @@ package Business;
 
 import Business.Government.LicenseOrganization;
 import Business.Admin.AdminDirectory;
+import Business.BloodBank.BloodBankDirectory;
+import Business.BloodBank.BloodBankManagerDirectory;
 import Business.Government.LicenseDirectory;
 import Business.Government.TrainingDirectory;
 import Business.Hospital.DoctorDirectory;
@@ -40,6 +42,26 @@ public class EcoSystem extends Organization{
     private TrainingDirectory trainingDirectory;
     private LicenseDirectory licenseDirectory;
     private GovernmentAdminDirectory governmentAdminDirectory;
+    private BloodBankDirectory bloodBankDirectory;
+    private BloodBankManagerDirectory bankManagerDirectory;
+
+    public BloodBankDirectory getBloodBankDirectory() {
+        return bloodBankDirectory;
+    }
+
+    public void setBloodBankDirectory(BloodBankDirectory bloodBankDirectory) {
+        this.bloodBankDirectory = bloodBankDirectory;
+    }
+
+    public BloodBankManagerDirectory getBankManagerDirectory() {
+        return bankManagerDirectory;
+    }
+
+    public void setBankManagerDirectory(BloodBankManagerDirectory bankManagerDirectory) {
+        this.bankManagerDirectory = bankManagerDirectory;
+    }
+    
+    
 
     public GovernmentAdminDirectory getGovernmentAdminDirectory() {
         return governmentAdminDirectory;

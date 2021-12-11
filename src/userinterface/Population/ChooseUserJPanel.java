@@ -8,6 +8,9 @@ package userinterface.Population;
 import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 import java.awt.CardLayout;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import userinterface.SystemAdminWorkArea.LoginForm;
 
 /**
  *
@@ -21,6 +24,8 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
     ViewDonationHistory viewDonationHistory;
     ViewReceiverHistory receiverHistory;
     String loggedInUser;
+    
+    private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
 
     /**
      * Creates new form ChooseUser
@@ -50,6 +55,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
         receiveBtn = new javax.swing.JButton();
         donateHistBtn = new javax.swing.JButton();
         receiveHistBtn = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -93,6 +99,13 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -105,6 +118,11 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
                     .addComponent(donateHistBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(receiveHistBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,6 +136,11 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(receiveHistBtn)
                 .addContainerGap(335, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(293, 293, 293)
+                    .addComponent(btnLogout)
+                    .addContainerGap(294, Short.MAX_VALUE)))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
@@ -189,8 +212,20 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
         cardLayout.next(jPanel2);
     }//GEN-LAST:event_receiveBtnActionPerformed
 
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+
+        JFrame frame = (JFrame) SwingUtilities.getRoot(this);
+        frame.remove(this);
+        frame.pack();
+        frame.setSize(1425, 988);
+        frame.add(new LoginForm(ecosystem));
+        dB4OUtil.storeSystem(EcoSystem.getInstance());
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLogout;
     private javax.swing.JButton donateBldBtn;
     private javax.swing.JButton donateHistBtn;
     private javax.swing.JLabel jLabel1;

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class PersonDirectory {
     private List<Person> personList = new ArrayList();
-
+    
     public List<Person> getPersonList() {
         return this.personList;
     }
