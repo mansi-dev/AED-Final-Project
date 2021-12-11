@@ -9,7 +9,6 @@ import Business.EcoSystem;
 import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import userinterface.MainJFrame;
 import userinterface.SystemAdminWorkArea.LoginForm;
 
 /**
@@ -138,14 +137,10 @@ public class HospitalJPanel extends javax.swing.JPanel {
     private void btnOrderBloodSampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderBloodSampleActionPerformed
         // TODO add your handling code here:
         jPanel1.removeAll();
-        AvailabilityPanel aPanel = new AvailabilityPanel();
+        OrderPanel aPanel = new OrderPanel();
         jPanel1.add(aPanel);
         CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
         cardLayout.next(jPanel1);
-//        jPanel1.remove(manageHospital);
-//        jPanel1.add(manageUsers);
-//        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
-//        cardLayout.next(jPanel1);
     }//GEN-LAST:event_btnOrderBloodSampleActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -161,10 +156,14 @@ public class HospitalJPanel extends javax.swing.JPanel {
 
     private void btnSellBloodSampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSellBloodSampleActionPerformed
         // TODO add your handling code here:
+        jPanel1.removeAll();
+        SellPanel sPanel = new SellPanel();
+        jPanel1.add(sPanel);
+        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
+        cardLayout.next(jPanel1);
     }//GEN-LAST:event_btnSellBloodSampleActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnViewActionPerformed
 
 

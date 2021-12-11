@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business;
+package Business.Organization;
 
+import Business.*;
 import Business.Employee.EmployeeDirectory;
-import Business.Role.Role;
 import Business.UserAccount.UserAccountDirectory;
 import Business.WorkQueue.WorkQueue;
 import java.util.ArrayList;
@@ -24,11 +24,14 @@ public abstract class Organization {
     private static int counter=0;
     
     public enum Type{
-        RestaurantAdmin("RestaurantAdmin"),
-        Customer("Customer"),
-        DeliveryMan("Delivery"),
-        SysAdmin("Sysadmin");
-        
+        SysAdmin("Sysadmin"),
+        Admin("Admin Organization"), 
+        Doctor("Doctor Organization"), 
+        Hospital("Hospital Organization"), 
+        Training("Training Organization"), 
+        License("License Organization"), 
+        Person("Person Organization"),
+        BloodBank("BloodBank Organization");
         private String value;
         private Type(String value) {
             this.value = value;
@@ -49,7 +52,6 @@ public abstract class Organization {
     public Organization(){
         
     }
-    public abstract ArrayList<Role> getSupportedRole();
     
     public UserAccountDirectory getUserAccountDirectory() {
         return userAccountDirectory;

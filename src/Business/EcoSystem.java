@@ -15,11 +15,9 @@ import Business.Government.TrainingDirectory;
 import Business.Hospital.DoctorDirectory;
 import Business.Hospital.HospitalDirectory;
 import Business.Manager.ManagerDirectory;
+import Business.Organization.Organization;
 import Business.Population.PersonDirectory;
 import Business.Population.Receiver;
-import Business.Restaurant.RestaurantDirectory;
-import Business.Role.Role;
-import Business.Role.SystemAdminRole;
 import Business.UserAccount.UserDirectory;
 import Government.Admin.GovernmentAdminDirectory;
 import java.util.ArrayList;
@@ -31,7 +29,6 @@ import java.util.ArrayList;
 public class EcoSystem extends Organization{
     
     private static EcoSystem business;
-    private RestaurantDirectory restaurantDirectory;
     
     private Receiver recieverDirectory;
     private AdminDirectory adminDirectory;
@@ -71,9 +68,8 @@ public class EcoSystem extends Organization{
         this.governmentAdminDirectory = governmentAdminDirectory;
     }
 
-    public EcoSystem(RestaurantDirectory restaurantDirectory, Receiver recieverDirectory, DoctorDirectory doctorDirectory,HospitalDirectory hospitalDirectory, TrainingDirectory trainingDirectory, LicenseDirectory licenseDirectory) {
+    public EcoSystem(Receiver recieverDirectory, DoctorDirectory doctorDirectory,HospitalDirectory hospitalDirectory, TrainingDirectory trainingDirectory, LicenseDirectory licenseDirectory) {
 
-        this.restaurantDirectory = restaurantDirectory;
         this.recieverDirectory = recieverDirectory;
         this.doctorDirectory = doctorDirectory;
         this.hospitalDirectory = hospitalDirectory;
@@ -105,12 +101,7 @@ public class EcoSystem extends Organization{
         return business;
     }
     
-    @Override
-    public ArrayList<Role> getSupportedRole() {
-        ArrayList<Role> roleList=new ArrayList<Role>();
-        roleList.add(new SystemAdminRole());
-        return roleList;
-    }
+   
     private EcoSystem(){
         super(null);
        // networkList=new ArrayList<Network>();
@@ -130,16 +121,6 @@ public class EcoSystem extends Organization{
     public void setPersonDirectory(PersonDirectory personDirectory) {
         this.personDirectory = personDirectory;
     }
-    
-    public RestaurantDirectory getRestaurantDirectory() {
-        return restaurantDirectory;
-    }
-
-    public void setRestaurantDirectory(RestaurantDirectory restaurantDirectory) {
-        this.restaurantDirectory = restaurantDirectory;
-    }
-
-
 
     public Receiver getRecieverDirectory() {
         return recieverDirectory;
