@@ -72,33 +72,59 @@ public class ViewJPanel extends javax.swing.JPanel {
 
         tblLicense.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "License Id", "License Number", "License Name", "Issue Date", "Expiry Date"
+                "", "License Id", "License Number", "License Name", "Issue Date", "Expiry Date"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblLicense);
+        if (tblLicense.getColumnModel().getColumnCount() > 0) {
+            tblLicense.getColumnModel().getColumn(0).setMinWidth(1);
+            tblLicense.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tblLicense.getColumnModel().getColumn(0).setMaxWidth(1);
+        }
 
         tblTraining.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Patient Identity", "Cross Matching", "Compatibility", "Problems", "Trouble Shooting", "Issue of Blood", "Reactions", "Bag Disposal"
+                "", "Patient Identity", "Cross Matching", "Compatibility", "Problems", "Trouble Shooting", "Issue of Blood", "Reactions", "Bag Disposal"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tblTraining);
+        if (tblTraining.getColumnModel().getColumnCount() > 0) {
+            tblTraining.getColumnModel().getColumn(0).setMinWidth(1);
+            tblTraining.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tblTraining.getColumnModel().getColumn(0).setMaxWidth(1);
+        }
 
         btnDeleteTraining.setText("Delete");
         btnDeleteTraining.addActionListener(new java.awt.event.ActionListener() {
@@ -174,7 +200,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel)tblTraining.getModel();
         TrainingOraganization selectedRow = (TrainingOraganization) model.getValueAt(RowIndex , 0); 
         
-        trainingDir.deleteRows(selectedRow);
+        EcoSystem.getInstance().getTrainingDirectory().deleteRows(selectedRow);
         
         JOptionPane.showMessageDialog(this,"Selected record is deleted!");    
         
@@ -194,9 +220,9 @@ public class ViewJPanel extends javax.swing.JPanel {
         }
         
         DefaultTableModel model = (DefaultTableModel)tblLicense.getModel();
-        TrainingOraganization selectedRow = (TrainingOraganization) model.getValueAt(RowIndex , 0); 
+        LicenseOrganization selectedRow = (LicenseOrganization) model.getValueAt(RowIndex , 0); 
         
-        licenseDir.deleteRows(selectedRow);
+        EcoSystem.getInstance().getLicenseDirectory().deleteRows(selectedRow);
         
         JOptionPane.showMessageDialog(this,"Selected record is deleted!");    
         
@@ -222,15 +248,15 @@ public class ViewJPanel extends javax.swing.JPanel {
         
         for(LicenseOrganization l : license){
             
-            Object[] col = new Object[5];
+            Object[] col = new Object[6];
             col[0] = l;
-            col[1] = l.getIssueNumber();
-            col[2] = l.getLicenseName();
-            col[3] = l.getIssueDate();
-            col[4] = l.getExpiryDate();
+            col[1] = l.getLicenseId();
+            col[2] = l.getIssueNumber();
+            col[3] = l.getLicenseName();
+            col[4] = l.getIssueDate();
+            col[5] = l.getExpiryDate();
             
             model.addRow(col);
-            
             
         }
     }
@@ -241,19 +267,18 @@ public class ViewJPanel extends javax.swing.JPanel {
         List<TrainingOraganization> training = EcoSystem.getInstance().getTrainingDirectory().getTraining();
         for(TrainingOraganization t : training){
             
-            Object[] col = new Object[8];
+            Object[] col = new Object[9];
             col[0] = t;
-            col[1] = t.getCrossMatching();
-            col[2] = t.getCompatibility();
-            col[3] = t.getProblems();
-            col[4] = t.getTroubleShooting();
-            col[5] = t.getIssueOfBlood();
-            col[6] = t.getTransfusionReactions();
-            col[7] = t.getBagDisposal();
-            
+            col[1] = t.getPatientIdentity();
+            col[2] = t.getCrossMatching();
+            col[3] = t.getCompatibility();
+            col[4] = t.getProblems();
+            col[5] = t.getTroubleShooting();
+            col[6] = t.getIssueOfBlood();
+            col[7] = t.getTransfusionReactions();
+            col[8] = t.getBagDisposal();
+           
             model.addRow(col);
-            
-          
             
         }
     }    

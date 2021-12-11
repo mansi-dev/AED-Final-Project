@@ -32,8 +32,11 @@ public class TrainingDirectory {
     }
 
     public void deleteRows(TrainingOraganization selectedRow) {
-        trainingOrg.remove(selectedRow);
+        this.trainingOrg.remove(selectedRow);
     }
+
+    public void deleteRows(TrainingDirectory selectedRow) {
+   }
 
     
 }
