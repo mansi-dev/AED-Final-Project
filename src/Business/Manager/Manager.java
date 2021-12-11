@@ -7,7 +7,6 @@ package Business.Manager;
 
 import Business.EcoSystem;
 import Business.Hospital.Hospital;
-import Business.Restaurant.Restaurant;
 import Business.UserAccount.User;
 
 /**

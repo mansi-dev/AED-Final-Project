@@ -4,8 +4,9 @@
  */
 package userinterface.HospitalWorkArea;
 
+import Business.BloodBank.BloodBank;
+import Business.BloodBank.BloodStock;
 import Business.EcoSystem;
-import Business.Hospital.Hospital;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,12 +14,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author mansizope
  */
-public class AvailabilityPanel extends javax.swing.JPanel {
+public class OrderPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form AvailabilityPanel
      */
-    public AvailabilityPanel() {
+    public OrderPanel() {
         initComponents();
     }
 
@@ -39,7 +40,7 @@ public class AvailabilityPanel extends javax.swing.JPanel {
         txtBloodGroup = new javax.swing.JTextField();
         btnCheck = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblHosp = new javax.swing.JTable();
+        tblBloodBank = new javax.swing.JTable();
         btnOrderBloodSample = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -82,7 +83,7 @@ public class AvailabilityPanel extends javax.swing.JPanel {
                             .addComponent(lblCity, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,7 +101,7 @@ public class AvailabilityPanel extends javax.swing.JPanel {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        tblHosp.setModel(new javax.swing.table.DefaultTableModel(
+        tblBloodBank.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -119,14 +120,19 @@ public class AvailabilityPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblHosp);
-        if (tblHosp.getColumnModel().getColumnCount() > 0) {
-            tblHosp.getColumnModel().getColumn(0).setMinWidth(1);
-            tblHosp.getColumnModel().getColumn(0).setPreferredWidth(1);
-            tblHosp.getColumnModel().getColumn(0).setMaxWidth(1);
+        jScrollPane1.setViewportView(tblBloodBank);
+        if (tblBloodBank.getColumnModel().getColumnCount() > 0) {
+            tblBloodBank.getColumnModel().getColumn(0).setMinWidth(1);
+            tblBloodBank.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tblBloodBank.getColumnModel().getColumn(0).setMaxWidth(1);
         }
 
         btnOrderBloodSample.setText("Order");
+        btnOrderBloodSample.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrderBloodSampleActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -135,30 +141,30 @@ public class AvailabilityPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(220, 220, 220)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addContainerGap()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(4, 4, 4))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(btnOrderBloodSample, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(570, 570, 570)
+                        .addComponent(btnOrderBloodSample, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(219, 219, 219))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(17, 17, 17)
                 .addComponent(jLabel1)
-                .addGap(43, 43, 43)
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnOrderBloodSample)
-                .addContainerGap())
+                .addContainerGap(102, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -166,14 +172,24 @@ public class AvailabilityPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         String city = txtCity.getText();
         String bloodGroup = txtBloodGroup.getText();
-        
-        List<Hospital> hospitalList = EcoSystem.getInstance().getHospitalDirectory().getHospitalList();
-        for (Hospital hospital : hospitalList) {
-            if(hospital.getCity().equals(city)){
-                populateHospTable();
+        List<BloodBank> bloodBankList = EcoSystem.getInstance().getBloodBankDirectory().getBloodBankList();
+        for (BloodBank bloodBank : bloodBankList) {
+            List<BloodStock> bloodStock = bloodBank.getBloodStock();
+            BloodStock bloodStockIns = bloodStock.stream().filter(item -> bloodGroup.equals(item.getBloodGroup())).findFirst().orElse(null);
+            if(bloodBank.getCity().equals(city) && bloodStockIns!=null){
+                populateBloodBankTable(bloodStockIns.getQuantity());
             }
         }
     }//GEN-LAST:event_btnCheckActionPerformed
+
+    private void btnOrderBloodSampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderBloodSampleActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tblBloodBank.getModel();
+        int rowIndex = tblBloodBank.getSelectedRow();
+
+        BloodBank bloodBank = (BloodBank) model.getValueAt(rowIndex, 0);
+            
+    }//GEN-LAST:event_btnOrderBloodSampleActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -184,27 +200,27 @@ public class AvailabilityPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCity;
     private javax.swing.JLabel lblCity1;
-    private javax.swing.JTable tblHosp;
+    private javax.swing.JTable tblBloodBank;
     private javax.swing.JTextField txtBloodGroup;
     private javax.swing.JTextField txtCity;
     // End of variables declaration//GEN-END:variables
 
-    private void populateHospTable() {
-         DefaultTableModel model = (DefaultTableModel) tblHosp.getModel();
-        List<Hospital> hospList = EcoSystem.getInstance().getHospitalDirectory().getHospitalList();
+    private void populateBloodBankTable(int quantity) {
+         DefaultTableModel model = (DefaultTableModel) tblBloodBank.getModel();
+        List<BloodBank> bloodBank = EcoSystem.getInstance().getBloodBankDirectory().getBloodBankList();
         model.setRowCount(0);
         
-        for (Hospital hosp : hospList) {
+        for (BloodBank bb : bloodBank) {
             Object[] row = new Object[7];
             //row[0] = ++index;
 
-            row[0] = hosp;
-            row[1] = hosp.getName();
-            row[2] = hosp.getAddress();
-            row[3] = hosp.getCity();
-            row[4] = hosp.getState();
-            row[5] = hosp.getPhoneNum();
-            row[6] = 0;
+            row[0] = bb;
+            row[1] = bb.getName();
+            row[2] = bb.getAddress();
+            row[3] = bb.getCity();
+            row[4] = bb.getState();
+            row[5] = bb.getPhoneNum();
+            row[6] = quantity;
             model.addRow(row);
 
         }

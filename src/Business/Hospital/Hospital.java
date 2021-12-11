@@ -4,11 +4,16 @@
  */
 package Business.Hospital;
 
+import Business.BloodBank.BloodStock;
+import Business.Organization.Organization;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author mansizope
  */
-public class Hospital {
+public class Hospital{
     
     private long id;
     private String name;
@@ -20,6 +25,8 @@ public class Hospital {
     private String email;
     private boolean isLicensed;
 
+    private List<BloodStock> bloodStock = new ArrayList<>();
+    
     public long getId() {
         return id;
     }
@@ -92,7 +99,15 @@ public class Hospital {
         this.isLicensed = isLicensed;
     }
 
-    public Hospital(long id, String name, String address, String city, String state, String zipCode, long phoneNum, String email, boolean isLicensed) {
+    public List<BloodStock> getBloodStock() {
+        return bloodStock;
+    }
+
+    public void setBloodStock(List<BloodStock> bloodStock) {
+        this.bloodStock = bloodStock;
+    }
+
+    public Hospital(long id, String name, String address, String city, String state, String zipCode, long phoneNum, String email, boolean isLicensed, List<BloodStock> bloodStock) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -102,6 +117,7 @@ public class Hospital {
         this.phoneNum = phoneNum;
         this.email = email;
         this.isLicensed = isLicensed;
+        this.bloodStock = bloodStock;
     }
 
     @Override
@@ -110,9 +126,5 @@ public class Hospital {
     }
 
     public Hospital() {
-    }
-    
-    
-    
-    
+    }   
 }
