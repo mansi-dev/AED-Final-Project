@@ -213,7 +213,7 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
                 .addContainerGap(234, Short.MAX_VALUE))
         );
 
-        usersTabbedPane.addTab("Create", jPanel1);
+        usersTabbedPane.addTab("Create Government", jPanel1);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -285,7 +285,7 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
                 .addContainerGap(146, Short.MAX_VALUE))
         );
 
-        usersTabbedPane.addTab("View", jPanel2);
+        usersTabbedPane.addTab("View Government", jPanel2);
 
         add(usersTabbedPane, "card2");
     }// </editor-fold>//GEN-END:initComponents
