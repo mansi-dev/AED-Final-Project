@@ -47,8 +47,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Create">
-                <Property name="tabTitle" type="java.lang.String" value="Create"/>
+              <JTabbedPaneConstraints tabName="Create Government">
+                <Property name="tabTitle" type="java.lang.String" value="Create Government"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -274,8 +274,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="View">
-                <Property name="tabTitle" type="java.lang.String" value="View"/>
+              <JTabbedPaneConstraints tabName="View Government">
+                <Property name="tabTitle" type="java.lang.String" value="View Government"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
