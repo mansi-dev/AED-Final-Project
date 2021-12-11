@@ -6,6 +6,7 @@
 package Business.Government;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -31,9 +32,21 @@ public class LicenseDirectory {
 
     }
 
-    public void deleteRows(TrainingOraganization selectedRow) {
-        licenseOrg.remove(selectedRow);
+    public void deleteRows(LicenseOrganization selectedRow) {
+        //licenseOrg.remove(selectedRow);
+        this.licenseOrg.remove(selectedRow);
     }
+
+//    public void deleteRows(LicenseDirectory selectedRow) {
+//          }
+//
+
+    public LicenseOrganization addNewEntry(Date expiryDate, Date issueDate, Long licenseNumber, String licenseName) {
+    LicenseOrganization newEntry = new LicenseOrganization(licenseName, issueDate, expiryDate, licenseNumber);
+    licenseOrg.add(newEntry);
+    return newEntry;
+    }
+
 
     
 }

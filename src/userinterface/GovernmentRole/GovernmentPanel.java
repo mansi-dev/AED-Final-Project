@@ -508,13 +508,13 @@ public class GovernmentPanel extends javax.swing.JPanel {
     Date expiryDate = dteExpiryDate.getDate();
     Long licenseNumber = Long.parseLong(txtLicenseNumber.getText());   
         
-    LicenseOrganization l = EcoSystem.getInstance().getLicenseDirectory().addNewEntry();
+    LicenseOrganization l = EcoSystem.getInstance().getLicenseDirectory().addNewEntry(expiryDate,issueDate,licenseNumber,licenseName);
     
-    l.setExpiryDate(expiryDate);
-    l.setIssueDate(issueDate);
-    l.setIssueNumber(licenseNumber);
-//    l.setLicenseId(licenseId);
-    l.setLicenseName(licenseName);
+//    l.setExpiryDate(expiryDate);
+//    l.setIssueDate(issueDate);
+//    l.setIssueNumber(licenseNumber);
+////    l.setLicenseId(licenseId);
+//    l.setLicenseName(licenseName);
     
     JOptionPane.showMessageDialog(this,"License information added.");
     
