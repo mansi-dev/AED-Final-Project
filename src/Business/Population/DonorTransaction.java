@@ -22,7 +22,7 @@ public class DonorTransaction {
     private float weight;
     private float height;
     private int age;
-
+    
     public float getWeight() {
         return weight;
     }
