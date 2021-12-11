@@ -64,7 +64,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.CardLayout());
 
-        jLabel1.setText("User Panel");
+        jLabel1.setText("                                                                    User Panel");
         jPanel2.add(jLabel1, "card2");
 
         jSplitPane1.setRightComponent(jPanel2);
@@ -163,7 +163,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
 //        jPanel2.remove(viewDonationHistory);
 //        jPanel2.remove(donateBlood);
         jPanel2.removeAll();
-        receiverHistory = new ViewReceiverHistory();
+        receiverHistory = new ViewReceiverHistory(EcoSystem.getInstance().getPersonDirectory());
 
         jPanel2.add(receiverHistory);
 
@@ -204,8 +204,9 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
 //        jPanel2.remove(viewDonationHistory);
 //        jPanel2.remove(receiverHistory);
         jPanel2.removeAll();
-        jPanel2.add(receieveBlood);
+        
         receieveBlood = new ReceiveBloodJPanel(loggedInUser);
+        jPanel2.add(receieveBlood);
 
         CardLayout cardLayout = (CardLayout) jPanel2.getLayout();
         cardLayout.next(jPanel2);

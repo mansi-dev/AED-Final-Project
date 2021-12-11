@@ -25,22 +25,21 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="btnUpdateReceiver1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnUpdateReceiver" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                      <Component id="btnDeleteReceiver1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnDeleteReceiver" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="290" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="822" max="-2" attributes="0"/>
-              <Component id="btnUpdateTrn1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Component id="btnDeleteTrn1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="285" max="-2" attributes="0"/>
-          </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="822" max="-2" attributes="0"/>
+                      <Component id="btnUpdateTrn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="btnDeleteTrn" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Component id="receiverLbl1" min="-2" max="-2" attributes="0"/>
@@ -73,8 +72,8 @@
               <Component id="jScrollPane3" min="-2" pref="184" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnUpdateReceiver1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnDeleteReceiver1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnUpdateReceiver" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnDeleteReceiver" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
               <Component id="trnLbl1" min="-2" max="-2" attributes="0"/>
@@ -86,8 +85,8 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnUpdateTrn1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnDeleteTrn1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnUpdateTrn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnDeleteTrn" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
@@ -114,7 +113,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="receiverTable1">
+        <Component class="javax.swing.JTable" name="receiverTbl">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -159,7 +158,7 @@
                   <Renderer/>
                 </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title value="Blood Group"/>
+                  <Title/>
                   <Editor/>
                   <Renderer/>
                 </Column>
@@ -169,18 +168,27 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="receiverTblMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnUpdateReceiver1">
+    <Component class="javax.swing.JButton" name="btnUpdateReceiver">
       <Properties>
         <Property name="text" type="java.lang.String" value="Update"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateReceiverActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnDeleteReceiver1">
+    <Component class="javax.swing.JButton" name="btnDeleteReceiver">
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteReceiverActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="trnLbl1">
       <Properties>
@@ -194,7 +202,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="receiverTrnTable1">
+        <Component class="javax.swing.JTable" name="receiverTrnTbl">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
@@ -264,15 +272,21 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnUpdateTrn1">
+    <Component class="javax.swing.JButton" name="btnUpdateTrn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Update"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateTrnActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnDeleteTrn1">
+    <Component class="javax.swing.JButton" name="btnDeleteTrn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Delete"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteTrnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

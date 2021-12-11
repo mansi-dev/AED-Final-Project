@@ -5,6 +5,18 @@
  */
 package userinterface.Population;
 
+import Business.EcoSystem;
+import Business.Population.DonorTransaction;
+import Business.Population.Person;
+import Business.Population.PersonDirectory;
+import Business.Population.ReceiverTransaction;
+import java.util.Date;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author neeraja
@@ -14,8 +26,11 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
     /**
      * Creates new form ViewReceiverHistory
      */
-    public ViewReceiverHistory() {
+    PersonDirectory personDirectory;
+    public ViewReceiverHistory(PersonDirectory personDirectory) {
+        this.personDirectory = personDirectory;
         initComponents();
+        viewReceiverHist();
     }
 
     /**
@@ -30,21 +45,21 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         receiverLbl1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        receiverTable1 = new javax.swing.JTable();
-        btnUpdateReceiver1 = new javax.swing.JButton();
-        btnDeleteReceiver1 = new javax.swing.JButton();
+        receiverTbl = new javax.swing.JTable();
+        btnUpdateReceiver = new javax.swing.JButton();
+        btnDeleteReceiver = new javax.swing.JButton();
         trnLbl1 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        receiverTrnTable1 = new javax.swing.JTable();
-        btnUpdateTrn1 = new javax.swing.JButton();
-        btnDeleteTrn1 = new javax.swing.JButton();
+        receiverTrnTbl = new javax.swing.JTable();
+        btnUpdateTrn = new javax.swing.JButton();
+        btnDeleteTrn = new javax.swing.JButton();
 
         jLabel3.setText("View Receiver History");
 
         receiverLbl1.setText("Receiver Details:");
 
-        receiverTable1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        receiverTable1.setModel(new javax.swing.table.DefaultTableModel(
+        receiverTbl.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        receiverTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -63,22 +78,36 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(receiverTable1);
-        if (receiverTable1.getColumnModel().getColumnCount() > 0) {
-            receiverTable1.getColumnModel().getColumn(0).setMinWidth(1);
-            receiverTable1.getColumnModel().getColumn(0).setPreferredWidth(1);
-            receiverTable1.getColumnModel().getColumn(0).setMaxWidth(1);
-            receiverTable1.getColumnModel().getColumn(5).setHeaderValue("Blood Group");
+        receiverTbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                receiverTblMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(receiverTbl);
+        if (receiverTbl.getColumnModel().getColumnCount() > 0) {
+            receiverTbl.getColumnModel().getColumn(0).setMinWidth(1);
+            receiverTbl.getColumnModel().getColumn(0).setPreferredWidth(1);
+            receiverTbl.getColumnModel().getColumn(0).setMaxWidth(1);
         }
 
-        btnUpdateReceiver1.setText("Update");
+        btnUpdateReceiver.setText("Update");
+        btnUpdateReceiver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateReceiverActionPerformed(evt);
+            }
+        });
 
-        btnDeleteReceiver1.setText("Delete");
+        btnDeleteReceiver.setText("Delete");
+        btnDeleteReceiver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteReceiverActionPerformed(evt);
+            }
+        });
 
         trnLbl1.setText("Transaction Details:");
 
-        receiverTrnTable1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        receiverTrnTable1.setModel(new javax.swing.table.DefaultTableModel(
+        receiverTrnTbl.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        receiverTrnTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -97,16 +126,26 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane4.setViewportView(receiverTrnTable1);
-        if (receiverTrnTable1.getColumnModel().getColumnCount() > 0) {
-            receiverTrnTable1.getColumnModel().getColumn(0).setMinWidth(1);
-            receiverTrnTable1.getColumnModel().getColumn(0).setPreferredWidth(1);
-            receiverTrnTable1.getColumnModel().getColumn(0).setMaxWidth(1);
+        jScrollPane4.setViewportView(receiverTrnTbl);
+        if (receiverTrnTbl.getColumnModel().getColumnCount() > 0) {
+            receiverTrnTbl.getColumnModel().getColumn(0).setMinWidth(1);
+            receiverTrnTbl.getColumnModel().getColumn(0).setPreferredWidth(1);
+            receiverTrnTbl.getColumnModel().getColumn(0).setMaxWidth(1);
         }
 
-        btnUpdateTrn1.setText("Update");
+        btnUpdateTrn.setText("Update");
+        btnUpdateTrn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateTrnActionPerformed(evt);
+            }
+        });
 
-        btnDeleteTrn1.setText("Delete");
+        btnDeleteTrn.setText("Delete");
+        btnDeleteTrn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteTrnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -120,18 +159,17 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnUpdateReceiver1)
+                        .addComponent(btnUpdateReceiver)
                         .addGap(35, 35, 35)
-                        .addComponent(btnDeleteReceiver1)
+                        .addComponent(btnDeleteReceiver)
                         .addGap(290, 290, 290))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(822, 822, 822)
-                .addComponent(btnUpdateTrn1)
-                .addGap(34, 34, 34)
-                .addComponent(btnDeleteTrn1)
-                .addGap(285, 285, 285))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(822, 822, 822)
+                        .addComponent(btnUpdateTrn)
+                        .addGap(34, 34, 34)
+                        .addComponent(btnDeleteTrn))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(receiverLbl1))
@@ -157,8 +195,8 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdateReceiver1)
-                    .addComponent(btnDeleteReceiver1))
+                    .addComponent(btnUpdateReceiver)
+                    .addComponent(btnDeleteReceiver))
                 .addGap(51, 51, 51)
                 .addComponent(trnLbl1)
                 .addGap(18, 18, 18)
@@ -168,24 +206,185 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
                         .addGap(79, 79, 79))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnUpdateTrn1)
-                            .addComponent(btnDeleteTrn1))
+                            .addComponent(btnUpdateTrn)
+                            .addComponent(btnDeleteTrn))
                         .addGap(15, 15, 15))))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void receiverTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_receiverTblMouseClicked
+        // TODO add your handling code here:
+        System.out.println("Table row clicked");
+        DefaultTableModel model = (DefaultTableModel) receiverTrnTbl.getModel();
+
+        JTable target = (JTable) evt.getSource();
+        int row = target.getSelectedRow(); // select a row
+        Person person = (Person) receiverTbl.getValueAt(row, 0);
+        List<ReceiverTransaction> transaction = person.getReceiverTransaction();
+        model.setRowCount(0);
+        String bloodGroup = person.getBloodGroup();
+        for (ReceiverTransaction data : transaction) {
+            Object[] rowTrn = new Object[8];
+            //row[0] = ++index;
+
+            rowTrn[0] = data;
+            rowTrn[1] = data.getAge();
+            rowTrn[2] = data.getWeight();
+            rowTrn[3] = data.getHeight();
+            rowTrn[4] = data.getHblevel();
+            rowTrn[5] = data.getNumberOfUnits();
+            rowTrn[6] = "NA";
+            rowTrn[7] = data.getPrice();
+
+            model.addRow(rowTrn);
+        }
+    }//GEN-LAST:event_receiverTblMouseClicked
+
+    private void btnUpdateReceiverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateReceiverActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) receiverTbl.getModel();
+        int rowIndex = receiverTbl.getSelectedRow();
+        int colIndex = 0;
+        int colIndex1 = receiverTbl.getSelectedColumn();
+
+        Vector dataVector = model.getDataVector();
+        Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
+        Person personDetails = null;
+        if (colIndex1 == 0) {
+            personDetails = personDirectory.getPersonList().stream().filter(item -> elementAt.get(0).equals(item.getId())).findFirst().orElse(null);
+        }
+        Person person = (Person) model.getValueAt(rowIndex, colIndex);
+        if (!elementAt.get(1).toString().isEmpty() && !elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty() 
+                && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty()) {
+
+            try {
+                if (personDetails == null) {
+                    person.setId(Integer.parseInt(elementAt.get(1).toString()));
+                    person.setName(elementAt.get(2).toString());
+                    person.setEmail(elementAt.get(3).toString());
+                    person.setPhoneNum(Long.parseLong(elementAt.get(4).toString()));
+                    person.setBloodGroup(elementAt.get(4).toString());
+                    
+
+                    JOptionPane.showMessageDialog(this, "Value updated successfully!");
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Receiver with given id already exists!");
+                }
+            } catch (NumberFormatException | NullPointerException exception) {
+
+                JOptionPane.showMessageDialog(this, "Please enter all values.");
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please enter all values.");
+        }
+    }//GEN-LAST:event_btnUpdateReceiverActionPerformed
+
+    private void btnDeleteReceiverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteReceiverActionPerformed
+        // TODO add your handling code here:
+         int selectedRowIndex = receiverTbl.getSelectedRow();
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete");
+            return;
+        }
+        DefaultTableModel model = (DefaultTableModel) receiverTbl.getModel();
+        Person person = (Person) model.getValueAt(selectedRowIndex, 0);
+        personDirectory.removePerson(person);
+        DefaultTableModel modelTrn = (DefaultTableModel) receiverTbl.getModel();
+        modelTrn.setRowCount(0);
+        viewReceiverHist();
+        JOptionPane.showMessageDialog(this, "Donor Details deleted");
+    }//GEN-LAST:event_btnDeleteReceiverActionPerformed
+
+    private void btnUpdateTrnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateTrnActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) receiverTbl.getModel();
+        DefaultTableModel modelTrn = (DefaultTableModel) receiverTrnTbl.getModel();
+        int rowIndex = receiverTbl.getSelectedRow();
+        int colIndex = 0;
+        int rowIndexTrn = receiverTrnTbl.getSelectedRow();
+        int colIndexTrn = receiverTrnTbl.getSelectedColumn();
+
+        Vector dataVector = modelTrn.getDataVector();
+        Vector elementAt = (Vector) dataVector.elementAt(rowIndexTrn);
+
+        Vector dataVectorDonor = model.getDataVector();
+        Vector elementAtDonor = (Vector) dataVectorDonor.elementAt(rowIndex);
+
+        Person personDetails = personDirectory.getPersonList().stream().filter(item -> Integer.parseInt(elementAtDonor.get(1).toString()) == item.getId()).findFirst().orElse(null);
+
+       // Encounter encounter = (Encounter) model.getValueAt(rowIndexVitals, colIndex);
+        if (personDetails != null ) {
+            
+            ReceiverTransaction receiverT = personDetails.getReceiverTransaction().get(rowIndexTrn);
+            
+            
+            receiverT.setAge(Integer.parseInt(elementAt.get(1).toString()));
+            receiverT.setWeight(Float.parseFloat(elementAt.get(2).toString()));
+            receiverT.setHeight(Float.parseFloat(elementAt.get(3).toString()));
+            receiverT.setHblevel(Float.parseFloat(elementAt.get(4).toString()));
+            receiverT.setNumberOfUnits(Integer.parseInt(elementAt.get(5).toString()));
+            //receiverT.setOtherDiseases(Boolean.parseBoolean(elementAt.get(8).toString()));
+            receiverT.setPrice(Float.parseFloat(elementAt.get(7).toString()));
+            
+            JOptionPane.showMessageDialog(this, "Value updated successfully!");
+
+        }
+    }//GEN-LAST:event_btnUpdateTrnActionPerformed
+
+    private void btnDeleteTrnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteTrnActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = receiverTrnTbl.getSelectedRow();
+
+        // Selected patient
+        int selectedRowIndexDonor = receiverTbl.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) receiverTbl.getModel();
+        Person person = (Person) model.getValueAt(selectedRowIndexDonor, 0);
+
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a row to delete");
+            return;
+        }
+        DefaultTableModel modelTrn = (DefaultTableModel) receiverTrnTbl.getModel();
+        ReceiverTransaction receiverTransaction = (ReceiverTransaction) modelTrn.getValueAt(selectedRowIndex, 0);
+        person.removePerson(receiverTransaction);
+        modelTrn.removeRow(selectedRowIndex);
+        JOptionPane.showMessageDialog(this, "Receiver Transaction deleted");
+    }//GEN-LAST:event_btnDeleteTrnActionPerformed
 /***
 ***/
+    private void viewReceiverHist(){
+        DefaultTableModel model = (DefaultTableModel) receiverTbl.getModel();
+        List<Person> person = EcoSystem.getInstance().getPersonDirectory().getPersonList();
+        model.setRowCount(0);
+        for (Person data : person) {
+            Object[] row = new Object[6];
+            //row[0] = ++index;
+
+            row[0] = data;
+            row[1] = data.getId();
+            row[2] = data.getName();
+            row[3] = data.getEmail();
+            row[4] = data.getPhoneNum();
+            row[5] = data.getBloodGroup();
+           
+            model.addRow(row);
+
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDeleteReceiver1;
-    private javax.swing.JButton btnDeleteTrn1;
-    private javax.swing.JButton btnUpdateReceiver1;
-    private javax.swing.JButton btnUpdateTrn1;
+    private javax.swing.JButton btnDeleteReceiver;
+    private javax.swing.JButton btnDeleteTrn;
+    private javax.swing.JButton btnUpdateReceiver;
+    private javax.swing.JButton btnUpdateTrn;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel receiverLbl1;
-    private javax.swing.JTable receiverTable1;
-    private javax.swing.JTable receiverTrnTable1;
+    private javax.swing.JTable receiverTbl;
+    private javax.swing.JTable receiverTrnTbl;
     private javax.swing.JLabel trnLbl1;
     // End of variables declaration//GEN-END:variables
 }

@@ -59,6 +59,8 @@ public class ManageUsers extends javax.swing.JPanel {
         txtUsername = new javax.swing.JTextField();
         brandLbl9 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JTextField();
+        lblEmailId = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -113,6 +115,14 @@ public class ManageUsers extends javax.swing.JPanel {
             }
         });
 
+        lblEmailId.setText("Email ID:");
+
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -120,6 +130,10 @@ public class ManageUsers extends javax.swing.JPanel {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(lblEmailId, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(brandLbl8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -184,7 +198,11 @@ public class ManageUsers extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(brandLbl9)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEmailId)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {brandLbl, brandLbl1, brandLbl2, brandLbl3, brandLbl4, brandLbl5, brandLbl8, brandLbl9, txtAddress, txtCity, txtName, txtPassword, txtPhoneNum, txtState, txtUsername, txtZipCode});
@@ -217,7 +235,7 @@ public class ManageUsers extends javax.swing.JPanel {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSave)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
 
         usersTabbedPane.addTab("Create", jPanel1);
@@ -227,17 +245,17 @@ public class ManageUsers extends javax.swing.JPanel {
         jTable1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "", "ID", "Name", "Address", "City", "State", "Phone Number", "Zip Code"
+                "", "ID", "Name", "Address", "City", "State", "Phone Number", "Zip Code", "Email"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true, true, true
+                false, true, true, true, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -320,6 +338,7 @@ public class ManageUsers extends javax.swing.JPanel {
             customer.setState(txtState.getText());
             customer.setZipCode(txtZipCode.getText());
             customer.setPhoneNum(Long.parseLong(txtPhoneNum.getText()));
+            customer.setEmail(txtEmail.getText());
             JOptionPane.showMessageDialog(this, "Added user details");
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
@@ -399,6 +418,10 @@ public class ManageUsers extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_usersTabbedPaneStateChanged
 
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel brandLbl;
@@ -417,8 +440,10 @@ public class ManageUsers extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblEmailId;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtCity;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtPhoneNum;
