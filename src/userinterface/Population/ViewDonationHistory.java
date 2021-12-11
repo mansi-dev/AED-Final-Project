@@ -289,7 +289,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(this, "Value updated successfully!");
 
                 } else {
-                    JOptionPane.showMessageDialog(this, "Patient with given id already exists!");
+                    JOptionPane.showMessageDialog(this, "Donor with given id already exists!");
                 }
             } catch (NumberFormatException | NullPointerException exception) {
 
@@ -375,7 +375,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         DonorTransaction donorTransaction = (DonorTransaction) modelTrn.getValueAt(selectedRowIndex, 0);
         person.removeDonorTransaction(donorTransaction);
         modelTrn.removeRow(selectedRowIndex);
-        JOptionPane.showMessageDialog(this, "Patient vitals deleted");
+        JOptionPane.showMessageDialog(this, "Donor Transaction deleted");
     }//GEN-LAST:event_btnDeleteTrnActionPerformed
 /***
 ***/

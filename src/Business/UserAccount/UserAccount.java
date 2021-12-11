@@ -38,7 +38,8 @@ public class UserAccount {
         if(role==Role.Doctor)this.user = EcoSystem.getInstance().getDoctorDirectory().addNewDoctor(accountId);
         if(role==Role.Manager)this.user = EcoSystem.getInstance().getManagerDirectory().createManager(accountId);
         if(role==Role.GovernmentAdmin)this.user = EcoSystem.getInstance().getGovernmentAdminDirectory().createGovernmentAdmin(accountId);
-        
+        if(role==Role.BloodBankManager)this.user = EcoSystem.getInstance().getBankManagerDirectory().createAdmin(accountId);
+
         this.user.setName(name);
     }
     

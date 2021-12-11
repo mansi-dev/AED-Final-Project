@@ -108,8 +108,8 @@ public abstract class User {
         Admin("Admin"),
         SysAdmin("Sysadmin"),
         Doctor("Doctor"),
-        GovernmentAdmin("GovernmentAdmin");
-        
+        GovernmentAdmin("GovernmentAdmin"),
+        BloodBankManager("BloodBankManager");
         private String value;
         private Role(String value) {
             this.value = value;

@@ -11,7 +11,6 @@ import java.awt.CardLayout;
 import javax.swing.JFrame;
 
 import javax.swing.SwingUtilities;
-import userinterface.MainJFrame;
 
 /**
  *
@@ -28,7 +27,8 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     ManageUsers manageUsers;
     ManageHospitalManager manageHospitalManager;
     ManageGovernmentAdmin manageGovernmentAdmin;
-    
+    ManageBloodBank manageBloodBank;
+        
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
 
     public SystemAdminWorkAreaJPanel(EcoSystem ecosystem) {
@@ -38,6 +38,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         manageUsers = new ManageUsers();
         manageHospitalManager = new ManageHospitalManager();
         manageGovernmentAdmin = new ManageGovernmentAdmin();
+        manageBloodBank = new ManageBloodBank();
         this.ecosystem = ecosystem;
     }
 
@@ -59,6 +60,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         btnLogout = new javax.swing.JButton();
         btnManageHospitalManager = new javax.swing.JButton();
         btnManageGovernment = new javax.swing.JButton();
+        btnManageBloodBank = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
         setLayout(new java.awt.GridLayout(1, 0));
@@ -109,6 +111,13 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnManageBloodBank.setText("Manage Blood Bank");
+        btnManageBloodBank.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageBloodBankActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -124,7 +133,8 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(btnManageHospitalManager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnManageGovernment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnManageGovernment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnManageBloodBank, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -142,7 +152,9 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(btnManageHospitalManager)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnManageGovernment)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 380, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnManageBloodBank)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 347, Short.MAX_VALUE)
                 .addComponent(btnLogout))
         );
 
@@ -207,9 +219,19 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         cardLayout.next(jPanel1);
     }//GEN-LAST:event_btnManageGovernmentActionPerformed
 
+    private void btnManageBloodBankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageBloodBankActionPerformed
+        // TODO add your handling code here:
+        jPanel1.removeAll();
+        jPanel1.add(manageBloodBank);
+        
+        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
+        cardLayout.next(jPanel1);       
+    }//GEN-LAST:event_btnManageBloodBankActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnManageBloodBank;
     private javax.swing.JButton btnManageGovernment;
     private javax.swing.JButton btnManageHospitalManager;
     private javax.swing.JButton jButton1;
