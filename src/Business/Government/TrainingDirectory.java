@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class TrainingDirectory {
     
-    private ArrayList<TrainingOraganization> trainingOrg;
+    private ArrayList<TrainingOraganization> trainingOrg = new ArrayList();
     
     public ArrayList<TrainingOraganization> getTraining() {
         return trainingOrg;

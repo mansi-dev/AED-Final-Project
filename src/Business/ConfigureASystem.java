@@ -1,6 +1,8 @@
 package Business;
 
 import Business.Admin.AdminDirectory;
+import Business.Government.LicenseDirectory;
+import Business.Government.TrainingDirectory;
 import Business.Hospital.DoctorDirectory;
 import Business.Hospital.HospitalDirectory;
 import Business.Manager.ManagerDirectory;
@@ -24,6 +26,8 @@ public class ConfigureASystem {
         system.setHospitalDirectory(new HospitalDirectory());
         system.setManagerDirectory(new ManagerDirectory());
         system.setGovernmentAdminDirectory(new GovernmentAdminDirectory());
+        system.setLicenseDirectory(new LicenseDirectory());
+        system.setTrainingDirectory(new TrainingDirectory());
         //Create a network
         //create an enterprise
         //initialize some organizations

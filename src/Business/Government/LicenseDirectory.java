@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author Mayan Mishra
  */
 public class LicenseDirectory {
-    private ArrayList<LicenseOrganization> licenseOrg;
+    private ArrayList<LicenseOrganization> licenseOrg = new ArrayList();
 
     public ArrayList<LicenseOrganization> getLicense() {
         return licenseOrg;

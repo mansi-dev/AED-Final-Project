@@ -31,18 +31,20 @@ public class ViewJPanel extends javax.swing.JPanel {
     TrainingDirectory trainingDir;
     
     public ViewJPanel(TrainingOraganization training, LicenseOrganization license, LicenseDirectory licenseDir, TrainingDirectory trainingDir) {
-        initComponents();
         this.training = training;
         this.license = license; 
         this.licenseDir = licenseDir;
         this.trainingDir = trainingDir;
         
-        populateTableLicense();
-        populateTableTraining();
         
     }
 
     public ViewJPanel() {
+                initComponents();
+                
+        populateTableLicense();
+        populateTableTraining();
+
     }
 
  
