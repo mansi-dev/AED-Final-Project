@@ -141,9 +141,9 @@ public class BloodBankManagerAreaJPanel extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        jPanel1.remove(manageUsers);
-        jPanel1.remove(manageHospitalManager);
-        jPanel1.add(manageHospital);
+        jPanel1.removeAll();
+        
+        //jPanel1.add(manageHospital);
 
         CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
         cardLayout.next(jPanel1);
@@ -151,10 +151,9 @@ public class BloodBankManagerAreaJPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-
-        jPanel1.remove(manageHospital);
-        jPanel1.remove(manageHospitalManager);
-        jPanel1.add(manageUsers);
+        ManageDonateBloodRequest mdr = new ManageDonateBloodRequest(account, organization, enterprise, ecosystem);
+        jPanel1.removeAll();
+        jPanel1.add(mdr);
         CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
         cardLayout.next(jPanel1);
     }//GEN-LAST:event_jButton1ActionPerformed

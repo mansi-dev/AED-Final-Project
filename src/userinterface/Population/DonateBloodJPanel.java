@@ -336,6 +336,7 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
                 bloodBankWorkRequest.setStatus("Pending");
                 bloodBankWorkRequest.setMessage("Donate blood");
                 bloodBankWorkRequest.setSender(userAccount);
+                bloodBankWorkRequest.setPerson(person);
                 System.out.println(org.getWorkQueue().getWorkRequestList());
                 org.getWorkQueue().getWorkRequestList().add(bloodBankWorkRequest);
                 // System.out.println(org.getWorkQueue().getWorkRequestList());
