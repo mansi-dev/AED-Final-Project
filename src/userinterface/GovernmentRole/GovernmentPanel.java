@@ -10,10 +10,12 @@ import Business.Government.LicenseDirectory;
 import Business.Government.LicenseOrganization;
 import Business.Government.TrainingDirectory;
 import Business.Government.TrainingOraganization;
+import Business.Hospital.Hospital;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -33,6 +35,10 @@ public class GovernmentPanel extends javax.swing.JPanel {
     
     public GovernmentPanel() {
         initComponents();
+        populateHospitalLicense();
+        populateHospitalTraining();
+        populateNGOLicense();
+        populateNGOTraining();        
     }
 
     /**
@@ -119,6 +125,11 @@ public class GovernmentPanel extends javax.swing.JPanel {
         });
 
         cmbNGO1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbNGO1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbNGO1ActionPerformed(evt);
+            }
+        });
 
         lblNGO1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblNGO1.setText("Select NGO:");
@@ -144,9 +155,24 @@ public class GovernmentPanel extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(147, Short.MAX_VALUE)
+                .addContainerGap(194, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblHospital1)
+                        .addGap(36, 36, 36)
+                        .addComponent(cmbHospital1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52)
+                        .addComponent(lblNGO1)
+                        .addGap(40, 40, 40)
+                        .addComponent(cmbNGO1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(259, 259, 259))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(314, 314, 314))))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(206, 206, 206)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblLicenseName, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblLicenseNumber)
@@ -158,23 +184,11 @@ public class GovernmentPanel extends javax.swing.JPanel {
                                 .addComponent(txtLicenseName)
                                 .addComponent(dteIssueDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(dteExpiryDate, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtLicenseNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(251, 251, 251))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnSaveLicense, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(390, 390, 390))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblHospital1)
-                        .addGap(36, 36, 36)
-                        .addComponent(cmbHospital1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(190, 190, 190)
-                        .addComponent(lblNGO1)
-                        .addGap(40, 40, 40)
-                        .addComponent(cmbNGO1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(168, 168, 168))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(314, 314, 314))))
+                            .addComponent(txtLicenseNumber, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(307, 307, 307)
+                        .addComponent(btnSaveLicense, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +201,7 @@ public class GovernmentPanel extends javax.swing.JPanel {
                     .addComponent(cmbHospital1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNGO1)
                     .addComponent(cmbNGO1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(73, 73, 73)
+                .addGap(75, 75, 75)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtLicenseNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblLicenseNumber))
@@ -203,9 +217,9 @@ public class GovernmentPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblExpiryDate)
                     .addComponent(dteExpiryDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(85, 85, 85)
+                .addGap(75, 75, 75)
                 .addComponent(btnSaveLicense)
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("License", jPanel2);
@@ -310,59 +324,58 @@ public class GovernmentPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(379, 379, 379)
-                .addComponent(btnSaveTraining, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGap(166, 166, 166)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(181, 181, 181)
-                        .addComponent(lblHospital)
-                        .addGap(36, 36, 36)
-                        .addComponent(cmbHospital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(143, 143, 143)
-                        .addComponent(lblNGO)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbNGO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(166, 166, 166)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblTransfusion)
                             .addComponent(lblTroubleShoot)
                             .addComponent(lblCompatibility)
                             .addComponent(lblPatientId))
                         .addGap(50, 50, 50)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(chkTransfusion)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblDisposal, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(chkTroubleShoot)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblBloodIssue, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chkTransfusion)
+                                    .addComponent(chkTroubleShoot)
                                     .addComponent(chkPatientId)
                                     .addComponent(chkCompatibility))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(47, 47, 47)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(148, 148, 148)
-                                        .addComponent(lblProblems, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblCrossMatching)))))
-                        .addGap(59, 59, 59)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(chkCrossMatching)
-                            .addComponent(chkProblems)
-                            .addComponent(chkBloodIssue)
-                            .addComponent(chkDisposal))))
-                .addGap(0, 186, Short.MAX_VALUE))
+                                        .addGap(19, 19, 19)
+                                        .addComponent(lblDisposal, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(lblBloodIssue, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(38, 38, 38)
+                                            .addComponent(lblProblems, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(lblCrossMatching, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                .addGap(59, 59, 59)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(chkCrossMatching)
+                                    .addComponent(chkProblems)
+                                    .addComponent(chkBloodIssue)
+                                    .addComponent(chkDisposal)))
+                            .addComponent(btnSaveTraining, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(lblHospital)
+                        .addGap(36, 36, 36)
+                        .addComponent(cmbHospital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(312, 312, 312))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(475, 475, 475)
+                .addComponent(lblNGO)
+                .addGap(35, 35, 35)
+                .addComponent(cmbNGO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(241, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -413,9 +426,9 @@ public class GovernmentPanel extends javax.swing.JPanel {
                     .addComponent(chkTransfusion)
                     .addComponent(lblDisposal)
                     .addComponent(chkDisposal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addGap(49, 49, 49)
                 .addComponent(btnSaveTraining)
-                .addGap(129, 129, 129))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Training", jPanel1);
@@ -513,17 +526,25 @@ public class GovernmentPanel extends javax.swing.JPanel {
 
     private void btnSaveLicenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveLicenseActionPerformed
         // TODO add your handling code here:
-    
+
+    if((dteIssueDate.getDate()).compareTo(dteExpiryDate.getDate()) >= 0) 
+    {
+        JOptionPane.showMessageDialog(this, "License Issue Date cannot be greater than its Expiry Date.",
+        "Swing Tester", JOptionPane.ERROR_MESSAGE);
+    } 
+    else{
+    if(!txtLicenseName.getText().isEmpty() && !txtLicenseNumber.getText().isEmpty()){    
+
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     LocalDate now = LocalDate.now();
     ZoneId defaultZoneId = ZoneId.systemDefault();
     Date date = Date.from(now.atStartOfDay(defaultZoneId).toInstant());    
         
-//    int licenseId ;
+
+    Long licenseNumber = Long.parseLong(txtLicenseNumber.getText());
     String licenseName = txtLicenseName.getText();
     Date issueDate = dteIssueDate.getDate();
-    Date expiryDate = dteExpiryDate.getDate();
-    Long licenseNumber = Long.parseLong(txtLicenseNumber.getText());   
+    Date expiryDate = dteExpiryDate.getDate();   
         
     LicenseOrganization l = EcoSystem.getInstance().getLicenseDirectory().addNewEntry(expiryDate,issueDate,licenseNumber,licenseName);
     
@@ -537,8 +558,19 @@ public class GovernmentPanel extends javax.swing.JPanel {
     
     txtLicenseName.setText("");
     txtLicenseNumber.setText("");
+    dteIssueDate.setDate(date);
+    dteExpiryDate.setDate(date);
+    }
     
+    else{
+        JOptionPane.showMessageDialog(this,"Fields cannot be left empty.");
+    }
+    } 
     }//GEN-LAST:event_btnSaveLicenseActionPerformed
+
+    private void cmbNGO1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNGO1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbNGO1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -583,4 +615,38 @@ public class GovernmentPanel extends javax.swing.JPanel {
     private javax.swing.JTextField txtLicenseName;
     private javax.swing.JTextField txtLicenseNumber;
     // End of variables declaration//GEN-END:variables
+
+    private void populateHospitalLicense() {
+        cmbHospital1.removeAllItems();
+        List<Hospital> hospitalList = EcoSystem.getInstance().getHospitalDirectory().getHospitalList();
+        for (Hospital bloodBank : hospitalList) {
+            cmbHospital1.addItem(bloodBank.getName());
+        }
+    }
+
+    private void populateHospitalTraining() {
+        cmbHospital.removeAllItems();
+        List<Hospital> hospitalList = EcoSystem.getInstance().getHospitalDirectory().getHospitalList();
+        for (Hospital bloodBank : hospitalList) {
+            cmbHospital.addItem(bloodBank.getName());
+        }
+    }    
+
+    private void populateNGOLicense() {
+        cmbNGO1.removeAllItems();
+        List<Hospital> hospitalList = EcoSystem.getInstance().getHospitalDirectory().getHospitalList();
+        for (Hospital bloodBank : hospitalList) {
+            cmbNGO1.addItem(bloodBank.getName());
+        }
+    }
+
+    private void populateNGOTraining() {
+        cmbNGO.removeAllItems();
+        List<Hospital> hospitalList = EcoSystem.getInstance().getHospitalDirectory().getHospitalList();
+        for (Hospital bloodBank : hospitalList) {
+            cmbNGO.addItem(bloodBank.getName());
+        }
+    }     
+    
+    
 }

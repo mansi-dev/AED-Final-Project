@@ -180,10 +180,10 @@ public class HospitalJPanel extends javax.swing.JPanel {
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         jPanel1.removeAll();
-        ViewInventory viewInventory = new ViewInventory(auth);
-        jPanel1.add(viewInventory);
-        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
-        cardLayout.next(jPanel1);
+       // ViewInventory viewInventory = new ViewInventory(auth);
+        //jPanel1.add(viewInventory);
+        //CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
+        //cardLayout.next(jPanel1);
     }//GEN-LAST:event_btnViewActionPerformed
 
 

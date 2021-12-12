@@ -270,7 +270,8 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnUpdate)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnDelete)))
+                        .addComponent(btnDelete)
+                        .addGap(12, 12, 12)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -278,11 +279,11 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(290, 290, 290)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
                     .addComponent(btnDelete))
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(418, Short.MAX_VALUE))
         );
 
         usersTabbedPane.addTab("View Government", jPanel2);
@@ -327,14 +328,6 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
             
-            txtName.setText("");
-            txtAddress.setText("");
-            txtCity.setText("");
-            txtState.setText("");
-            txtZipCode.setText("");
-            txtPhoneNum.setText("");
-            txtUsername.setText("");
-            txtPassword.setText("");
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
