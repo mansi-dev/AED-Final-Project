@@ -7,8 +7,12 @@ package userinterface.Population;
 
 import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Organization.Organizations;
+import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import userinterface.SystemAdminWorkArea.LoginForm;
 
@@ -24,18 +28,25 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
     ViewDonationHistory viewDonationHistory;
     ViewReceiverHistory receiverHistory;
     String loggedInUser;
-    
+       JPanel userProcessContainer;
+    UserAccount account;
+    Organizations organization;
+    Enterprise enterprise;
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
 
     /**
      * Creates new form ChooseUser
      */
-    public ChooseUserJPanel(EcoSystem ecosystem, String loggedInUser) {
+    public ChooseUserJPanel(JPanel userProcessContainer, UserAccount account, Organizations organization, Enterprise enterprise, EcoSystem ecosystem) {
 
         this.ecosystem = ecosystem;
-        this.loggedInUser = loggedInUser;
+        //this.loggedInUser = loggedInUser;
         initComponents();
 
+        this.ecosystem = ecosystem;
+        this.organization = organization;
+        this.enterprise = enterprise;
+        this.userProcessContainer = userProcessContainer;
     }
 
     /**

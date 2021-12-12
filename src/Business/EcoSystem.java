@@ -6,7 +6,6 @@
 package Business;
 
 
-import Business.Government.LicenseOrganization;
 import Business.Admin.AdminDirectory;
 import Business.BloodBank.BloodBankDirectory;
 import Business.BloodBank.BloodBankManagerDirectory;
@@ -15,10 +14,11 @@ import Business.Government.TrainingDirectory;
 import Business.Hospital.DoctorDirectory;
 import Business.Hospital.HospitalDirectory;
 import Business.Manager.ManagerDirectory;
-import Business.Organization.Organization;
+import Business.Organization.Organizations;
 import Business.Population.PersonDirectory;
 import Business.Population.Receiver;
-import Business.UserAccount.UserDirectory;
+import Business.Role.Role;
+import Business.Role.SystemAdminRole;
 import Government.Admin.GovernmentAdminDirectory;
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ import java.util.ArrayList;
  *
  * @author mansi
  */
-public class EcoSystem extends Organization{
+public class EcoSystem extends Organizations{
     
     private static EcoSystem business;
     
@@ -158,5 +158,12 @@ public class EcoSystem extends Organization{
     public boolean checkIfUserIsUnique(String userName){
        //
        return false;
+    }
+
+    @Override
+    public ArrayList<Role> getSupportedRole() {
+        ArrayList<Role> roleList=new ArrayList<Role>();
+        roleList.add(new SystemAdminRole());
+        return roleList;
     }
 }

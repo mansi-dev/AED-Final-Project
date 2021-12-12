@@ -7,8 +7,12 @@ package userinterface.SystemAdminWorkArea;
 
 import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Organization.Organizations;
+import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import javax.swing.SwingUtilities;
 
@@ -28,10 +32,14 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     ManageHospitalManager manageHospitalManager;
     ManageGovernmentAdmin manageGovernmentAdmin;
     ManageBloodBank manageBloodBank;
+    JPanel userProcessContainer;
+    UserAccount account;
+    Organizations organization;
+    Enterprise enterprise;
         
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
 
-    public SystemAdminWorkAreaJPanel(EcoSystem ecosystem) {
+    public SystemAdminWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, Organizations organization, Enterprise enterprise, EcoSystem ecosystem) {
 
         initComponents();
         manageHospital = new ManageHospital();
@@ -40,6 +48,9 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         manageGovernmentAdmin = new ManageGovernmentAdmin();
         manageBloodBank = new ManageBloodBank();
         this.ecosystem = ecosystem;
+        this.organization = organization;
+        this.enterprise = enterprise;
+        this.userProcessContainer = userProcessContainer;
     }
 
     /**

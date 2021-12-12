@@ -4,24 +4,24 @@
  */
 package Business.Organization;
 
-import Business.Role.ManagerRole;
+import Business.Role.GovernmentAdminRole;
 import Business.Role.Role;
+import Business.Role.SystemAdminRole;
 import java.util.ArrayList;
 
 /**
  *
  * @author mansizope
  */
-public class HospitalOrganization extends Organizations {
-
-    public HospitalOrganization() {
-        super(Organizations.Type.Hospital.getValue());
+public class SysAdminOrganization extends Organizations{
+    public SysAdminOrganization(){
+        super(Organizations.Type.SysAdmin.getValue());
     }
 
     @Override
     public ArrayList<Role> getSupportedRole() {
         ArrayList<Role> roles = new ArrayList();
-        roles.add(new ManagerRole());
+        roles.add(new SystemAdminRole());
         return roles;
     }
 }
