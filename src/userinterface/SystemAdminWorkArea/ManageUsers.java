@@ -444,9 +444,19 @@ public class ManageUsers extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         int rowIndex = jTable1.getSelectedRow();
         Person valueAt = (Person) model.getValueAt(rowIndex, 0);
-        EcoSystem.getInstance().getPersonDirectory().removePerson(valueAt);
-
-        EcoSystem.getInstance().getUserAccountDirectory().deleteAccount(valueAt.getId());
+        
+        ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+        Enterprise enterprise = enterpriseList.stream().filter(item -> "Population".equals(item.getName())).findFirst().orElse(null);
+        
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o.getName().equalsIgnoreCase("Person Organization")) {
+                    PersonOrganization personOrg = (PersonOrganization) o;
+                    personOrg.getPersonDirectory().removePerson(valueAt);
+                    enterprise.getUserAccountDirectory().deleteAccount(valueAt.getId());
+                    break;
+                }
+        }
+        
         JOptionPane.showMessageDialog(this, "Values deleted successfully");
         populateResTable();
     }//GEN-LAST:event_btnDeleteActionPerformed
