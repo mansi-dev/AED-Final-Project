@@ -6,13 +6,18 @@
 package Business.BloodBank;
 
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Organization.BloodBankOrganization;
+import Business.Organization.Organizations;
 import Business.UserAccount.User;
+import java.util.ArrayList;
 
 /**
  *
  * @author mansizope
  */
-public class BloodBankManager extends User{
+public class BloodBankManager extends User {
+
     private BloodBank bloodBank;
 
     public BloodBank getBloodBank() {
@@ -22,12 +27,20 @@ public class BloodBankManager extends User{
     public void setBloodBank(BloodBank bloodBank) {
         this.bloodBank = bloodBank;
     }
-    
-     public void setBloodBankByID(int id){
-        this.bloodBank=EcoSystem.getInstance().getBloodBankDirectory().getBloodBankByID(id);
+
+    public void setBloodBankByID(int id) {
+        ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+        Enterprise enterprise = enterpriseList.stream().filter(item -> "BloodBank".equals(item.getName())).findFirst().orElse(null);
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (o.getName().equalsIgnoreCase("BloodBank Organization")) {
+                BloodBankOrganization hsoOrg = (BloodBankOrganization) o;
+                this.bloodBank = hsoOrg.getBloodBankDirectory().getBloodBankByID(id);
+                break;
+            }
+        }
     }
-     
-    public BloodBankManager(int id){
+
+    public BloodBankManager(int id) {
         super(id);
     }
 }

@@ -4,17 +4,21 @@
  */
 package userinterface.HospitalWorkArea;
 
+import Business.UserAccount.UserAccount;
+
 /**
  *
  * @author mansizope
  */
 public class ViewInventory extends javax.swing.JPanel {
 
+    UserAccount auth;
     /**
      * Creates new form ViewInventory
      */
-    public ViewInventory() {
+    public ViewInventory(UserAccount auth) {
         initComponents();
+        this.auth = auth;
     }
 
     /**

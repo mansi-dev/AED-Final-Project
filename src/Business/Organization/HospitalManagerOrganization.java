@@ -4,7 +4,7 @@
  */
 package Business.Organization;
 
-import Business.Hospital.HospitalDirectory;
+import Business.Manager.ManagerDirectory;
 import Business.Role.ManagerRole;
 import Business.Role.Role;
 import java.util.ArrayList;
@@ -13,22 +13,21 @@ import java.util.ArrayList;
  *
  * @author mansizope
  */
-public class HospitalOrganization extends Organizations {
+public class HospitalManagerOrganization extends Organizations {
 
-    private HospitalDirectory hospitalDirectory;
+    private ManagerDirectory managerDirectory;
 
-    public HospitalDirectory getHospitalDirectory() {
-        return hospitalDirectory;
+    public ManagerDirectory getManagerDirectory() {
+        return managerDirectory;
     }
 
-    public void setHospitalDirectory(HospitalDirectory hospitalDirectory) {
-        this.hospitalDirectory = hospitalDirectory;
+    public void setManagerDirectory(ManagerDirectory managerDirectory) {
+        this.managerDirectory = managerDirectory;
     }
     
-    
-    public HospitalOrganization() {
-        super(Organizations.Type.Hospital.getValue());
-        hospitalDirectory = new HospitalDirectory();
+    public HospitalManagerOrganization() {
+        super(Organizations.Type.Manager.getValue());
+        managerDirectory = new ManagerDirectory();
     }
 
     @Override

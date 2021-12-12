@@ -6,22 +6,26 @@
 package userinterface.SystemAdminWorkArea;
 
 import Business.EcoSystem;
-import Business.Population.Person;
-import static Business.UserAccount.User.Role.Person;
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.AdminOrganization;
+import Business.Organization.Organizations;
 import Business.UserAccount.UserAccount;
 import Government.Admin.GovernmentAdmin;
-import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.table.DefaultTableModel;
 import Business.UserAccount.User;
+import java.util.ArrayList;
 
 /**
  *
  * @author Mayan Mishra
  */
 public class ManageGovernmentAdmin extends javax.swing.JPanel {
+
+    private static int counter = 0;
 
     /**
      * Creates new form ManageGovernmentAdmin
@@ -302,20 +306,32 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         if (!txtName.getText().isEmpty() && !txtUsername.getText().isEmpty()
-            && !txtPassword.getText().isEmpty() && !txtAddress.getText().isEmpty() && !txtCity.getText().isEmpty()
-            && !txtState.getText().isEmpty() && !txtZipCode.getText().isEmpty() && !txtPhoneNum.getText().isEmpty()) {
-           UserAccount temp = EcoSystem.getInstance().getUserAccountDirectory().createUserAccount(txtName.getText(), txtUsername.getText(),
-                txtPassword.getText(), User.Role.GovernmentAdmin);
+                && !txtPassword.getText().isEmpty() && !txtAddress.getText().isEmpty() && !txtCity.getText().isEmpty()
+                && !txtState.getText().isEmpty() && !txtZipCode.getText().isEmpty() && !txtPhoneNum.getText().isEmpty()) {
 
-            GovernmentAdmin customer = (GovernmentAdmin) temp.getUser();
-            customer.setName(txtName.getText());
-            customer.setAddress(txtAddress.getText());
-            customer.setCity(txtCity.getText());
-            customer.setState(txtState.getText());
-            customer.setZipCode(txtZipCode.getText());
-            customer.setPhoneNum(Long.parseLong(txtPhoneNum.getText()));
-            JOptionPane.showMessageDialog(this, "Added user details");
-            
+            int id = ++counter;
+            ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+            Enterprise enterprise = enterpriseList.stream().filter(item -> "Government".equals(item.getName())).findFirst().orElse(null);
+            UserAccount temp = enterprise.getUserAccountDirectory().createUserAccount(txtName.getText(), txtUsername.getText(),
+                    txtPassword.getText(), enterprise.getSupportedRole().get(0));
+
+            for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o.getName().equalsIgnoreCase("Admin Organization")) {
+                    AdminOrganization adminOrganization = (AdminOrganization) o;
+                    GovernmentAdmin customer = (GovernmentAdmin) adminOrganization.getGovernmentAdminDirectory().createGovernmentAdmin(id);
+                    customer.setName(txtName.getText());
+                    customer.setAddress(txtAddress.getText());
+                    customer.setCity(txtCity.getText());
+                    customer.setState(txtState.getText());
+                    customer.setZipCode(txtZipCode.getText());
+                    customer.setPhoneNum(Long.parseLong(txtPhoneNum.getText()));
+                    temp.setUser(customer);
+                    
+                    JOptionPane.showMessageDialog(this, "Added user details");
+                    break;
+                }
+            }
+
             txtName.setText("");
             txtAddress.setText("");
             txtCity.setText("");
@@ -323,11 +339,11 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
             txtZipCode.setText("");
             txtPhoneNum.setText("");
             txtUsername.setText("");
-            txtPassword.setText("");            
-            
+            txtPassword.setText("");
+
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
-            
+
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -340,8 +356,8 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
 
         if (!elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
-            && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
-            && !elementAt.get(7).toString().isEmpty()) {
+                && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
+                && !elementAt.get(7).toString().isEmpty()) {
             GovernmentAdmin res = (GovernmentAdmin) elementAt.get(0);
             res.setName(elementAt.get(2).toString());
             res.setAddress(elementAt.get(3).toString());
@@ -358,25 +374,36 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-     private void populateResTable() {
+    private void populateResTable() {
         DefaultTableModel model = (DefaultTableModel) tblGovtView.getModel();
-            List<GovernmentAdmin> userList = EcoSystem.getInstance().getGovernmentAdminDirectory().getGovernmentAdminList();
         model.setRowCount(0);
-        for (User data : userList) {
-            Object[] row = new Object[8];
-            //row[0] = ++index;
 
-            row[0] = data;
-            row[1] = data.getId();
-            row[2] = data.getName();
-            row[3] = data.getAddress();
-            row[4] = data.getCity();
-            row[5] = data.getState();
-            row[6] = data.getPhoneNum();
-            row[7] = data.getZipCode();
+        for (Network network : EcoSystem.getInstance().getNetworkList()) {
+            for (Enterprise enterprise2 : network.getEnterpriseDirectory().getEnterpriseList()) {
+                if (enterprise2.getEnterpriseType().getValue().equalsIgnoreCase("Government")) {
+                    for (Organizations o : enterprise2.getOrganizationDirectory().getOrganizationList()) {
+                        if (o.getName().equalsIgnoreCase("Admin Organization")) {
+                            AdminOrganization adminOrg = (AdminOrganization) o;
+                            for (User data : adminOrg.getGovernmentAdminDirectory().getGovernmentAdminList()) {
+                                Object[] row = new Object[8];
+                                //row[0] = ++index;
 
-            model.addRow(row);
+                                row[0] = data;
+                                row[1] = data.getId();
+                                row[2] = data.getName();
+                                row[3] = data.getAddress();
+                                row[4] = data.getCity();
+                                row[5] = data.getState();
+                                row[6] = data.getPhoneNum();
+                                row[7] = data.getZipCode();
 
+                                model.addRow(row);
+
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed

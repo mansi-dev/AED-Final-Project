@@ -7,9 +7,9 @@ package userinterface.GovernmentRole;
 
 import Business.EcoSystem;
 import Business.Government.LicenseDirectory;
-import Business.Government.LicenseOrganization;
+import Business.Government.License;
 import Business.Government.TrainingDirectory;
-import Business.Government.TrainingOraganization;
+import Business.Government.Training;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -27,12 +27,12 @@ public class ViewJPanel extends javax.swing.JPanel {
      */
     
     ViewJPanel viewPanel;
-    TrainingOraganization training;
-    LicenseOrganization license;
+    Training training;
+    License license;
     LicenseDirectory licenseDir;
     TrainingDirectory trainingDir;
     
-    public ViewJPanel(TrainingOraganization training, LicenseOrganization license, LicenseDirectory licenseDir, TrainingDirectory trainingDir) {
+    public ViewJPanel(Training training, License license, LicenseDirectory licenseDir, TrainingDirectory trainingDir) {
         this.training = training;
         this.license = license; 
         this.licenseDir = licenseDir;
@@ -253,7 +253,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         }
         
         DefaultTableModel model = (DefaultTableModel)tblTraining.getModel();
-        TrainingOraganization selectedRow = (TrainingOraganization) model.getValueAt(RowIndex , 0); 
+        Training selectedRow = (Training) model.getValueAt(RowIndex , 0); 
         
         EcoSystem.getInstance().getTrainingDirectory().deleteRows(selectedRow);
         
@@ -275,7 +275,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         }
         
         DefaultTableModel model = (DefaultTableModel)tblLicense.getModel();
-        LicenseOrganization selectedRow = (LicenseOrganization) model.getValueAt(RowIndex , 0); 
+        License selectedRow = (License) model.getValueAt(RowIndex , 0); 
         
         EcoSystem.getInstance().getLicenseDirectory().deleteRows(selectedRow);
         
@@ -298,7 +298,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         Vector dataVector = model.getDataVector();
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
 
-        LicenseOrganization licenseDetails = null;
+        License licenseDetails = null;
         if (colIndex1 == 0) {
             licenseDetails = EcoSystem.getInstance().getLicenseDirectory().getLicense().stream().filter(item -> elementAt.get(0).equals(item.getLicenseId())).findFirst().orElse(null);
         }
@@ -310,7 +310,7 @@ public class ViewJPanel extends javax.swing.JPanel {
             && !elementAt.get(3).toString().isEmpty() && !elementAt.get(4).toString().isEmpty() 
               && !elementAt.get(5).toString().isEmpty()  ) {
             
-            LicenseOrganization res = (LicenseOrganization) elementAt.get(0);
+            License res = (License) elementAt.get(0);
             //res.setLicenseId(Integer.parseInt(elementAt.get(1).toString()));
             res.setIssueNumber(Long.parseLong(elementAt.get(2).toString()));
             res.setLicenseName(elementAt.get(3).toString());
@@ -338,7 +338,7 @@ public class ViewJPanel extends javax.swing.JPanel {
         Vector dataVector = model.getDataVector();
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
 
-        TrainingOraganization trainingDetails = null;
+        Training trainingDetails = null;
         if (colIndex1 == 0) {
             trainingDetails = EcoSystem.getInstance().getTrainingDirectory().getTraining().stream().filter(item -> elementAt.get(0).equals(item.getPatientIdentity())).findFirst().orElse(null);
         }
@@ -351,7 +351,7 @@ public class ViewJPanel extends javax.swing.JPanel {
               && !elementAt.get(8).toString().isEmpty()) {
             
             
-            TrainingOraganization res = (TrainingOraganization) elementAt.get(0);
+            Training res = (Training) elementAt.get(0);
             res.setPatientIdentity(Boolean.parseBoolean(elementAt.get(1).toString()));
             res.setCrossMatching(Boolean.parseBoolean(elementAt.get(2).toString()));
             res.setCompatibility(Boolean.parseBoolean(elementAt.get(3).toString()));
@@ -388,10 +388,10 @@ public class ViewJPanel extends javax.swing.JPanel {
 
     private void populateTableLicense() {
         DefaultTableModel model = (DefaultTableModel)tblLicense.getModel();
-         List<LicenseOrganization> license = EcoSystem.getInstance().getLicenseDirectory().getLicense();
+         List<License> license = EcoSystem.getInstance().getLicenseDirectory().getLicense();
         model.setRowCount(0);
         
-        for(LicenseOrganization l : license){
+        for(License l : license){
             
             Object[] col = new Object[6];
             col[0] = l;
@@ -409,8 +409,8 @@ public class ViewJPanel extends javax.swing.JPanel {
     private void populateTableTraining() {
         DefaultTableModel model = (DefaultTableModel)tblTraining.getModel();
         model.setRowCount(0);
-        List<TrainingOraganization> training = EcoSystem.getInstance().getTrainingDirectory().getTraining();
-        for(TrainingOraganization t : training){
+        List<Training> training = EcoSystem.getInstance().getTrainingDirectory().getTraining();
+        for(Training t : training){
             
             Object[] col = new Object[9];
             col[0] = t;

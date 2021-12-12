@@ -5,6 +5,7 @@
  */
 package Business.Enterprise;
 
+import Business.Role.GovernmentAdminRole;
 import Business.Role.ManagerRole;
 import Business.Role.Role;
 import java.util.ArrayList;
@@ -13,16 +14,16 @@ import java.util.ArrayList;
  *
  * @author MyPC1
  */
-public class HospitalEnterprise extends Enterprise {
+public class GovernmentEnterprise extends Enterprise {
     
-    public HospitalEnterprise(String name){
-        super(name,EnterpriseType.Hospital);
+    public GovernmentEnterprise(String name){
+        super(name,EnterpriseType.Government);
     }
 
     @Override
     public ArrayList<Role> getSupportedRole() {
         ArrayList<Role> roles = new ArrayList();
-        roles.add(new ManagerRole());
+        roles.add(new GovernmentAdminRole());
         return roles;
     }
 

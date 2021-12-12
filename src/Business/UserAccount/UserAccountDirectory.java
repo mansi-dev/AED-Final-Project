@@ -8,7 +8,8 @@ import Business.Admin.Admin;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Population.Person;
-import Business.UserAccount.User.Role;
+import Business.Role.Role;
+//import Business.UserAccount.User.Role;
 import java.util.ArrayList;
 
 /**
@@ -38,7 +39,15 @@ public class UserAccountDirectory {
     public UserAccount createUserAccount(String name, String username, String password, Role role){
         if(!checkIfUsernameIsUnique(username)) 
             return null;
-        UserAccount userAccount = new UserAccount(name, username, password, role);
+UserAccount userAccount = new UserAccount();
+        userAccount.setUsername(username);
+        userAccount.setPassword(password);
+        userAccount.setRole(role);
+//        if(role instanceof Business.Role.PersonRole){
+//            userAccount.setUser(EcoSystem.getInstance().getPersonDirectory().addNewPerson(userAccount.getAccountId()));
+//        } else if(role instanceof Business.Role.ManagerRole){
+//            userAccount.setUser(EcoSystem.getInstance().getManagerDirectory().createManager(userAccount.getAccountId()));
+//        }
         userAccountList.add(userAccount);
         return userAccount;
     }
@@ -49,8 +58,8 @@ public class UserAccountDirectory {
             if(u.getAccountId()==id){
                 userAccountList.remove(u);
                 User user = u.getUser();
-                if(u.getRole()==Role.Admin) EcoSystem.getInstance().getAdminDirectory().removeAdmin((Admin)user);
-                if(u.getRole()==Role.Person) EcoSystem.getInstance().getPersonDirectory().removePerson((Person)user);
+//                if(u.getRole()==Role.Admin) EcoSystem.getInstance().getAdminDirectory().removeAdmin((Admin)user);
+//                if(u.getRole()==Role.Person) EcoSystem.getInstance().getPersonDirectory().removePerson((Person)user);
                 userAccountFound=1;
                 break;
             }

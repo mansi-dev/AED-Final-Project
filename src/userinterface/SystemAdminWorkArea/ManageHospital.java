@@ -5,11 +5,15 @@
 package userinterface.SystemAdminWorkArea;
 
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
 import Business.Hospital.Doctor;
 import Business.Hospital.Hospital;
-import Business.Population.Person;
-import Business.UserAccount.User;
+import Business.Network.Network;
+import Business.Organization.DoctorOrganization;
+import Business.Organization.HospitalOrganization;
+import Business.Organization.Organizations;
 import Business.UserAccount.UserAccount;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -24,6 +28,8 @@ import javax.swing.text.BadLocationException;
  * @author mansizope
  */
 public class ManageHospital extends javax.swing.JPanel {
+
+    private static int counter = 0;
 
     /**
      * Creates new form ManageHospital
@@ -593,23 +599,37 @@ public class ManageHospital extends javax.swing.JPanel {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         if (!txtName.getText().isEmpty() && !txtUsername.getText().isEmpty()
-            && !txtPassword.getText().isEmpty() && !txtAddress.getText().isEmpty() && !txtCity.getText().isEmpty()
-            && !txtState.getText().isEmpty() && !txtZipCode.getText().isEmpty() && !txtPhoneNum.getText().isEmpty()
-            && !txtSpec.getText().isEmpty() && !txtDegree.getText().isEmpty()) {
-            UserAccount temp = EcoSystem.getInstance().getUserAccountDirectory().createUserAccount(txtName.getText(), txtUsername.getText(),
-                txtPassword.getText(), User.Role.Doctor);
+                && !txtPassword.getText().isEmpty() && !txtAddress.getText().isEmpty() && !txtCity.getText().isEmpty()
+                && !txtState.getText().isEmpty() && !txtZipCode.getText().isEmpty() && !txtPhoneNum.getText().isEmpty()
+                && !txtSpec.getText().isEmpty() && !txtDegree.getText().isEmpty()) {
+//            UserAccount temp = EcoSystem.getInstance().getUserAccountDirectory().createUserAccount(txtName.getText(), txtUsername.getText(),
+//                txtPassword.getText(), User.Role.Doctor);
+            int id = ++counter;
 
-            Doctor doctor = (Doctor) temp.getUser();
-            doctor.setName(txtName.getText());
-            doctor.setAddress(txtAddress.getText());
-            doctor.setCity(txtCity.getText());
-            doctor.setState(txtState.getText());
-            doctor.setZipCode(txtZipCode.getText());
-            doctor.setPhoneNum(Long.parseLong(txtPhoneNum.getText()));
-            doctor.setHospitalByID(Integer.parseInt(txtHospitalID.getText()));
-            doctor.setDegree(txtDegree.getText());
-            doctor.setSpecialization(txtSpec.getText());
-            JOptionPane.showMessageDialog(this, "Added doctor details to the system");
+            ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+            Enterprise enterprise = enterpriseList.stream().filter(item -> "Hospital".equals(item.getName())).findFirst().orElse(null);
+            UserAccount temp = enterprise.getUserAccountDirectory().createUserAccount(txtName.getText(), txtUsername.getText(),
+                    txtPassword.getText(), enterprise.getSupportedRole().get(0));
+            for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o.getName().equalsIgnoreCase("Doctor Organization")) {
+                    DoctorOrganization docOrg = (DoctorOrganization) o;
+                    Doctor doctor = (Doctor) docOrg.getDoctorDirectory().addNewDoctor(id);
+                    doctor.setName(txtName.getText());
+                    doctor.setAddress(txtAddress.getText());
+                    doctor.setCity(txtCity.getText());
+                    doctor.setState(txtState.getText());
+                    doctor.setZipCode(txtZipCode.getText());
+                    doctor.setPhoneNum(Long.parseLong(txtPhoneNum.getText()));
+                    doctor.setHospitalByID(Integer.parseInt(txtHospitalID.getText()));
+                    doctor.setDegree(txtDegree.getText());
+                    doctor.setSpecialization(txtSpec.getText());
+                    temp.setUser(doctor);
+
+                    JOptionPane.showMessageDialog(this, "Added user details");
+                    break;
+                }
+            }
+
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
 
@@ -629,9 +649,9 @@ public class ManageHospital extends javax.swing.JPanel {
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
 
         if (!elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
-            && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
-            && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty() 
-            && !elementAt.get(10).toString().isEmpty()) {
+                && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
+                && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()
+                && !elementAt.get(10).toString().isEmpty()) {
             Doctor res = (Doctor) elementAt.get(0);
             res.setName(elementAt.get(2).toString());
             res.setAddress(elementAt.get(3).toString());
@@ -678,19 +698,29 @@ public class ManageHospital extends javax.swing.JPanel {
     private void btnHospitalSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospitalSaveActionPerformed
         // TODO add your handling code here:
         if (!txtHospitalName.getText().isEmpty() && !txtHospitalID1.getText().isEmpty()
-            && !txtHospitalAddr.getText().isEmpty() && !txtHospitalCity.getText().isEmpty()
-            && !txtHospitalState.getText().isEmpty() && !txtHospitalZipCode.getText().isEmpty() && !txtHospitalPhone.getText().isEmpty()
-            && !txtHospitalEmail.getText().isEmpty()) {
-        
-            Hospital hospital = EcoSystem.getInstance().getHospitalDirectory().addNewHospital();
-            hospital.setName(txtHospitalName.getText());
-            hospital.setAddress(txtHospitalAddr.getText());
-            hospital.setCity(txtHospitalCity.getText());
-            hospital.setState(txtHospitalState.getText());
-            hospital.setZipCode(txtHospitalZipCode.getText());
-            hospital.setPhoneNum(Long.parseLong(txtHospitalPhone.getText()));
-            hospital.setEmail(txtHospitalEmail.getText());
-            hospital.setId(Integer.parseInt(txtHospitalID1.getText()));
+                && !txtHospitalAddr.getText().isEmpty() && !txtHospitalCity.getText().isEmpty()
+                && !txtHospitalState.getText().isEmpty() && !txtHospitalZipCode.getText().isEmpty() && !txtHospitalPhone.getText().isEmpty()
+                && !txtHospitalEmail.getText().isEmpty()) {
+
+            ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+            Enterprise enterprise = enterpriseList.stream().filter(item -> "Hospital".equals(item.getName())).findFirst().orElse(null);
+
+            for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o.getName().equalsIgnoreCase("Hospital Organization")) {
+                    HospitalOrganization hosOrg = (HospitalOrganization) o;
+                    Hospital hospital = hosOrg.getHospitalDirectory().addNewHospital();
+                    hospital.setName(txtHospitalName.getText());
+                    hospital.setAddress(txtHospitalAddr.getText());
+                    hospital.setCity(txtHospitalCity.getText());
+                    hospital.setState(txtHospitalState.getText());
+                    hospital.setZipCode(txtHospitalZipCode.getText());
+                    hospital.setPhoneNum(Long.parseLong(txtHospitalPhone.getText()));
+                    hospital.setEmail(txtHospitalEmail.getText());
+                    hospital.setId(Integer.parseInt(txtHospitalID1.getText()));
+                    break;
+                }
+            }
+            // Hospital hospital = EcoSystem.getInstance().getHospitalDirectory().addNewHospital();
 
             JOptionPane.showMessageDialog(this, "Added hospital details to the system");
         } else {
@@ -708,8 +738,8 @@ public class ManageHospital extends javax.swing.JPanel {
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
 
         if (!elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
-            && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
-            && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()) {
+                && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
+                && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()) {
             Hospital hospital = (Hospital) elementAt.get(0);
             hospital.setName(elementAt.get(2).toString());
             hospital.setAddress(elementAt.get(3).toString());
@@ -808,7 +838,7 @@ public class ManageHospital extends javax.swing.JPanel {
     private javax.swing.JTextField txtZipCode;
     // End of variables declaration//GEN-END:variables
 
-            /**
+    /**
      * Function to validate number input. To check if text fields contain any
      * alphabets.
      */
@@ -889,55 +919,75 @@ public class ManageHospital extends javax.swing.JPanel {
         } catch (BadLocationException ex) {
         }
     }
-    
+
     private void populateDocView() {
         DefaultTableModel model = (DefaultTableModel) tblViewDoc.getModel();
-        List<Doctor> docList = EcoSystem.getInstance().getDoctorDirectory().getDoctorList();
         model.setRowCount(0);
-        for (Doctor doc : docList) {
-            Object[] row = new Object[11];
-            //row[0] = ++index;
+        for (Network network : EcoSystem.getInstance().getNetworkList()) {
+            for (Enterprise enterprise2 : network.getEnterpriseDirectory().getEnterpriseList()) {
+                if (enterprise2.getEnterpriseType().getValue().equalsIgnoreCase("Hospital")) {
+                    for (Organizations o : enterprise2.getOrganizationDirectory().getOrganizationList()) {
+                        if (o.getName().equalsIgnoreCase("Doctor Organization")) {
+                            DoctorOrganization docOrganization = (DoctorOrganization) o;
+                            for (Doctor doc : docOrganization.getDoctorDirectory().getDoctorList()) {
+                                Object[] row = new Object[11];
+                                //row[0] = ++index;
 
-            row[0] = doc;
-            row[1] = doc.getId();
-            row[2] = doc.getName();
-            row[3] = doc.getAddress();
-            row[4] = doc.getCity();
-            row[5] = doc.getState();
-            row[6] = doc.getPhoneNum();
-            row[7] = doc.getZipCode();
-            row[8] = doc.getHospital().getName();
-            row[9] = doc.getDegree();
-            row[10] = doc.getSpecialization();
-            
-            model.addRow(row);
+                                row[0] = doc;
+                                row[1] = doc.getId();
+                                row[2] = doc.getName();
+                                row[3] = doc.getAddress();
+                                row[4] = doc.getCity();
+                                row[5] = doc.getState();
+                                row[6] = doc.getPhoneNum();
+                                row[7] = doc.getZipCode();
+                                row[8] = doc.getHospital().getName();
+                                row[9] = doc.getDegree();
+                                row[10] = doc.getSpecialization();
 
+                                model.addRow(row);
+
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
-    
+
     private void populateHospitalView() {
         DefaultTableModel model = (DefaultTableModel) tblHospView.getModel();
-        List<Hospital> hospList = EcoSystem.getInstance().getHospitalDirectory().getHospitalList();
         model.setRowCount(0);
-        
-        for (Hospital hosp : hospList) {
-            Object[] row = new Object[9];
-            //row[0] = ++index;
+        for (Network network : EcoSystem.getInstance().getNetworkList()) {
+            for (Enterprise enterprise2 : network.getEnterpriseDirectory().getEnterpriseList()) {
+                if (enterprise2.getEnterpriseType().getValue().equalsIgnoreCase("Hospital")) {
+                    for (Organizations o : enterprise2.getOrganizationDirectory().getOrganizationList()) {
+                        if (o.getName().equalsIgnoreCase("Hospital Organization")) {
+                            HospitalOrganization hospitalOrganization = (HospitalOrganization) o;
+                            for (Hospital hosp : hospitalOrganization.getHospitalDirectory().getHospitalList()) {
+                                Object[] row = new Object[9];
+                                //row[0] = ++index;
 
-            row[0] = hosp;
-            row[1] = hosp.getId();
-            row[2] = hosp.getName();
-            row[3] = hosp.getAddress();
-            row[4] = hosp.getCity();
-            row[5] = hosp.getState();
-            row[6] = hosp.getPhoneNum();
-            row[7] = hosp.getZipCode();
-            row[8] = hosp.getEmail();
-            
-            model.addRow(row);
+                                row[0] = hosp;
+                                row[1] = hosp.getId();
+                                row[2] = hosp.getName();
+                                row[3] = hosp.getAddress();
+                                row[4] = hosp.getCity();
+                                row[5] = hosp.getState();
+                                row[6] = hosp.getPhoneNum();
+                                row[7] = hosp.getZipCode();
+                                row[8] = hosp.getEmail();
 
+                                model.addRow(row);
+
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
+
     private void addListeners() {
         txtPhoneNum.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -985,7 +1035,7 @@ public class ManageHospital extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtHospitalID.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -1006,7 +1056,7 @@ public class ManageHospital extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtHospitalID1.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -1027,7 +1077,7 @@ public class ManageHospital extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtName.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -1068,7 +1118,7 @@ public class ManageHospital extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtHospitalCity.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -1089,7 +1139,7 @@ public class ManageHospital extends javax.swing.JPanel {
             }
 
         });
-                
+
         txtState.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -1110,7 +1160,7 @@ public class ManageHospital extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtHospitalState.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -1131,7 +1181,7 @@ public class ManageHospital extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtZipCode.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -1152,7 +1202,7 @@ public class ManageHospital extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtHospitalZipCode.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {

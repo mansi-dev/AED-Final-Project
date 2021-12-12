@@ -13,25 +13,25 @@ import java.util.ArrayList;
  */
 public class TrainingDirectory {
     
-    private ArrayList<TrainingOraganization> trainingOrg = new ArrayList();
+    private ArrayList<Training> trainingOrg = new ArrayList();
     
-    public ArrayList<TrainingOraganization> getTraining() {
+    public ArrayList<Training> getTraining() {
         return trainingOrg;
     }
 
-    public void setTraining(ArrayList<TrainingOraganization> trainingOrg) {
+    public void setTraining(ArrayList<Training> trainingOrg) {
         this.trainingOrg = trainingOrg;
     }
     
-        public TrainingOraganization addNewEntry() {
+        public Training addNewEntry() {
         
-        TrainingOraganization newEntry = new TrainingOraganization();
+        Training newEntry = new Training();
         trainingOrg.add(newEntry);
         return newEntry;
 
     }
 
-    public void deleteRows(TrainingOraganization selectedRow) {
+    public void deleteRows(Training selectedRow) {
         this.trainingOrg.remove(selectedRow);
     }
 

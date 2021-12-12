@@ -5,24 +5,28 @@
  */
 package Business.Enterprise;
 
-import Business.Role.ManagerRole;
+
+import Business.BloodBank.BloodBankDirectory;
+import Business.Role.BloodBankManagerRole;
 import Business.Role.Role;
 import java.util.ArrayList;
 
 /**
  *
- * @author MyPC1
+ * @author mansizope
  */
-public class HospitalEnterprise extends Enterprise {
+public class BloodBankEnterprise extends Enterprise {
     
-    public HospitalEnterprise(String name){
-        super(name,EnterpriseType.Hospital);
+
+    
+    public BloodBankEnterprise(String name){
+        super(name,EnterpriseType.BloodBank);
     }
 
     @Override
     public ArrayList<Role> getSupportedRole() {
         ArrayList<Role> roles = new ArrayList();
-        roles.add(new ManagerRole());
+        roles.add(new BloodBankManagerRole());
         return roles;
     }
 

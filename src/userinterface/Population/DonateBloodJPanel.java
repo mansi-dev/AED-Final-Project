@@ -7,13 +7,20 @@ package userinterface.Population;
 
 import Business.BloodBank.BloodBank;
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Enterprise.PopulationEnterprise;
+import Business.Network.Network;
+import Business.Organization.Organizations;
+import Business.Organization.PersonOrganization;
 import Business.Population.DonorTransaction;
 import Business.Population.Person;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.BloodBankWorkRequest;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.text.BadLocationException;
 
 /**
@@ -22,13 +29,22 @@ import javax.swing.text.BadLocationException;
  */
 public class DonateBloodJPanel extends javax.swing.JPanel {
     String loggedInUser;
+     JPanel userProcessContainer;
+
+    EcoSystem business;
+
+    Enterprise enterprise;
+    UserAccount userAccount;
     /**
      * Creates new form DonateBloodJPanel
      */
-    public DonateBloodJPanel(String loggedInUser) {
+    public DonateBloodJPanel(JPanel userProcessContainer, EcoSystem business, Enterprise enterprise, UserAccount userAccount) {
         this.loggedInUser = loggedInUser;
         initComponents();
         addListeners();
+        this.business = business;
+        this.userAccount = userAccount;
+        this.enterprise = enterprise;
         ///populateInitialValues();
         populateBloodBank();
     }
@@ -73,7 +89,9 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("                                                                                                   Add Donor");
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("DONATE BLOOD");
 
         donorLbl.setText("Donor Name:");
 
@@ -97,7 +115,7 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
 
         diseasesLbl.setText("Other Diseases");
 
-        saveBtn.setText("Save");
+        saveBtn.setText("Donate");
         saveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveBtnActionPerformed(evt);
@@ -113,34 +131,28 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 811, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(397, 397, 397)
-                .addComponent(saveBtn)
-                .addContainerGap(345, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bloodbankLbl)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(donorLbl)
-                            .addComponent(phoneNoLbl)
-                            .addComponent(ageLbl)
-                            .addComponent(heightLbl)
-                            .addComponent(weightLbl)
-                            .addComponent(hbLbl)
-                            .addComponent(bloodGrpLbl)
-                            .addComponent(lastDonateLbl)
-                            .addComponent(unitsLbl)
-                            .addComponent(donationDateLbl)
-                            .addComponent(diseasesLbl)
-                            .addComponent(emailLbl))
-                        .addGap(89, 89, 89)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(bloodbankCombo, 0, 202, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(saveBtn)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(donorLbl)
+                                .addComponent(phoneNoLbl)
+                                .addComponent(ageLbl)
+                                .addComponent(heightLbl)
+                                .addComponent(weightLbl)
+                                .addComponent(hbLbl)
+                                .addComponent(bloodGrpLbl)
+                                .addComponent(lastDonateLbl)
+                                .addComponent(unitsLbl)
+                                .addComponent(donationDateLbl)
+                                .addComponent(diseasesLbl)
+                                .addComponent(emailLbl))
+                            .addGap(89, 89, 89)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(bloodbankCombo, 0, 202, Short.MAX_VALUE)
                                 .addComponent(donorTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                                 .addComponent(phoneNoTxt)
                                 .addComponent(ageTxt)
@@ -154,13 +166,17 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
                                 .addComponent(donationDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lastDonatedDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(258, 258, 258)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(419, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(donorLbl)
                     .addComponent(donorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -213,9 +229,9 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bloodbankLbl)
                     .addComponent(bloodbankCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(saveBtn)
-                .addGap(30, 30, 30))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     private void populateBloodBank(){
@@ -253,9 +269,42 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
             dt.setHeight(Float.parseFloat(heightTxt.getText()));
             dt.setWeight(Float.parseFloat(weightTxt.getText()));
             dt.setBloodBankByID(((String) bloodbankCombo.getSelectedItem()));
-//            person.setName(donorTxt.getText());
-//            person.setEmail(emailTxt.getText());
-//            
+                    Organizations org = null;
+
+            for (Network network : EcoSystem.getInstance().getNetworkList()) {
+            for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
+                if (enterprise instanceof PopulationEnterprise) {
+                    PopulationEnterprise en = (PopulationEnterprise) enterprise;
+
+                    for (Organizations organization : en.getOrganizationDirectory().getOrganizationList()) {
+                        System.out.println(en.getOrganizationDirectory().getOrganizationList());
+                        if (organization instanceof PersonOrganization) {
+
+                            System.out.println(organization);
+                            org = organization;
+                            break;
+                        }
+                    }
+                    if (org != null) {
+                        break;
+                    }
+                }
+            }
+            if (org != null) {
+                break;
+            }
+        }
+         if (org != null) {
+            BloodBankWorkRequest bloodBankWorkRequest = new BloodBankWorkRequest();
+            bloodBankWorkRequest.setDonorTransaction(dt);
+            bloodBankWorkRequest.setStatus("Pending");
+            bloodBankWorkRequest.setMessage("Ordered");
+            bloodBankWorkRequest.setSender(userAccount);
+            System.out.println(org.getWorkQueue().getWorkRequestList());
+            org.getWorkQueue().getWorkRequestList().add(bloodBankWorkRequest);
+            // System.out.println(org.getWorkQueue().getWorkRequestList());
+            userAccount.getWorkQueue().getWorkRequestList().add(bloodBankWorkRequest);
+        }
             
           
             JOptionPane.showMessageDialog(this, "Added donor details to the system");

@@ -31,7 +31,9 @@ public abstract class Organizations {
         Training("Training Organization"), 
         License("License Organization"), 
         Person("Person Organization"),
-        BloodBank("BloodBank Organization");
+        BloodBank("BloodBank Organization"),
+        BloodBankManager("BloodBankManager Organization"),
+        Manager("Hospital Manager Organization");
         private String value;
         private Type(String value) {
             this.value = value;

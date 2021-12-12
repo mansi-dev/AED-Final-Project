@@ -49,7 +49,13 @@ public class OrganizationDirectory {
         } else if(type.getValue().equals(Type.BloodBank.getValue())){
             organization = new BloodBankOrganization();
             organizationList.add(organization);
-        }
+        } else if(type.getValue().equals(Type.Manager.getValue())){
+            organization = new HospitalManagerOrganization();
+            organizationList.add(organization);
+        } else if(type.getValue().equals(Type.BloodBankManager.getValue())){
+            organization = new BloodBankManagerOrganization();
+            organizationList.add(organization);
+        } 
         return organization;
     }
 }
