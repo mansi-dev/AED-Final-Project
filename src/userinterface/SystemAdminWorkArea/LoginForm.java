@@ -5,6 +5,8 @@
 package userinterface.SystemAdminWorkArea;
 
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Organization.Organizations;
 import Business.UserAccount.User.Role;
 import Business.UserAccount.UserAccount;
 import javax.swing.JFrame;
@@ -166,11 +168,13 @@ public class LoginForm extends javax.swing.JPanel {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         UserAccount auth = system.getUserAccountDirectory().authenticateUser(txtUsername.getText(), txtPassword.getText());// getUserAccountList() authenticateUser(userNameJTextField,passwordField);
+       Enterprise inEnterprise=null;
+        Organizations inOrganization=null;
         if (auth == null) {
             System.out.println("Enter correct credentials");
             JOptionPane.showMessageDialog(this, "Enter correct credentials");
         } else if (auth.getRole() == Role.Admin) {
-            SystemAdminWorkAreaJPanel systemAdminPanel = new SystemAdminWorkAreaJPanel(system);
+            SystemAdminWorkAreaJPanel systemAdminPanel = new SystemAdminWorkAreaJPanel(jPanel2,auth,inOrganization,inEnterprise, system);
 
             JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
             MainJFrame mj = (MainJFrame) topFrame;
@@ -181,7 +185,7 @@ public class LoginForm extends javax.swing.JPanel {
             mj.setSize(1425, 988);
 
         } else if (auth.getRole() == Role.Person) {
-            ChooseUserJPanel chooseUserJPanel = new ChooseUserJPanel(system, txtUsername.getText());
+            ChooseUserJPanel chooseUserJPanel = new ChooseUserJPanel(jPanel2, auth, inOrganization,inEnterprise,system);
 
             JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
             MainJFrame mj = (MainJFrame) topFrame;
@@ -193,7 +197,8 @@ public class LoginForm extends javax.swing.JPanel {
 
             //this.pack();
         } else if (auth.getRole() == Role.Manager) {
-            HospitalJPanel hospitalJPanel = new HospitalJPanel(system,auth);
+
+            HospitalJPanel hospitalJPanel = new HospitalJPanel(jPanel2, auth, inOrganization,inEnterprise,system);
 
             JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
             MainJFrame mj = (MainJFrame) topFrame;
@@ -205,7 +210,7 @@ public class LoginForm extends javax.swing.JPanel {
 
             //this.pack();
         } else if (auth.getRole() == Role.GovernmentAdmin) {
-            GovernmentWorkArea governmentJPanel = new GovernmentWorkArea(system);
+            GovernmentWorkArea governmentJPanel = new GovernmentWorkArea(jPanel2, auth, inOrganization,inEnterprise,system);
 
             JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
             MainJFrame mj = (MainJFrame) topFrame;
