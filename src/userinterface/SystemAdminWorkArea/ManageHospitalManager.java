@@ -477,9 +477,19 @@ public class ManageHospitalManager extends javax.swing.JPanel {
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) tblHospView.getModel();
         int rowIndex = tblHospView.getSelectedRow();
-        Hospital valueAt = (Hospital) model.getValueAt(rowIndex, 0);
-        EcoSystem.getInstance().getHospitalDirectory().deleteHospital(valueAt);
-
+        Manager valueAt = (Manager) model.getValueAt(rowIndex, 0);
+        
+        ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+            Enterprise enterprise = enterpriseList.stream().filter(item -> "Hospital".equals(item.getName())).findFirst().orElse(null);
+        //EcoSystem.getInstance().getHospitalDirectory().deleteHospital(valueAt);
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o.getName().equalsIgnoreCase("Hospital Manager Organization")) {
+                    HospitalManagerOrganization hosManagerOrg = (HospitalManagerOrganization) o;
+                    hosManagerOrg.getManagerDirectory().removeManager(valueAt);
+                    enterprise.getUserAccountDirectory().deleteAccount(valueAt.getId());
+                    break;
+                }
+        }
         JOptionPane.showMessageDialog(this, "Values deleted successfully");
         populateManagerView();
     }//GEN-LAST:event_btnDelete1ActionPerformed
