@@ -12,6 +12,7 @@ import Business.Network.Network;
 import Business.Organization.DoctorOrganization;
 import Business.Organization.HospitalOrganization;
 import Business.Organization.Organizations;
+import Business.Organization.PersonOrganization;
 import Business.UserAccount.UserAccount;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -784,6 +785,18 @@ public class ManageHospital extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblViewDoc.getModel();
         int rowIndex = tblViewDoc.getSelectedRow();
         Doctor valueAt = (Doctor) model.getValueAt(rowIndex, 0);
+        
+        ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+        Enterprise enterprise = enterpriseList.stream().filter(item -> "Hospital".equals(item.getName())).findFirst().orElse(null);
+        
+         for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o.getName().equalsIgnoreCase("Doctor Organization")){
+                     DoctorOrganization docOrg = (DoctorOrganization) o;
+                     docOrg.getDoctorDirectory().deleteDoctor(valueAt);
+                     break;
+                }
+         }
+        
         EcoSystem.getInstance().getDoctorDirectory().deleteDoctor(valueAt);
 
         EcoSystem.getInstance().getUserAccountDirectory().deleteAccount(valueAt.getId());
@@ -853,7 +866,7 @@ public class ManageHospital extends javax.swing.JPanel {
 
         if (!elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
                 && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
-                && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()) {
+                && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty()) {
             Hospital hospital = (Hospital) elementAt.get(0);
             hospital.setName(elementAt.get(2).toString());
             hospital.setAddress(elementAt.get(3).toString());
@@ -861,6 +874,7 @@ public class ManageHospital extends javax.swing.JPanel {
             hospital.setState(elementAt.get(5).toString());
             hospital.setPhoneNum(Long.parseLong(elementAt.get(6).toString()));
             hospital.setZipCode(elementAt.get(7).toString());
+            hospital.setEmail(elementAt.get(8).toString());
 
             JOptionPane.showMessageDialog(this, "Value updated successfully!");
 
@@ -875,8 +889,18 @@ public class ManageHospital extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblHospView.getModel();
         int rowIndex = tblHospView.getSelectedRow();
         Hospital valueAt = (Hospital) model.getValueAt(rowIndex, 0);
-        EcoSystem.getInstance().getHospitalDirectory().deleteHospital(valueAt);
+        
+       ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+            Enterprise enterprise = enterpriseList.stream().filter(item -> "Hospital".equals(item.getName())).findFirst().orElse(null);
 
+            for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o.getName().equalsIgnoreCase("Hospital Organization")) {
+                    HospitalOrganization hosOrg = (HospitalOrganization) o;
+                    hosOrg.getHospitalDirectory().deleteHospital(valueAt);
+                    break;
+                }
+            }
+        
         JOptionPane.showMessageDialog(this, "Values deleted successfully");
         populateHospitalView();
     }//GEN-LAST:event_btnDelete1ActionPerformed
