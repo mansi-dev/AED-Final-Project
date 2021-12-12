@@ -7,9 +7,9 @@ package userinterface.GovernmentRole;
 
 import Business.EcoSystem;
 import Business.Government.LicenseDirectory;
-import Business.Government.LicenseOrganization;
+import Business.Government.License;
 import Business.Government.TrainingDirectory;
-import Business.Government.TrainingOraganization;
+import Business.Government.Training;
 import Business.Hospital.Hospital;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -28,8 +28,8 @@ public class GovernmentPanel extends javax.swing.JPanel {
      * Creates new form GovernmentPanel
      */
     
-    TrainingOraganization training;
-    LicenseOrganization license;
+    Training training;
+    License license;
     LicenseDirectory licenseDir;
     TrainingDirectory trainingDir;
     
@@ -497,7 +497,7 @@ public class GovernmentPanel extends javax.swing.JPanel {
     Boolean transfusionReactions = chkTransfusion.isSelected();
     Boolean bagDisposal = chkDisposal.isSelected();
     
-    TrainingOraganization t =  EcoSystem.getInstance().getTrainingDirectory().addNewEntry();
+    Training t =  EcoSystem.getInstance().getTrainingDirectory().addNewEntry();
         
     t.setBagDisposal(bagDisposal);
     t.setCompatibility(compatibility);
@@ -546,7 +546,7 @@ public class GovernmentPanel extends javax.swing.JPanel {
     Date issueDate = dteIssueDate.getDate();
     Date expiryDate = dteExpiryDate.getDate();   
         
-    LicenseOrganization l = EcoSystem.getInstance().getLicenseDirectory().addNewEntry(expiryDate,issueDate,licenseNumber,licenseName);
+    License l = EcoSystem.getInstance().getLicenseDirectory().addNewEntry(expiryDate,issueDate,licenseNumber,licenseName);
     
 //    l.setExpiryDate(expiryDate);
 //    l.setIssueDate(issueDate);

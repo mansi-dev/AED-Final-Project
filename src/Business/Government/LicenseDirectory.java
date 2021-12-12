@@ -13,26 +13,26 @@ import java.util.Date;
  * @author Mayan Mishra
  */
 public class LicenseDirectory {
-    private ArrayList<LicenseOrganization> licenseOrg = new ArrayList();
+    private ArrayList<License> licenseOrg = new ArrayList();
 
-    public ArrayList<LicenseOrganization> getLicense() {
+    public ArrayList<License> getLicense() {
         return licenseOrg;
     }
 
-    public void setLicense(ArrayList<LicenseOrganization> licenseOrg) {
+    public void setLicense(ArrayList<License> licenseOrg) {
         this.licenseOrg = licenseOrg;
     }
     
         
-    public LicenseOrganization addNewEntry() {
+    public License addNewEntry() {
         
-    LicenseOrganization newEntry = new LicenseOrganization();
+    License newEntry = new License();
     licenseOrg.add(newEntry);
     return newEntry;
 
     }
 
-    public void deleteRows(LicenseOrganization selectedRow) {
+    public void deleteRows(License selectedRow) {
         //licenseOrg.remove(selectedRow);
         this.licenseOrg.remove(selectedRow);
     }
@@ -41,8 +41,8 @@ public class LicenseDirectory {
 //          }
 //
 
-    public LicenseOrganization addNewEntry(Date expiryDate, Date issueDate, Long licenseNumber, String licenseName) {
-    LicenseOrganization newEntry = new LicenseOrganization(licenseName, issueDate, expiryDate, licenseNumber);
+    public License addNewEntry(Date expiryDate, Date issueDate, Long licenseNumber, String licenseName) {
+    License newEntry = new License(licenseName, issueDate, expiryDate, licenseNumber);
     licenseOrg.add(newEntry);
     return newEntry;
     }

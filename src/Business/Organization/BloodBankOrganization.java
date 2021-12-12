@@ -4,7 +4,7 @@
  */
 package Business.Organization;
 
-import Business.Role.AdminRole;
+import Business.BloodBank.BloodBankDirectory;
 import Business.Role.BloodBankManagerRole;
 import Business.Role.Role;
 import java.util.ArrayList;
@@ -14,8 +14,19 @@ import java.util.ArrayList;
  * @author mansizope
  */
 public class BloodBankOrganization extends Organizations{
+    private BloodBankDirectory bloodBankDirectory;
+
+    public BloodBankDirectory getBloodBankDirectory() {
+        return bloodBankDirectory;
+    }
+
+    public void setBloodBankDirectory(BloodBankDirectory bloodBankDirectory) {
+        this.bloodBankDirectory = bloodBankDirectory;
+    }
+    
     public BloodBankOrganization(){
         super(Organizations.Type.BloodBank.getValue());
+        bloodBankDirectory = new BloodBankDirectory();
     }
 
     @Override

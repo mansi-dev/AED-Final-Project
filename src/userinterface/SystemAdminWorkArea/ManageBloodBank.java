@@ -7,8 +7,13 @@ package userinterface.SystemAdminWorkArea;
 import Business.BloodBank.BloodBank;
 import Business.BloodBank.BloodBankManager;
 import Business.EcoSystem;
-import Business.UserAccount.User;
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.BloodBankManagerOrganization;
+import Business.Organization.BloodBankOrganization;
+import Business.Organization.Organizations;
 import Business.UserAccount.UserAccount;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -23,6 +28,8 @@ import javax.swing.text.BadLocationException;
  * @author mansizope
  */
 public class ManageBloodBank extends javax.swing.JPanel {
+
+    private static int counter = 0;
 
     /**
      * Creates new form ManageHospital
@@ -556,21 +563,31 @@ public class ManageBloodBank extends javax.swing.JPanel {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         if (!txtName.getText().isEmpty() && !txtUsername.getText().isEmpty()
-            && !txtPassword.getText().isEmpty() && !txtAddress.getText().isEmpty() && !txtCity.getText().isEmpty()
-            && !txtState.getText().isEmpty() && !txtZipCode.getText().isEmpty() && !txtPhoneNum.getText().isEmpty()
-           ) {
-            UserAccount temp = EcoSystem.getInstance().getUserAccountDirectory().createUserAccount(txtName.getText(), txtUsername.getText(),
-                txtPassword.getText(), User.Role.BloodBankManager);
+                && !txtPassword.getText().isEmpty() && !txtAddress.getText().isEmpty() && !txtCity.getText().isEmpty()
+                && !txtState.getText().isEmpty() && !txtZipCode.getText().isEmpty() && !txtPhoneNum.getText().isEmpty()) {
+            int id = ++counter;
 
-            BloodBankManager bloodBankManager = (BloodBankManager) temp.getUser();
-            bloodBankManager.setName(txtName.getText());
-            bloodBankManager.setAddress(txtAddress.getText());
-            bloodBankManager.setCity(txtCity.getText());
-            bloodBankManager.setState(txtState.getText());
-            bloodBankManager.setZipCode(txtZipCode.getText());
-            bloodBankManager.setPhoneNum(Long.parseLong(txtPhoneNum.getText()));
-            bloodBankManager.setBloodBankByID(Integer.parseInt(txtBloodBank.getText()));
-            JOptionPane.showMessageDialog(this, "Added doctor details to the system");
+            ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+            Enterprise enterprise = enterpriseList.stream().filter(item -> "BloodBank".equals(item.getName())).findFirst().orElse(null);
+            UserAccount temp = enterprise.getUserAccountDirectory().createUserAccount(txtName.getText(), txtUsername.getText(),
+                    txtPassword.getText(), enterprise.getSupportedRole().get(0));
+            for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o.getName().equalsIgnoreCase("BloodBankManager Organization")) {
+                    BloodBankManagerOrganization bbOrg = (BloodBankManagerOrganization) o;
+                    BloodBankManager bloodBankManager = (BloodBankManager) bbOrg.getBloodBankManagerDirectory().createAdmin(id);
+
+                    bloodBankManager.setName(txtName.getText());
+                    bloodBankManager.setAddress(txtAddress.getText());
+                    bloodBankManager.setCity(txtCity.getText());
+                    bloodBankManager.setState(txtState.getText());
+                    bloodBankManager.setZipCode(txtZipCode.getText());
+                    bloodBankManager.setPhoneNum(Long.parseLong(txtPhoneNum.getText()));
+                    bloodBankManager.setBloodBankByID(Integer.parseInt(txtBloodBank.getText()));
+                    temp.setUser(bloodBankManager);
+                    JOptionPane.showMessageDialog(this, "Added blood bank manager details to the system");
+                }
+            }
+
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
 
@@ -590,9 +607,9 @@ public class ManageBloodBank extends javax.swing.JPanel {
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
 
         if (!elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
-            && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
-            && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty() 
-            && !elementAt.get(10).toString().isEmpty()) {
+                && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
+                && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()
+                && !elementAt.get(10).toString().isEmpty()) {
             BloodBankManager res = (BloodBankManager) elementAt.get(0);
             res.setName(elementAt.get(2).toString());
             res.setAddress(elementAt.get(3).toString());
@@ -631,21 +648,30 @@ public class ManageBloodBank extends javax.swing.JPanel {
     private void btnHospitalSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospitalSaveActionPerformed
         // TODO add your handling code here:
         if (!txtHospitalName.getText().isEmpty() && !txtBloodBank.getText().isEmpty()
-            && !txtHospitalAddr.getText().isEmpty() && !txtHospitalCity.getText().isEmpty()
-            && !txtHospitalState.getText().isEmpty() && !txtHospitalZipCode.getText().isEmpty() && !txtHospitalPhone.getText().isEmpty()
-            && !txtHospitalEmail.getText().isEmpty()) {
-        
-            BloodBank bloodBank = EcoSystem.getInstance().getBloodBankDirectory().addNewBloodBank();
-            bloodBank.setName(txtHospitalName.getText());
-            bloodBank.setAddress(txtHospitalAddr.getText());
-            bloodBank.setCity(txtHospitalCity.getText());
-            bloodBank.setState(txtHospitalState.getText());
-            bloodBank.setZipCode(txtHospitalZipCode.getText());
-            bloodBank.setPhoneNum(Long.parseLong(txtHospitalPhone.getText()));
-            bloodBank.setEmail(txtHospitalEmail.getText());
-            bloodBank.setId(Integer.parseInt(txtBloodBank.getText()));
+                && !txtHospitalAddr.getText().isEmpty() && !txtHospitalCity.getText().isEmpty()
+                && !txtHospitalState.getText().isEmpty() && !txtHospitalZipCode.getText().isEmpty() && !txtHospitalPhone.getText().isEmpty()
+                && !txtHospitalEmail.getText().isEmpty()) {
+            ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+            Enterprise enterprise = enterpriseList.stream().filter(item -> "BloodBank".equals(item.getName())).findFirst().orElse(null);
 
-            JOptionPane.showMessageDialog(this, "Added Blood Bank details to the system");
+            for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o.getName().equalsIgnoreCase("BloodBank Organization")) {
+                    BloodBankOrganization bbOrg = (BloodBankOrganization) o;
+                    BloodBank bloodBank = bbOrg.getBloodBankDirectory().addNewBloodBank();
+                    bloodBank.setName(txtHospitalName.getText());
+                    bloodBank.setAddress(txtHospitalAddr.getText());
+                    bloodBank.setCity(txtHospitalCity.getText());
+                    bloodBank.setState(txtHospitalState.getText());
+                    bloodBank.setZipCode(txtHospitalZipCode.getText());
+                    bloodBank.setPhoneNum(Long.parseLong(txtHospitalPhone.getText()));
+                    bloodBank.setEmail(txtHospitalEmail.getText());
+                    bloodBank.setId(Integer.parseInt(txtBloodBank.getText()));
+
+                    JOptionPane.showMessageDialog(this, "Added Blood Bank details to the system");
+                    break;
+                }
+            }
+
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
 
@@ -661,8 +687,8 @@ public class ManageBloodBank extends javax.swing.JPanel {
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
 
         if (!elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
-            && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
-            && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()) {
+                && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
+                && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()) {
             BloodBank bloodBank = (BloodBank) elementAt.get(0);
             bloodBank.setName(elementAt.get(2).toString());
             bloodBank.setAddress(elementAt.get(3).toString());
@@ -757,7 +783,7 @@ public class ManageBloodBank extends javax.swing.JPanel {
     private javax.swing.JTextField txtZipCode;
     // End of variables declaration//GEN-END:variables
 
-            /**
+    /**
      * Function to validate number input. To check if text fields contain any
      * alphabets.
      */
@@ -838,53 +864,75 @@ public class ManageBloodBank extends javax.swing.JPanel {
         } catch (BadLocationException ex) {
         }
     }
-    
+
     private void populateDocView() {
         DefaultTableModel model = (DefaultTableModel) tblViewDoc.getModel();
-        List<BloodBankManager> bloodBankManagerList = EcoSystem.getInstance().getBankManagerDirectory().getAdminList();
         model.setRowCount(0);
-        for (BloodBankManager doc : bloodBankManagerList) {
-            Object[] row = new Object[11];
-            //row[0] = ++index;
+        for (Network network : EcoSystem.getInstance().getNetworkList()) {
+            for (Enterprise enterprise2 : network.getEnterpriseDirectory().getEnterpriseList()) {
+                if (enterprise2.getEnterpriseType().getValue().equalsIgnoreCase("BloodBank")) {
+                    for (Organizations o : enterprise2.getOrganizationDirectory().getOrganizationList()) {
+                        if (o.getName().equalsIgnoreCase("BloodBankManager Organization")) {
+                            BloodBankManagerOrganization bbOrganization = (BloodBankManagerOrganization) o;
+                            for (BloodBankManager mgr : bbOrganization.getBloodBankManagerDirectory().getAdminList()) {
+                                Object[] row = new Object[9];
+                                //row[0] = ++index;
 
-            row[0] = doc;
-            row[1] = doc.getId();
-            row[2] = doc.getName();
-            row[3] = doc.getAddress();
-            row[4] = doc.getCity();
-            row[5] = doc.getState();
-            row[6] = doc.getPhoneNum();
-            row[7] = doc.getZipCode();
-            row[8] = doc.getBloodBank().getName();
-            
-            model.addRow(row);
+                                row[0] = mgr;
+                                row[1] = mgr.getId();
+                                row[2] = mgr.getName();
+                                row[3] = mgr.getAddress();
+                                row[4] = mgr.getCity();
+                                row[5] = mgr.getState();
+                                row[6] = mgr.getPhoneNum();
+                                row[7] = mgr.getZipCode();
+                                row[8] = mgr.getBloodBank().getName();
 
+                                model.addRow(row);
+
+                            }
+                        }
+                    }
+                }
+            }
         }
+
     }
-    
+
     private void populateHospitalView() {
         DefaultTableModel model = (DefaultTableModel) tblHospView.getModel();
-        List<BloodBank> bloodList = EcoSystem.getInstance().getBloodBankDirectory().getBloodBankList();
         model.setRowCount(0);
-        
-        for (BloodBank hosp : bloodList) {
-            Object[] row = new Object[9];
-            //row[0] = ++index;
 
-            row[0] = hosp;
-            row[1] = hosp.getId();
-            row[2] = hosp.getName();
-            row[3] = hosp.getAddress();
-            row[4] = hosp.getCity();
-            row[5] = hosp.getState();
-            row[6] = hosp.getPhoneNum();
-            row[7] = hosp.getZipCode();
-            row[8] = hosp.getEmail();
-            
-            model.addRow(row);
+        for (Network network : EcoSystem.getInstance().getNetworkList()) {
+            for (Enterprise enterprise2 : network.getEnterpriseDirectory().getEnterpriseList()) {
+                if (enterprise2.getEnterpriseType().getValue().equalsIgnoreCase("BloodBank")) {
+                    for (Organizations o : enterprise2.getOrganizationDirectory().getOrganizationList()) {
+                        if (o.getName().equalsIgnoreCase("BloodBank Organization")) {
+                            BloodBankOrganization bbOrganization = (BloodBankOrganization) o;
+                            for (BloodBank hosp : bbOrganization.getBloodBankDirectory().getBloodBankList()) {
+                                Object[] row = new Object[9];
+                                //row[0] = ++index;
 
+                                row[0] = hosp;
+                                row[1] = hosp.getId();
+                                row[2] = hosp.getName();
+                                row[3] = hosp.getAddress();
+                                row[4] = hosp.getCity();
+                                row[5] = hosp.getState();
+                                row[6] = hosp.getPhoneNum();
+                                row[7] = hosp.getZipCode();
+                                row[8] = hosp.getEmail();
+
+                                model.addRow(row);
+
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
+
     private void addListeners() {
         txtPhoneNum.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -932,7 +980,7 @@ public class ManageBloodBank extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtHospitalID.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -953,7 +1001,7 @@ public class ManageBloodBank extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtBloodBank.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -974,7 +1022,7 @@ public class ManageBloodBank extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtName.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -1015,7 +1063,7 @@ public class ManageBloodBank extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtHospitalCity.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -1036,7 +1084,7 @@ public class ManageBloodBank extends javax.swing.JPanel {
             }
 
         });
-                
+
         txtState.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -1057,7 +1105,7 @@ public class ManageBloodBank extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtHospitalState.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -1078,7 +1126,7 @@ public class ManageBloodBank extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtZipCode.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -1099,7 +1147,7 @@ public class ManageBloodBank extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtHospitalZipCode.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {

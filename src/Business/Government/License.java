@@ -12,12 +12,12 @@ import java.util.Date;
  *
  * @author mayan
  */
-public class LicenseOrganization {
+public class License {
 
     
     
     
-    public LicenseOrganization(){
+    public License(){
     //this.license = new LicenseOrganization();
     }
     
@@ -68,7 +68,7 @@ public class LicenseOrganization {
     private Long licenseNumber;
     private static int counter =0 ;
 
-    public LicenseOrganization(String licenseName, Date issueDate, Date expiryDate, Long licenseNumber) {
+    public License(String licenseName, Date issueDate, Date expiryDate, Long licenseNumber) {
         this.licenseId = ++counter;
         this.licenseName = licenseName;
         this.issueDate = issueDate;

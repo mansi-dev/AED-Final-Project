@@ -11,12 +11,12 @@ import java.util.ArrayList;
  *
  * @author mayan
  */
-public class TrainingOraganization {
+public class Training {
     
     
     
     
-    public TrainingOraganization(){
+    public Training(){
         
     }
 
@@ -100,7 +100,7 @@ public class TrainingOraganization {
     private Boolean transfusionReactions;
     private Boolean bagDisposal;    
 
-    public TrainingOraganization(Boolean patientIdentity, Boolean crossMatching, Boolean compatibility, Boolean problems, Boolean troubleShooting, Boolean issueOfBlood, Boolean transfusionReactions, Boolean bagDisposal) {
+    public Training(Boolean patientIdentity, Boolean crossMatching, Boolean compatibility, Boolean problems, Boolean troubleShooting, Boolean issueOfBlood, Boolean transfusionReactions, Boolean bagDisposal) {
         this.patientIdentity = patientIdentity;
         this.crossMatching = crossMatching;
         this.compatibility = compatibility;

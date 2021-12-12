@@ -6,7 +6,6 @@
 package Business.Population;
 
 import Business.UserAccount.User;
-import java.util.Date;
 
 /**
  *

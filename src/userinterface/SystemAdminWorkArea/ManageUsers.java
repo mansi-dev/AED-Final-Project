@@ -5,10 +5,14 @@
 package userinterface.SystemAdminWorkArea;
 
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.Organizations;
+import Business.Organization.PersonOrganization;
 import Business.Population.Person;
 import Business.UserAccount.User;
 import Business.UserAccount.UserAccount;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
@@ -22,6 +26,8 @@ import javax.swing.text.BadLocationException;
  * @author mansizope
  */
 public class ManageUsers extends javax.swing.JPanel {
+
+    private static int counter = 0;
 
     /**
      * Creates new form ManageUsers
@@ -326,20 +332,33 @@ public class ManageUsers extends javax.swing.JPanel {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         if (!txtName.getText().isEmpty() && !txtUsername.getText().isEmpty()
-            && !txtPassword.getText().isEmpty() && !txtAddress.getText().isEmpty() && !txtCity.getText().isEmpty()
-            && !txtState.getText().isEmpty() && !txtZipCode.getText().isEmpty() && !txtPhoneNum.getText().isEmpty()) {
-            UserAccount temp = EcoSystem.getInstance().getUserAccountDirectory().createUserAccount(txtName.getText(), txtUsername.getText(),
-                txtPassword.getText(), User.Role.Person);
+                && !txtPassword.getText().isEmpty() && !txtAddress.getText().isEmpty() && !txtCity.getText().isEmpty()
+                && !txtState.getText().isEmpty() && !txtZipCode.getText().isEmpty() && !txtPhoneNum.getText().isEmpty()) {
+//            UserAccount temp = EcoSystem.getInstance().getUserAccountDirectory().createUserAccount(txtName.getText(), txtUsername.getText(),
+//                txtPassword.getText(), User.Role.Person);
+            int id = ++counter;
+            ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+            Enterprise enterprise = enterpriseList.stream().filter(item -> "Population".equals(item.getName())).findFirst().orElse(null);
+            UserAccount temp = enterprise.getUserAccountDirectory().createUserAccount(txtName.getText(), txtUsername.getText(),
+                    txtPassword.getText(), enterprise.getSupportedRole().get(0));
+            for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o.getName().equalsIgnoreCase("Person Organization")) {
+                    PersonOrganization personOrg = (PersonOrganization) o;
+                    Person customer = (Person) personOrg.getPersonDirectory().addNewPerson(id);
+                    customer.setName(txtName.getText());
+                    customer.setAddress(txtAddress.getText());
+                    customer.setCity(txtCity.getText());
+                    customer.setState(txtState.getText());
+                    customer.setZipCode(txtZipCode.getText());
+                    customer.setPhoneNum(Long.parseLong(txtPhoneNum.getText()));
+                    customer.setEmail(txtEmail.getText());
+                    temp.setUser(customer);
 
-            Person customer = (Person) temp.getUser();
-            customer.setName(txtName.getText());
-            customer.setAddress(txtAddress.getText());
-            customer.setCity(txtCity.getText());
-            customer.setState(txtState.getText());
-            customer.setZipCode(txtZipCode.getText());
-            customer.setPhoneNum(Long.parseLong(txtPhoneNum.getText()));
-            customer.setEmail(txtEmail.getText());
-            JOptionPane.showMessageDialog(this, "Added user details");
+                    JOptionPane.showMessageDialog(this, "Added user details");
+                    break;
+                }
+            }
+
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
 
@@ -347,27 +366,53 @@ public class ManageUsers extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void populateResTable() {
-    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-    List<Person> userList = EcoSystem.getInstance().getPersonDirectory().getPersonList();
-    model.setRowCount(0);
-    for (User data : userList) {
-        Object[] row = new Object[8];
-        //row[0] = ++index;
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+//        List<Person> userList = EcoSystem.getInstance().getPersonDirectory().getPersonList();
+        model.setRowCount(0);
+//        for (User data : userList) {
+//            Object[] row = new Object[9];
+//            //row[0] = ++index;
+//
+//            row[0] = data;
+//            row[1] = data.getId();
+//            row[2] = data.getName();
+//            row[3] = data.getAddress();
+//            row[4] = data.getCity();
+//            row[5] = data.getState();
+//            row[6] = data.getPhoneNum();
+//            row[7] = data.getZipCode();
+//            row[8] = data.getEmail();
+//
+//            model.addRow(row);
+//
+//        }
+        for (Network network : EcoSystem.getInstance().getNetworkList()) {
+            for (Enterprise enterprise2 : network.getEnterpriseDirectory().getEnterpriseList()) {
+                if (enterprise2.getEnterpriseType().getValue().equalsIgnoreCase("Population")) {
+                    for (Organizations o : enterprise2.getOrganizationDirectory().getOrganizationList()) {
+                        if (o.getName().equalsIgnoreCase("Person Organization")) {
+                            PersonOrganization personOrg = (PersonOrganization) o;
+                            for (User data : personOrg.getPersonDirectory().getPersonList()) {
+                                Object[] row = new Object[9];
+                                row[0] = data;
+                                row[1] = data.getId();
+                                row[2] = data.getName();
+                                row[3] = data.getAddress();
+                                row[4] = data.getCity();
+                                row[5] = data.getState();
+                                row[6] = data.getPhoneNum();
+                                row[7] = data.getZipCode();
+                                row[8] = data.getEmail();
+                                model.addRow(row);
 
-        row[0] = data;
-        row[1] = data.getId();
-        row[2] = data.getName();
-        row[3] = data.getAddress();
-        row[4] = data.getCity();
-        row[5] = data.getState();
-        row[6] = data.getPhoneNum();
-        row[7] = data.getZipCode();
-
-        model.addRow(row);
-
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-}
-        
+
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -377,8 +422,8 @@ public class ManageUsers extends javax.swing.JPanel {
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
 
         if (!elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
-            && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
-            && !elementAt.get(7).toString().isEmpty()) {
+                && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
+                && !elementAt.get(7).toString().isEmpty()) {
             Person res = (Person) elementAt.get(0);
             res.setName(elementAt.get(2).toString());
             res.setAddress(elementAt.get(3).toString());
@@ -453,7 +498,7 @@ public class ManageUsers extends javax.swing.JPanel {
     private javax.swing.JTabbedPane usersTabbedPane;
     // End of variables declaration//GEN-END:variables
 
-        /**
+    /**
      * Function to validate number input. To check if text fields contain any
      * alphabets.
      */
@@ -534,7 +579,7 @@ public class ManageUsers extends javax.swing.JPanel {
         } catch (BadLocationException ex) {
         }
     }
-    
+
     private void addListeners() {
         txtPhoneNum.getDocument().addDocumentListener(new DocumentListener() {
             @Override

@@ -46,6 +46,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
         this.ecosystem = ecosystem;
         this.organization = organization;
         this.enterprise = enterprise;
+        this.account = account;
         this.userProcessContainer = userProcessContainer;
     }
 
@@ -201,7 +202,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
 //        jPanel2.remove(viewDonationHistory);
 //        jPanel2.remove(receiverHistory);
         jPanel2.removeAll();
-        donateBlood = new DonateBloodJPanel(loggedInUser);
+        donateBlood = new DonateBloodJPanel(userProcessContainer, ecosystem,enterprise, account);
 
         jPanel2.add(donateBlood);
 

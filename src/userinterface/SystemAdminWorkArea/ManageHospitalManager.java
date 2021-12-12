@@ -5,12 +5,18 @@
 package userinterface.SystemAdminWorkArea;
 
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
 import Business.Hospital.Doctor;
 import Business.Hospital.Hospital;
 import Business.Manager.Manager;
+import Business.Network.Network;
+import Business.Organization.HospitalManagerOrganization;
+import Business.Organization.Organizations;
+import Business.Organization.PersonOrganization;
 import Business.Population.Person;
 import Business.UserAccount.User;
 import Business.UserAccount.UserAccount;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -33,6 +39,7 @@ public class ManageHospitalManager extends javax.swing.JPanel {
         initComponents();
         addListeners();
     }
+    private static int counter = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -348,25 +355,41 @@ public class ManageHospitalManager extends javax.swing.JPanel {
     private void btnHospitalSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospitalSaveActionPerformed
         // TODO add your handling code here:
         if (!txtMgrName.getText().isEmpty() && !txtHospitalId.getText().isEmpty()
-            && !txtMgrAddr.getText().isEmpty() && !txtMgrCIty.getText().isEmpty()
-            && !txtMgrState.getText().isEmpty() && !txtMgrZipCode.getText().isEmpty() && !txtPhoneNum.getText().isEmpty()
-            && !txtEmailID.getText().isEmpty()) {
-        
-           UserAccount temp = EcoSystem.getInstance().getUserAccountDirectory().
-                 createUserAccount(txtMgrName.getText(),txtUsername.getText(),
-                         txtPassword.getText(), User.Role.Manager);
-        Manager manager = (Manager)temp.getUser();
-        manager.setAddress(txtMgrAddr.getText());
-        manager.setCity(txtMgrCIty.getText());
-        manager.setState(txtMgrState.getText());
-        manager.setZipCode(txtMgrZipCode.getText());
-        manager.setPhoneNum(Long.parseLong(txtPhoneNum.getText()));
-        manager.setHospitalByID(Integer.parseInt(txtHospitalId.getText()));
-        JOptionPane.showMessageDialog(this, "Added manager details");
-     }else{
-         JOptionPane.showMessageDialog(this, "Fields cannot be empty");
+                && !txtMgrAddr.getText().isEmpty() && !txtMgrCIty.getText().isEmpty()
+                && !txtMgrState.getText().isEmpty() && !txtMgrZipCode.getText().isEmpty() && !txtPhoneNum.getText().isEmpty()
+                && !txtEmailID.getText().isEmpty()) {
+            int id = ++counter;
 
-     }
+//           UserAccount temp = EcoSystem.getInstance().getUserAccountDirectory().
+//                 createUserAccount(txtMgrName.getText(),txtUsername.getText(),
+//                         txtPassword.getText(), User.Role.Manager);
+            ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+            Enterprise enterprise = enterpriseList.stream().filter(item -> "Hospital".equals(item.getName())).findFirst().orElse(null);
+            UserAccount temp = enterprise.getUserAccountDirectory().createUserAccount(txtMgrName.getText(), txtUsername.getText(),
+                    txtPassword.getText(), enterprise.getSupportedRole().get(0));
+            for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o.getName().equalsIgnoreCase("Hospital Manager Organization")) {
+                    HospitalManagerOrganization hosManagerOrg = (HospitalManagerOrganization) o;
+                    Manager manager = (Manager) hosManagerOrg.getManagerDirectory().createManager(id);
+                    manager.setName(txtMgrName.getText());
+                    manager.setEmail(txtEmailID.getText());
+                    manager.setAddress(txtMgrAddr.getText());
+                    manager.setCity(txtMgrCIty.getText());
+                    manager.setState(txtMgrState.getText());
+                    manager.setZipCode(txtMgrZipCode.getText());
+                    manager.setPhoneNum(Long.parseLong(txtPhoneNum.getText()));
+                    manager.setHospitalByID(Integer.parseInt(txtHospitalId.getText()));
+                    temp.setUser(manager);
+                    JOptionPane.showMessageDialog(this, "Added manager details");
+
+                    JOptionPane.showMessageDialog(this, "Added user details");
+                }
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Fields cannot be empty");
+
+        }
     }//GEN-LAST:event_btnHospitalSaveActionPerformed
 
     private void btnUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdate1ActionPerformed
@@ -378,8 +401,8 @@ public class ManageHospitalManager extends javax.swing.JPanel {
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
 
         if (!elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
-            && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
-            && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()) {
+                && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
+                && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()) {
             Hospital hospital = (Hospital) elementAt.get(0);
             hospital.setName(elementAt.get(2).toString());
             hospital.setAddress(elementAt.get(3).toString());
@@ -457,7 +480,7 @@ public class ManageHospitalManager extends javax.swing.JPanel {
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 
-            /**
+    /**
      * Function to validate number input. To check if text fields contain any
      * alphabets.
      */
@@ -538,31 +561,38 @@ public class ManageHospitalManager extends javax.swing.JPanel {
         } catch (BadLocationException ex) {
         }
     }
-    
-    
+
     private void populateManagerView() {
         DefaultTableModel model = (DefaultTableModel) tblHospView.getModel();
         List<Manager> managerList = EcoSystem.getInstance().getManagerDirectory().getManagerList();
         model.setRowCount(0);
-        for (Manager data : managerList) {
-            Object[] row = new Object[10];
-            //row[0] = ++index;
+        for (Network network : EcoSystem.getInstance().getNetworkList()) {
+            for (Enterprise enterprise2 : network.getEnterpriseDirectory().getEnterpriseList()) {
+                if (enterprise2.getEnterpriseType().getValue().equalsIgnoreCase("Hospital")) {
+                    for (Organizations o : enterprise2.getOrganizationDirectory().getOrganizationList()) {
+                        if (o.getName().equalsIgnoreCase("Hospital Manager Organization")) {
+                            HospitalManagerOrganization managerOrg = (HospitalManagerOrganization) o;
+                            for (User data : managerOrg.getManagerDirectory().getManagerList()) {
+                                Object[] row = new Object[9];
+                                row[0] = data;
+                                row[1] = data.getId();
+                                row[2] = data.getName();
+                                row[3] = data.getAddress();
+                                row[4] = data.getCity();
+                                row[5] = data.getState();
+                                row[6] = data.getPhoneNum();
+                                row[7] = data.getZipCode();
+                                row[8] = data.getEmail();
+                                model.addRow(row);
 
-            row[0] = data;
-            row[1] = data.getId();
-            row[2] = data.getName();
-            row[3] = data.getAddress();
-            row[4] = data.getCity();
-            row[5] = data.getState();
-            row[6] = data.getPhoneNum();
-            row[7] = data.getZipCode();
-            row[8] = data.getEmail();
-            row[9] = data.getHospital().getName();
-
-            model.addRow(row);
-
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
+
     private void addListeners() {
         txtPhoneNum.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -607,7 +637,7 @@ public class ManageHospitalManager extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtMgrName.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -628,7 +658,7 @@ public class ManageHospitalManager extends javax.swing.JPanel {
             }
 
         });
-        
+
         txtMgrCIty.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {

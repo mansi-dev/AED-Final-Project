@@ -5,7 +5,6 @@
  */
 package Business;
 
-
 import Business.Admin.AdminDirectory;
 import Business.BloodBank.BloodBankDirectory;
 import Business.BloodBank.BloodBankManagerDirectory;
@@ -14,6 +13,8 @@ import Business.Government.TrainingDirectory;
 import Business.Hospital.DoctorDirectory;
 import Business.Hospital.HospitalDirectory;
 import Business.Manager.ManagerDirectory;
+import Business.Network.Network;
+import Business.Organization.OrganizationDirectory;
 import Business.Organization.Organizations;
 import Business.Population.PersonDirectory;
 import Business.Population.Receiver;
@@ -26,10 +27,10 @@ import java.util.ArrayList;
  *
  * @author mansi
  */
-public class EcoSystem extends Organizations{
-    
+public class EcoSystem extends Organizations {
+
     private static EcoSystem business;
-    
+
     private Receiver recieverDirectory;
     private AdminDirectory adminDirectory;
     private PersonDirectory personDirectory;
@@ -41,6 +42,8 @@ public class EcoSystem extends Organizations{
     private GovernmentAdminDirectory governmentAdminDirectory;
     private BloodBankDirectory bloodBankDirectory;
     private BloodBankManagerDirectory bankManagerDirectory;
+    private ArrayList<Network> networkList;
+    private OrganizationDirectory organizationDirectory;
 
     public BloodBankDirectory getBloodBankDirectory() {
         return bloodBankDirectory;
@@ -57,8 +60,6 @@ public class EcoSystem extends Organizations{
     public void setBankManagerDirectory(BloodBankManagerDirectory bankManagerDirectory) {
         this.bankManagerDirectory = bankManagerDirectory;
     }
-    
-    
 
     public GovernmentAdminDirectory getGovernmentAdminDirectory() {
         return governmentAdminDirectory;
@@ -68,14 +69,14 @@ public class EcoSystem extends Organizations{
         this.governmentAdminDirectory = governmentAdminDirectory;
     }
 
-    public EcoSystem(Receiver recieverDirectory, DoctorDirectory doctorDirectory,HospitalDirectory hospitalDirectory, TrainingDirectory trainingDirectory, LicenseDirectory licenseDirectory) {
+    public EcoSystem(Receiver recieverDirectory, DoctorDirectory doctorDirectory, HospitalDirectory hospitalDirectory, TrainingDirectory trainingDirectory, LicenseDirectory licenseDirectory) {
 
         this.recieverDirectory = recieverDirectory;
         this.doctorDirectory = doctorDirectory;
         this.hospitalDirectory = hospitalDirectory;
         this.licenseDirectory = licenseDirectory;
         this.trainingDirectory = trainingDirectory;
-        
+
     }
 
     public TrainingDirectory getTrainingDirectory() {
@@ -93,18 +94,37 @@ public class EcoSystem extends Organizations{
     public void setLicenseDirectory(LicenseDirectory licenseDirectory) {
         this.licenseDirectory = licenseDirectory;
     }
-    
-    public static EcoSystem getInstance(){
-        if(business==null){
-            business=new EcoSystem();
+
+    public static EcoSystem getInstance() {
+        if (business == null) {
+            business = new EcoSystem();
         }
         return business;
     }
-    
-   
-    private EcoSystem(){
+
+    private EcoSystem() {
         super(null);
-       // networkList=new ArrayList<Network>();
+        networkList = new ArrayList<Network>();
+        organizationDirectory = new OrganizationDirectory();
+
+    }
+
+    public OrganizationDirectory getOrganizationDirectory() {
+        return organizationDirectory;
+    }
+
+    public void setOrganizationDirectory(OrganizationDirectory organizationDirectory) {
+        this.organizationDirectory = organizationDirectory;
+    }
+
+    public ArrayList<Network> getNetworkList() {
+        return networkList;
+    }
+
+    public Network addNetwork() {
+        Network network = new Network();
+        networkList.add(network);
+        return network;
     }
 
     public AdminDirectory getAdminDirectory() {
@@ -114,6 +134,7 @@ public class EcoSystem extends Organizations{
     public void setAdminDirectory(AdminDirectory adminDirectory) {
         this.adminDirectory = adminDirectory;
     }
+
     public PersonDirectory getPersonDirectory() {
         return personDirectory;
     }
@@ -153,16 +174,15 @@ public class EcoSystem extends Organizations{
     public void setManagerDirectory(ManagerDirectory managerDirectory) {
         this.managerDirectory = managerDirectory;
     }
-    
-    
-    public boolean checkIfUserIsUnique(String userName){
-       //
-       return false;
+
+    public boolean checkIfUserIsUnique(String userName) {
+        //
+        return false;
     }
 
     @Override
     public ArrayList<Role> getSupportedRole() {
-        ArrayList<Role> roleList=new ArrayList<Role>();
+        ArrayList<Role> roleList = new ArrayList<Role>();
         roleList.add(new SystemAdminRole());
         return roleList;
     }

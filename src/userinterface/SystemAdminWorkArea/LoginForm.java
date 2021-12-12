@@ -6,11 +6,14 @@ package userinterface.SystemAdminWorkArea;
 
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
+import Business.Network.Network;
 import Business.Organization.Organizations;
 import Business.UserAccount.User.Role;
 import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import userinterface.GovernmentRole.GovernmentWorkArea;
 import userinterface.HospitalWorkArea.HospitalJPanel;
@@ -167,61 +170,105 @@ public class LoginForm extends javax.swing.JPanel {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        UserAccount auth = system.getUserAccountDirectory().authenticateUser(txtUsername.getText(), txtPassword.getText());// getUserAccountList() authenticateUser(userNameJTextField,passwordField);
+        UserAccount userAccount = system.getUserAccountDirectory().authenticateUser(txtUsername.getText(), txtPassword.getText());// getUserAccountList() authenticateUser(userNameJTextField,passwordField);
        Enterprise inEnterprise=null;
         Organizations inOrganization=null;
-        if (auth == null) {
-            System.out.println("Enter correct credentials");
-            JOptionPane.showMessageDialog(this, "Enter correct credentials");
-        } else if (auth.getRole() == Role.Admin) {
-            SystemAdminWorkAreaJPanel systemAdminPanel = new SystemAdminWorkAreaJPanel(jPanel2,auth,inOrganization,inEnterprise, system);
+        Network n=new Network();
+        //Step1: Check in the system user account directory if you have the user
 
-            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            MainJFrame mj = (MainJFrame) topFrame;
-            mj.getContentPane().removeAll();
-            mj.getContentPane().add(systemAdminPanel);
-            mj.revalidate();
-            mj.pack();
-            mj.setSize(1425, 988);
-
-        } else if (auth.getRole() == Role.Person) {
-            ChooseUserJPanel chooseUserJPanel = new ChooseUserJPanel(jPanel2, auth, inOrganization,inEnterprise,system);
-
-            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            MainJFrame mj = (MainJFrame) topFrame;
-            mj.getContentPane().removeAll();
-            mj.getContentPane().add(chooseUserJPanel);
-            mj.revalidate();
-            mj.pack();
-            mj.setSize(1425, 988);
-
-            //this.pack();
-        } else if (auth.getRole() == Role.Manager) {
-
-            HospitalJPanel hospitalJPanel = new HospitalJPanel(jPanel2, auth, inOrganization,inEnterprise,system);
-
-            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            MainJFrame mj = (MainJFrame) topFrame;
-            mj.getContentPane().removeAll();
-            mj.getContentPane().add(hospitalJPanel);
-            mj.revalidate();
-            mj.pack();
-            mj.setSize(1425, 988);
-
-            //this.pack();
-        } else if (auth.getRole() == Role.GovernmentAdmin) {
-            GovernmentWorkArea governmentJPanel = new GovernmentWorkArea(jPanel2, auth, inOrganization,inEnterprise,system);
-
-            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            MainJFrame mj = (MainJFrame) topFrame;
-            mj.getContentPane().removeAll();
-            mj.getContentPane().add(governmentJPanel);
-            mj.revalidate();
-            mj.pack();
-            mj.setSize(1425, 988);
-
-            //this.pack();
+        if (userAccount == null) {
+            //Step2: Go inside each network to check each enterprise
+            for (Network network : system.getNetworkList()) {
+                //Step 2-a: Check against each enterprise
+                for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
+                    userAccount = enterprise.getUserAccountDirectory().authenticateUser(txtUsername.getText(), txtPassword.getText());
+                    if (userAccount == null) {
+                        //Step3: Check against each organization inside that enterprise
+                        for (Organizations organization : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                            userAccount = organization.getUserAccountDirectory().authenticateUser(txtUsername.getText(), txtPassword.getText());
+                            if (userAccount != null) {
+                                inEnterprise = enterprise;
+                                inOrganization = organization;
+                                break;
+                            }
+                        }
+                    } else {
+                        inEnterprise = enterprise;
+                        n=network;
+                        break;
+                    }
+                    if (inOrganization != null) {
+                        n=network;
+                        break;
+                    }
+                }
+                if (inEnterprise != null) {
+                    n=network;
+                    break;
+                }
+            }
         }
+        if (userAccount == null) {
+            JOptionPane.showMessageDialog(null, "Invalid Credentails!");
+        } else {
+             JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            MainJFrame mj = (MainJFrame) topFrame;
+            mj.getContentPane().removeAll();
+           
+            
+            JPanel createWorkArea = userAccount.getRole().createWorkArea(jPanel2, userAccount, inOrganization, inEnterprise, system);
+            mj.getContentPane().add(createWorkArea);
+            mj.revalidate();
+            mj.pack();
+            mj.setSize(1425, 988);
+        }
+        
+//        if (userAccount == null) {
+//            System.out.println("Enter correct credentials");
+//            JOptionPane.showMessageDialog(this, "Enter correct credentials");
+//        } else if (userAccount.getRole() == Role.Admin) {
+//            SystemAdminWorkAreaJPanel systemAdminPanel = new SystemAdminWorkAreaJPanel(jPanel2,auth,inOrganization,inEnterprise, system);
+//
+//           
+//
+//        } else if (auth.getRole() == Role.Person) {
+//            ChooseUserJPanel chooseUserJPanel = new ChooseUserJPanel(jPanel2, auth, inOrganization,inEnterprise,system);
+//
+//            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+//            MainJFrame mj = (MainJFrame) topFrame;
+//            mj.getContentPane().removeAll();
+//            mj.getContentPane().add(chooseUserJPanel);
+//            mj.revalidate();
+//            mj.pack();
+//            mj.setSize(1425, 988);
+//
+//            //this.pack();
+//        } else if (auth.getRole() == Role.Manager) {
+//
+//            HospitalJPanel hospitalJPanel = new HospitalJPanel(jPanel2, auth, inOrganization,inEnterprise,system);
+//
+//            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+//            MainJFrame mj = (MainJFrame) topFrame;
+//            mj.getContentPane().removeAll();
+//            mj.getContentPane().add(hospitalJPanel);
+//            mj.revalidate();
+//            mj.pack();
+//            mj.setSize(1425, 988);
+//
+//            //this.pack();
+//        } else if (auth.getRole() == Role.GovernmentAdmin) {
+//            GovernmentWorkArea governmentJPanel = new GovernmentWorkArea(jPanel2, auth, inOrganization,inEnterprise,system);
+//
+//            JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+//            MainJFrame mj = (MainJFrame) topFrame;
+//            mj.getContentPane().removeAll();
+//            mj.getContentPane().add(governmentJPanel);
+//            mj.revalidate();
+//            mj.pack();
+//            mj.setSize(1425, 988);
+//
+//            //this.pack();
+//        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
 

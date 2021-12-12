@@ -5,20 +5,24 @@
 package Business.Hospital;
 
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Organization.HospitalOrganization;
+import Business.Organization.Organizations;
 import Business.UserAccount.User;
+import java.util.ArrayList;
 
 /**
  *
  * @author mansizope
  */
-public class Doctor extends User{
-    
+public class Doctor extends User {
+
     private long employeeId;
     private boolean isTrained;
     private String degree;
     private String specialization;
     private Hospital hospital;
-    
+
     public Doctor(int id) {
         super(id);
     }
@@ -63,15 +67,21 @@ public class Doctor extends User{
         this.hospital = hospital;
     }
 
-     public void setHospitalByID(int id){
-        this.hospital=EcoSystem.getInstance().getHospitalDirectory().getHospitalByID(id);
+    public void setHospitalByID(int id) {
+        ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+        Enterprise enterprise = enterpriseList.stream().filter(item -> "Hospital".equals(item.getName())).findFirst().orElse(null);
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (o.getName().equalsIgnoreCase("Hospital Organization")) {
+                HospitalOrganization hsoOrg = (HospitalOrganization) o;
+                this.hospital = hsoOrg.getHospitalDirectory().getHospitalByID(id);
+                break;
+            }
+        }
     }
-         
+
     @Override
     public String toString() {
         return "Doctor{" + "employeeId=" + employeeId + ", isTrained=" + isTrained + ", degree=" + degree + ", specialization=" + specialization + '}';
     }
-    
-    
-    
+
 }

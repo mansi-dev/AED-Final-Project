@@ -6,7 +6,8 @@ package Business.UserAccount;
 
 import Business.EcoSystem;
 import Business.Employee.Employee;
-import Business.UserAccount.User.Role;
+import Business.Role.Role;
+//import Business.UserAccount.User.Role;
 import Business.WorkQueue.WorkQueue;
 
 /**
@@ -25,6 +26,7 @@ public class UserAccount {
     private int accountId;
 
     public UserAccount() {
+        //accountId = ++counter;
         workQueue = new WorkQueue();
     }
     
@@ -33,12 +35,12 @@ public class UserAccount {
         this.password = password;
         this.role = role;
         accountId = ++counter;
-        if(role==Role.Admin)this.user = EcoSystem.getInstance().getAdminDirectory().createAdmin(accountId);
-        if(role==Role.Person)this.user = EcoSystem.getInstance().getPersonDirectory().addNewPerson(accountId);
-        if(role==Role.Doctor)this.user = EcoSystem.getInstance().getDoctorDirectory().addNewDoctor(accountId);
-        if(role==Role.Manager)this.user = EcoSystem.getInstance().getManagerDirectory().createManager(accountId);
-        if(role==Role.GovernmentAdmin)this.user = EcoSystem.getInstance().getGovernmentAdminDirectory().createGovernmentAdmin(accountId);
-        if(role==Role.BloodBankManager)this.user = EcoSystem.getInstance().getBankManagerDirectory().createAdmin(accountId);
+//        if(role==Role.Admin)this.user = EcoSystem.getInstance().getAdminDirectory().createAdmin(accountId);
+//        if(role==Role.Person)this.user = EcoSystem.getInstance().getPersonDirectory().addNewPerson(accountId);
+//        if(role==Role.Doctor)this.user = EcoSystem.getInstance().getDoctorDirectory().addNewDoctor(accountId);
+//        if(role==Role.Manager)this.user = EcoSystem.getInstance().getManagerDirectory().createManager(accountId);
+//        if(role==Role.GovernmentAdmin)this.user = EcoSystem.getInstance().getGovernmentAdminDirectory().createGovernmentAdmin(accountId);
+//        if(role==Role.BloodBankManager)this.user = EcoSystem.getInstance().getBankManagerDirectory().createAdmin(accountId);
 
         this.user.setName(name);
     }
