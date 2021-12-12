@@ -6,6 +6,7 @@ package userinterface.HospitalWorkArea;
 
 import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
+
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organizations;
 import Business.UserAccount.UserAccount;
@@ -23,6 +24,9 @@ public class HospitalJPanel extends javax.swing.JPanel {
 
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
     EcoSystem ecosystem;
+    UserAccount auth;
+
+        
     JPanel userProcessContainer;
     UserAccount account;
     Organizations organization;
@@ -175,6 +179,11 @@ public class HospitalJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSellBloodSampleActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        jPanel1.removeAll();
+        ViewInventory viewInventory = new ViewInventory(auth);
+        jPanel1.add(viewInventory);
+        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
+        cardLayout.next(jPanel1);
     }//GEN-LAST:event_btnViewActionPerformed
 
 
