@@ -5,6 +5,7 @@
  */
 package Business.Enterprise;
 
+import Business.Role.PersonRole;
 import Business.Role.Role;
 import java.util.ArrayList;
 
@@ -18,9 +19,13 @@ public class PopulationEnterprise extends Enterprise {
         super(name,EnterpriseType.Population);
     }
 
+    
+     
     @Override
     public ArrayList<Role> getSupportedRole() {
-        return null;
+        ArrayList<Role> roles = new ArrayList();
+        roles.add(new PersonRole());
+        return roles;
     }
 
     
