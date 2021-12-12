@@ -53,12 +53,19 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
         receiverTrnTbl = new javax.swing.JTable();
         btnUpdateTrn = new javax.swing.JButton();
         btnDeleteTrn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel3.setText("View Receiver History");
 
+        receiverLbl1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         receiverLbl1.setText("Receiver Details:");
 
+        receiverTbl.setBackground(new java.awt.Color(255, 204, 204));
         receiverTbl.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        receiverTbl.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         receiverTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -90,6 +97,7 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
             receiverTbl.getColumnModel().getColumn(0).setMaxWidth(1);
         }
 
+        btnUpdateReceiver.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnUpdateReceiver.setText("Update");
         btnUpdateReceiver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +105,7 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
             }
         });
 
+        btnDeleteReceiver.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnDeleteReceiver.setText("Delete");
         btnDeleteReceiver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,9 +113,12 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
             }
         });
 
+        trnLbl1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         trnLbl1.setText("Transaction Details:");
 
+        receiverTrnTbl.setBackground(new java.awt.Color(255, 204, 204));
         receiverTrnTbl.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        receiverTrnTbl.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         receiverTrnTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -133,6 +145,7 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
             receiverTrnTbl.getColumnModel().getColumn(0).setMaxWidth(1);
         }
 
+        btnUpdateTrn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnUpdateTrn.setText("Update");
         btnUpdateTrn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,6 +153,7 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
             }
         });
 
+        btnDeleteTrn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnDeleteTrn.setText("Delete");
         btnDeleteTrn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,68 +161,77 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/receiver.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1050, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnUpdateReceiver)
-                        .addGap(35, 35, 35)
-                        .addComponent(btnDeleteReceiver)
-                        .addGap(290, 290, 290))))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(822, 822, 822)
-                        .addComponent(btnUpdateTrn)
-                        .addGap(34, 34, 34)
-                        .addComponent(btnDeleteTrn))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(receiverLbl1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(490, 490, 490)
-                        .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1046, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1050, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(trnLbl1)))
+                        .addGap(807, 807, 807)
+                        .addComponent(btnUpdateTrn)
+                        .addGap(34, 34, 34)
+                        .addComponent(btnDeleteTrn)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(receiverLbl1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(btnUpdateReceiver)
+                                    .addGap(35, 35, 35)
+                                    .addComponent(btnDeleteReceiver)
+                                    .addGap(81, 81, 81))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1046, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addContainerGap()))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(trnLbl1)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(255, 255, 255)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel3)
-                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel2)))
+                .addGap(16, 16, 16)
                 .addComponent(receiverLbl1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdateReceiver)
                     .addComponent(btnDeleteReceiver))
-                .addGap(51, 51, 51)
+                .addGap(42, 42, 42)
                 .addComponent(trnLbl1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(79, 79, 79))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnUpdateTrn)
-                            .addComponent(btnDeleteTrn))
-                        .addGap(15, 15, 15))))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpdateTrn)
+                    .addComponent(btnDeleteTrn))
+                .addGap(15, 15, 15))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -379,6 +402,7 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
     private javax.swing.JButton btnDeleteTrn;
     private javax.swing.JButton btnUpdateReceiver;
     private javax.swing.JButton btnUpdateTrn;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;

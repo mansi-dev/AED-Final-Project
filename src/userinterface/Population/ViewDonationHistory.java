@@ -71,10 +71,13 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         btnDeleteTrn = new javax.swing.JButton();
         donorLbl = new javax.swing.JLabel();
         trnLbl = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
+        donorTable.setBackground(new java.awt.Color(255, 204, 204));
         donorTable.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        donorTable.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         donorTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -106,6 +109,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             donorTable.getColumnModel().getColumn(0).setMaxWidth(1);
         }
 
+        btnUpdateDonor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnUpdateDonor.setText("Update");
         btnUpdateDonor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +117,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             }
         });
 
+        btnDeleteDonor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnDeleteDonor.setText("Delete");
         btnDeleteDonor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,9 +125,12 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel2.setText("View Donation History");
 
+        donorTrnTable.setBackground(new java.awt.Color(255, 204, 204));
         donorTrnTable.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        donorTrnTable.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         donorTrnTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null},
@@ -149,6 +157,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             donorTrnTable.getColumnModel().getColumn(0).setMaxWidth(1);
         }
 
+        btnUpdateTrn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnUpdateTrn.setText("Update");
         btnUpdateTrn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +165,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             }
         });
 
+        btnDeleteTrn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnDeleteTrn.setText("Delete");
         btnDeleteTrn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,31 +173,19 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             }
         });
 
+        donorLbl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         donorLbl.setText("Donor Details:");
 
+        trnLbl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         trnLbl.setText("Transaction Details:");
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Donor.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1157, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1163, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(donorLbl)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(929, Short.MAX_VALUE)
-                .addComponent(btnUpdateDonor)
-                .addGap(18, 18, 18)
-                .addComponent(btnDeleteDonor)
-                .addGap(50, 50, 50))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnUpdateTrn)
@@ -195,32 +193,54 @@ public class ViewDonationHistory extends javax.swing.JPanel {
                 .addComponent(btnDeleteTrn)
                 .addGap(48, 48, 48))
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1195, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1195, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 975, Short.MAX_VALUE)
+                        .addComponent(btnUpdateDonor)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDeleteDonor)
+                        .addGap(40, 40, 40)))
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
+                        .addContainerGap()
                         .addComponent(trnLbl))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(419, 419, 419)
-                        .addComponent(jLabel2)))
+                        .addContainerGap()
+                        .addComponent(donorLbl))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(244, 244, 244)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel2)
-                .addGap(31, 31, 31)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(donorLbl)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdateDonor)
                     .addComponent(btnDeleteDonor))
-                .addGap(29, 29, 29)
+                .addGap(30, 30, 30)
                 .addComponent(trnLbl)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdateTrn)
@@ -458,6 +478,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
     private javax.swing.JTable donorTable;
     private javax.swing.JTable donorTrnTable;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
