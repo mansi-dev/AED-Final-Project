@@ -5,7 +5,8 @@
 package Business.Hospital;
 
 import Business.BloodBank.BloodStock;
-import Business.Organization.Organizations;
+import Business.Government.License;
+import Business.Government.Training;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,9 @@ public class Hospital{
     private long phoneNum;
     private String email;
     private boolean isLicensed;
+    private boolean isTrained;
+    private License license;
+    private Training training;
 
     private List<BloodStock> bloodStock = new ArrayList<>();
     
@@ -107,7 +111,33 @@ public class Hospital{
         this.bloodStock = bloodStock;
     }
 
-    public Hospital(long id, String name, String address, String city, String state, String zipCode, long phoneNum, String email, boolean isLicensed, List<BloodStock> bloodStock) {
+    public boolean isIsTrained() {
+        return isTrained;
+    }
+
+    public void setIsTrained(boolean isTrained) {
+        this.isTrained = isTrained;
+    }
+
+    public License getLicense() {
+        return license;
+    }
+
+    public void setLicense(License license) {
+        this.license = license;
+    }
+
+    public Training getTraining() {
+        return training;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
+    }
+
+    
+    
+    public Hospital(long id, String name, String address, String city, String state, String zipCode, long phoneNum, String email, boolean isLicensed, List<BloodStock> bloodStock, boolean isTrained) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -118,6 +148,7 @@ public class Hospital{
         this.email = email;
         this.isLicensed = isLicensed;
         this.bloodStock = bloodStock;
+        this.isTrained = isTrained;
     }
 
     @Override

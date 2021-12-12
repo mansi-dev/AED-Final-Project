@@ -3,49 +3,46 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.GovernmentRole;
+package userinterface.BloodBank;
 
+import userinterface.SystemAdminWorkArea.*;
 import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
-import Business.Government.LicenseDirectory;
-import Business.Government.TrainingDirectory;
 import Business.Organization.Organizations;
 import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import javax.swing.SwingUtilities;
-import userinterface.SystemAdminWorkArea.LoginForm;
 
 /**
  *
- * @author Mayan Mishra
+ * @author MyPC1
  */
-public class GovernmentWorkArea extends javax.swing.JPanel {
+public class BloodBankManagerAreaJPanel extends javax.swing.JPanel {
 
-    ViewJPanel viewPanel;
-
-    private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
+    /**
+     * Creates new form SystemAdminWorkAreaJPanel
+     */
+    //JPanel userProcessContainer;
     EcoSystem ecosystem;
-    LicenseDirectory licenseDir;
-    TrainingDirectory trainingDir;
+    
     JPanel userProcessContainer;
     UserAccount account;
     Organizations organization;
     Enterprise enterprise;
+        
+    private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
 
-    /**
-     * Creates new form GovernmentWorkArea
-     */
-    public GovernmentWorkArea(JPanel userProcessContainer, UserAccount account, Organizations organization, Enterprise enterprise, EcoSystem business) {
+    public BloodBankManagerAreaJPanel(JPanel userProcessContainer, UserAccount account, Organizations organization, Enterprise enterprise, EcoSystem ecosystem) {
+
         initComponents();
-        this.ecosystem = business;
-        this.account = account;
-
+        this.ecosystem = ecosystem;
         this.organization = organization;
         this.enterprise = enterprise;
         this.userProcessContainer = userProcessContainer;
-
     }
 
     /**
@@ -57,49 +54,42 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        GovernmentSplitPane = new javax.swing.JSplitPane();
+        jSplitPane2 = new javax.swing.JSplitPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnCreateLicenseTraining = new javax.swing.JButton();
-        btnViewLicenseTraining = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
 
         setLayout(new java.awt.GridLayout(1, 0));
 
-        GovernmentSplitPane.setDividerSize(1);
-        GovernmentSplitPane.setPreferredSize(new java.awt.Dimension(141, 243));
+        jSplitPane2.setDividerSize(1);
+        jSplitPane2.setPreferredSize(new java.awt.Dimension(141, 243));
 
         jPanel2.setBackground(new java.awt.Color(255, 102, 102));
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel2.setPreferredSize(new java.awt.Dimension(145, 243));
+        jPanel2.setPreferredSize(new java.awt.Dimension(160, 243));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Government Admin");
+        jLabel1.setText("BloodBank Manager");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
 
-        btnCreateLicenseTraining.setBackground(new java.awt.Color(255, 255, 255));
-        btnCreateLicenseTraining.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnCreateLicenseTraining.setText("Create License/Training");
-        btnCreateLicenseTraining.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("Manage Donation Request");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateLicenseTrainingActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        btnViewLicenseTraining.setBackground(new java.awt.Color(255, 255, 255));
-        btnViewLicenseTraining.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnViewLicenseTraining.setText("View License/Training");
-        btnViewLicenseTraining.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("View Inventory");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewLicenseTrainingActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
-        btnLogout.setBackground(new java.awt.Color(255, 255, 255));
-        btnLogout.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,11 +109,8 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCreateLicenseTraining, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnViewLicenseTraining, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -131,50 +118,46 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addGap(63, 63, 63)
-                .addComponent(btnCreateLicenseTraining)
+                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnViewLicenseTraining)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 562, Short.MAX_VALUE)
-                .addComponent(btnLogout)
-                .addGap(33, 33, 33))
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 440, Short.MAX_VALUE)
+                .addComponent(btnLogout))
         );
 
-        GovernmentSplitPane.setLeftComponent(jPanel2);
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel2});
+
+        jSplitPane2.setLeftComponent(jPanel2);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setMinimumSize(new java.awt.Dimension(950, 780));
-        jPanel1.setPreferredSize(new java.awt.Dimension(950, 780));
         jPanel1.setLayout(new java.awt.CardLayout());
-        GovernmentSplitPane.setRightComponent(jPanel1);
+        jSplitPane2.setRightComponent(jPanel1);
 
-        add(GovernmentSplitPane);
+        add(jSplitPane2);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCreateLicenseTrainingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateLicenseTrainingActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        jPanel1.remove(manageUsers);
+        jPanel1.remove(manageHospitalManager);
+        jPanel1.add(manageHospital);
+
+        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
+        cardLayout.next(jPanel1);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        //        jPanel1.remove(manageHospital);
-        //        jPanel1.add(manageUsers);
-        //        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
-        //        cardLayout.next(jPanel1);
-        GovernmentPanel createPanel = new GovernmentPanel(this.enterprise,this.ecosystem);
-        GovernmentSplitPane.setRightComponent(createPanel);
-    }//GEN-LAST:event_btnCreateLicenseTrainingActionPerformed
-
-    private void btnViewLicenseTrainingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewLicenseTrainingActionPerformed
-        // TODO add your handling code here:
-        //        jPanel1.remove(manageUsers);
-        //        jPanel1.add(manageHospital);
-        //
-        //        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
-        //        cardLayout.next(jPanel1);
-
-        ViewJPanel viewPanel = new ViewJPanel(this.enterprise,this.ecosystem);
-        GovernmentSplitPane.setRightComponent(viewPanel);
-    }//GEN-LAST:event_btnViewLicenseTrainingActionPerformed
+        jPanel1.remove(manageHospital);
+        jPanel1.remove(manageHospitalManager);
+        jPanel1.add(manageUsers);
+        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
+        cardLayout.next(jPanel1);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
@@ -189,13 +172,13 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JSplitPane GovernmentSplitPane;
-    private javax.swing.JButton btnCreateLicenseTraining;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnViewLicenseTraining;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JSplitPane jSplitPane2;
     // End of variables declaration//GEN-END:variables
 }

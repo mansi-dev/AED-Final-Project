@@ -83,6 +83,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
 
+        donateBldBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         donateBldBtn.setText("Donate Blood");
         donateBldBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +91,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
             }
         });
 
+        receiveBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         receiveBtn.setText("Receive Blood");
         receiveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +99,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
             }
         });
 
+        donateHistBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         donateHistBtn.setText("View Donation History");
         donateHistBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +107,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
             }
         });
 
+        receiveHistBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         receiveHistBtn.setText("View Receiver History");
         receiveHistBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,6 +115,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnLogout.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,19 +127,17 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(receiveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(donateBldBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(donateHistBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(receiveHistBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(receiveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(donateHistBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(receiveHistBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(donateBldBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,12 +150,9 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
                 .addComponent(donateHistBtn)
                 .addGap(18, 18, 18)
                 .addComponent(receiveHistBtn)
-                .addContainerGap(335, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(293, 293, 293)
-                    .addComponent(btnLogout)
-                    .addContainerGap(294, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)
+                .addComponent(btnLogout)
+                .addGap(32, 32, 32))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
@@ -188,7 +188,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
 //        jPanel2.remove(receieveBlood);
 //        jPanel2.remove(receiverHistory);
 //        jPanel2.remove(donateBlood);
-        viewDonationHistory = new ViewDonationHistory(EcoSystem.getInstance().getPersonDirectory());
+        viewDonationHistory = new ViewDonationHistory(userProcessContainer, ecosystem,enterprise, account);
         jPanel2.removeAll();
         jPanel2.add(viewDonationHistory);
 

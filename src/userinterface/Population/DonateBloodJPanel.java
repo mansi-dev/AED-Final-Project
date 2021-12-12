@@ -8,14 +8,14 @@ package userinterface.Population;
 import Business.BloodBank.BloodBank;
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
-import Business.Enterprise.PopulationEnterprise;
-import Business.Network.Network;
+import Business.Organization.BloodBankOrganization;
 import Business.Organization.Organizations;
 import Business.Organization.PersonOrganization;
 import Business.Population.DonorTransaction;
 import Business.Population.Person;
 import Business.UserAccount.UserAccount;
-import Business.WorkQueue.BloodBankWorkRequest;
+import Business.WorkQueue.DonateBloodWorkRequest;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -28,13 +28,15 @@ import javax.swing.text.BadLocationException;
  * @author neeraja
  */
 public class DonateBloodJPanel extends javax.swing.JPanel {
+
     String loggedInUser;
-     JPanel userProcessContainer;
+    JPanel userProcessContainer;
 
     EcoSystem business;
 
     Enterprise enterprise;
     UserAccount userAccount;
+
     /**
      * Creates new form DonateBloodJPanel
      */
@@ -86,6 +88,7 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         lastDonatedDate = new com.toedter.calendar.JDateChooser();
         bloodbankLbl = new javax.swing.JLabel();
         bloodbankCombo = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -93,90 +96,118 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("DONATE BLOOD");
 
+        donorLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         donorLbl.setText("Donor Name:");
 
+        phoneNoLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         phoneNoLbl.setText("Donor Phone Number:");
 
+        ageLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         ageLbl.setText("Age:");
 
+        heightLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         heightLbl.setText("Height:");
 
+        weightLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         weightLbl.setText("Weight:");
 
+        hbLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         hbLbl.setText("Haemoglobin Level: ");
 
+        bloodGrpLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bloodGrpLbl.setText("Blood Group:");
 
+        lastDonateLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lastDonateLbl.setText("Blood Last Donated On:");
 
+        unitsLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         unitsLbl.setText("Number of Units:");
 
+        donationDateLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         donationDateLbl.setText("Blood Donation Date:");
 
+        diseasesLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         diseasesLbl.setText("Other Diseases");
 
-        saveBtn.setText("Donate");
+        saveBtn.setText("Request to Donate");
+
         saveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveBtnActionPerformed(evt);
             }
         });
 
+        emailLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         emailLbl.setText("Email ID:");
 
+        bloodbankLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bloodbankLbl.setText("Blood Banks:");
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Donor.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bloodbankLbl)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(saveBtn)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(donorLbl)
-                                .addComponent(phoneNoLbl)
-                                .addComponent(ageLbl)
-                                .addComponent(heightLbl)
-                                .addComponent(weightLbl)
-                                .addComponent(hbLbl)
-                                .addComponent(bloodGrpLbl)
-                                .addComponent(lastDonateLbl)
-                                .addComponent(unitsLbl)
-                                .addComponent(donationDateLbl)
-                                .addComponent(diseasesLbl)
-                                .addComponent(emailLbl))
-                            .addGap(89, 89, 89)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(bloodbankCombo, 0, 202, Short.MAX_VALUE)
-                                .addComponent(donorTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                                .addComponent(phoneNoTxt)
-                                .addComponent(ageTxt)
-                                .addComponent(heightTxt)
-                                .addComponent(weightTxt)
-                                .addComponent(hbTxt)
-                                .addComponent(bloodGrpTxt)
-                                .addComponent(unitsTxt)
-                                .addComponent(diseasesCheck)
-                                .addComponent(emailTxt)
-                                .addComponent(donationDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lastDonatedDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(258, 258, 258)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(419, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(287, 287, 287)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bloodbankLbl)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(donorLbl)
+                                    .addComponent(phoneNoLbl)
+                                    .addComponent(ageLbl)
+                                    .addComponent(heightLbl)
+                                    .addComponent(weightLbl)
+                                    .addComponent(hbLbl)
+                                    .addComponent(bloodGrpLbl)
+                                    .addComponent(lastDonateLbl)
+                                    .addComponent(unitsLbl)
+                                    .addComponent(donationDateLbl)
+                                    .addComponent(diseasesLbl)
+                                    .addComponent(emailLbl))
+                                .addGap(89, 89, 89)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(bloodbankCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(donorTxt)
+                                    .addComponent(phoneNoTxt)
+                                    .addComponent(ageTxt)
+                                    .addComponent(heightTxt)
+                                    .addComponent(weightTxt)
+                                    .addComponent(hbTxt)
+                                    .addComponent(bloodGrpTxt)
+                                    .addComponent(unitsTxt)
+                                    .addComponent(diseasesCheck)
+                                    .addComponent(emailTxt)
+                                    .addComponent(donationDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lastDonatedDate, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(152, 152, 152)
+                                .addComponent(saveBtn))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(220, 220, 220)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)))
+                .addContainerGap(361, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(61, 61, 61)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(57, 57, 57))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(donorLbl)
                     .addComponent(donorTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -225,22 +256,31 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
                             .addComponent(diseasesLbl)
                             .addComponent(diseasesCheck)))
                     .addComponent(donationDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bloodbankLbl)
                     .addComponent(bloodbankCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(saveBtn)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(6, 6, 6))
         );
     }// </editor-fold>//GEN-END:initComponents
-    private void populateBloodBank(){
-        List<BloodBank> bloodBankList = EcoSystem.getInstance().getBloodBankDirectory().getBloodBankList();
-        for (BloodBank bloodBank : bloodBankList) {
-            bloodbankCombo.addItem(bloodBank.getName());
+    private void populateBloodBank() {
+        ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+        Enterprise enterprise = enterpriseList.stream().filter(item -> "BloodBank".equals(item.getName())).findFirst().orElse(null);
+
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (o.getName().equalsIgnoreCase("BloodBank Organization")) {
+                BloodBankOrganization bbOrg = (BloodBankOrganization) o;
+                for (BloodBank bloodBank : bbOrg.getBloodBankDirectory().getBloodBankList()) {
+                    bloodbankCombo.addItem(bloodBank.getName());
+                }
+            }
         }
+
     }
-    private void populateInitialValues(){
+
+    private void populateInitialValues() {
         Person person = EcoSystem.getInstance().getPersonDirectory().getPersonByUsername(loggedInUser);
         String name = person.getName();
         String email = person.getEmail();
@@ -252,12 +292,21 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         // TODO add your handling code here:
         if (!ageTxt.getText().isEmpty() && !bloodGrpTxt.getText().isEmpty()
-            && !donorTxt.getText().isEmpty() && !emailTxt.getText().isEmpty() && !hbTxt.getText().isEmpty()
-            && !heightTxt.getText().isEmpty() && !phoneNoTxt.getText().isEmpty() && !unitsTxt.getText().isEmpty()
-            && !weightTxt.getText().isEmpty() && !lastDonatedDate.getDate().toString().isEmpty() && !donationDate.getDate().toString().isEmpty() ) {
-         
-            Person person = EcoSystem.getInstance().getPersonDirectory().getPersonByPhoneNum(Long.parseLong(phoneNoTxt.getText()));
-            
+                && !donorTxt.getText().isEmpty() && !emailTxt.getText().isEmpty() && !hbTxt.getText().isEmpty()
+                && !heightTxt.getText().isEmpty() && !phoneNoTxt.getText().isEmpty() && !unitsTxt.getText().isEmpty()
+                && !weightTxt.getText().isEmpty()  && !donationDate.getDate().toString().isEmpty()) {
+
+            Person person = null;
+            ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+            Enterprise enterpriseTemp = enterpriseList.stream().filter(item -> "Population".equals(item.getName())).findFirst().orElse(null);
+            for (Organizations organization : enterpriseTemp.getOrganizationDirectory().getOrganizationList()) {
+                if (organization.getName().equals("Person Organization")) {
+                    PersonOrganization perOrg = (PersonOrganization) organization;
+                    person = perOrg.getPersonDirectory().getPersonByPhoneNum(Long.parseLong(phoneNoTxt.getText()));
+                    break;
+                }
+            }
+
             DonorTransaction dt = person.addNewDonorTransaction();
             dt.setHblevel(Float.parseFloat(hbTxt.getText()));
             dt.setBloodDonationDate(donationDate.getDate());
@@ -269,44 +318,32 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
             dt.setHeight(Float.parseFloat(heightTxt.getText()));
             dt.setWeight(Float.parseFloat(weightTxt.getText()));
             dt.setBloodBankByID(((String) bloodbankCombo.getSelectedItem()));
-                    Organizations org = null;
 
-            for (Network network : EcoSystem.getInstance().getNetworkList()) {
-            for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
-                if (enterprise instanceof PopulationEnterprise) {
-                    PopulationEnterprise en = (PopulationEnterprise) enterprise;
+            Organizations org = null;
+            enterpriseTemp = enterpriseList.stream().filter(item -> "BloodBank".equals(item.getName())).findFirst().orElse(null);
 
-                    for (Organizations organization : en.getOrganizationDirectory().getOrganizationList()) {
-                        System.out.println(en.getOrganizationDirectory().getOrganizationList());
-                        if (organization instanceof PersonOrganization) {
+            for (Organizations organization : enterpriseTemp.getOrganizationDirectory().getOrganizationList()) {
+                if (organization.getName().equals("BloodBank Organization")) {
 
-                            System.out.println(organization);
-                            org = organization;
-                            break;
-                        }
-                    }
-                    if (org != null) {
-                        break;
-                    }
+                    System.out.println(organization);
+                    org = organization;
+                    break;
                 }
             }
             if (org != null) {
-                break;
+                DonateBloodWorkRequest bloodBankWorkRequest = new DonateBloodWorkRequest();
+                bloodBankWorkRequest.setDonorTransaction(dt);
+                bloodBankWorkRequest.setStatus("Pending");
+                bloodBankWorkRequest.setMessage("Donate blood");
+                bloodBankWorkRequest.setSender(userAccount);
+                System.out.println(org.getWorkQueue().getWorkRequestList());
+                org.getWorkQueue().getWorkRequestList().add(bloodBankWorkRequest);
+                // System.out.println(org.getWorkQueue().getWorkRequestList());
+                userAccount.getWorkQueue().getWorkRequestList().add(bloodBankWorkRequest);
+                JOptionPane.showMessageDialog(null, "Requested for donation");
+
             }
-        }
-         if (org != null) {
-            BloodBankWorkRequest bloodBankWorkRequest = new BloodBankWorkRequest();
-            bloodBankWorkRequest.setDonorTransaction(dt);
-            bloodBankWorkRequest.setStatus("Pending");
-            bloodBankWorkRequest.setMessage("Ordered");
-            bloodBankWorkRequest.setSender(userAccount);
-            System.out.println(org.getWorkQueue().getWorkRequestList());
-            org.getWorkQueue().getWorkRequestList().add(bloodBankWorkRequest);
-            // System.out.println(org.getWorkQueue().getWorkRequestList());
-            userAccount.getWorkQueue().getWorkRequestList().add(bloodBankWorkRequest);
-        }
-            
-          
+
             JOptionPane.showMessageDialog(this, "Added donor details to the system");
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
@@ -314,7 +351,7 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_saveBtnActionPerformed
 
-            /**
+    /**
      * Function to validate number input. To check if text fields contain any
      * alphabets.
      */
@@ -395,6 +432,7 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         } catch (BadLocationException ex) {
         }
     }
+
     private void addListeners() {
         ageTxt.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -420,20 +458,20 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         heightTxt.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                 validateNumberInput(e);
-               
+                validateNumberInput(e);
+
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                  validateNumberInput(e);
-                
+                validateNumberInput(e);
+
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                  validateNumberInput(e);
-                
+                validateNumberInput(e);
+
             }
 
         });
@@ -531,6 +569,7 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel heightLbl;
     private javax.swing.JTextField heightTxt;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lastDonateLbl;
     private com.toedter.calendar.JDateChooser lastDonatedDate;
     private javax.swing.JLabel phoneNoLbl;

@@ -6,13 +6,24 @@
 package userinterface.Population;
 
 import Business.EcoSystem;
+import Business.Enterprise.BloodBankEnterprise;
+import Business.Enterprise.Enterprise;
+import Business.Enterprise.PopulationEnterprise;
+import Business.Network.Network;
+import Business.Organization.BloodBankOrganization;
+import Business.Organization.Organizations;
+import Business.Organization.PersonOrganization;
 import Business.Population.DonorTransaction;
 import Business.Population.Person;
 import Business.Population.PersonDirectory;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.DonateBloodWorkRequest;
+import Business.WorkQueue.WorkRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,10 +37,16 @@ public class ViewDonationHistory extends javax.swing.JPanel {
      * Creates new form ViewDonationHistory
      */
     PersonDirectory personDirectory;
-    public ViewDonationHistory( PersonDirectory personDirectory) {
-        this.personDirectory = personDirectory;
+    JPanel userProcessContainer;
+    EcoSystem business;
+    Enterprise enterprise;
+    UserAccount userAccount;
+    
+    public ViewDonationHistory(JPanel userProcessContainer, EcoSystem business, Enterprise enterprise, UserAccount userAccount) {
         initComponents();
-        
+        this.business = business;
+        this.userAccount = userAccount;
+        this.enterprise = enterprise;
         viewDonationHist();
     }
 
@@ -54,10 +71,13 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         btnDeleteTrn = new javax.swing.JButton();
         donorLbl = new javax.swing.JLabel();
         trnLbl = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
+        donorTable.setBackground(new java.awt.Color(255, 204, 204));
         donorTable.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        donorTable.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         donorTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -89,6 +109,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             donorTable.getColumnModel().getColumn(0).setMaxWidth(1);
         }
 
+        btnUpdateDonor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnUpdateDonor.setText("Update");
         btnUpdateDonor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,6 +117,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             }
         });
 
+        btnDeleteDonor.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnDeleteDonor.setText("Delete");
         btnDeleteDonor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,22 +125,25 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel2.setText("View Donation History");
 
+        donorTrnTable.setBackground(new java.awt.Color(255, 204, 204));
         donorTrnTable.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        donorTrnTable.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         donorTrnTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "", "Age", "Weight", "Height", "Hemoglobin Level", "Blood Last Donated Date", "Blood Donation Date", "Number of Units", "Other Diseases", "Price"
+                "", "Age", "Weight", "Height", "Hemoglobin Level", "Blood Last Donated Date", "Blood Donation Date", "Number of Units", "Other Diseases", "Price", "Requested Date", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true, true, true, true, true
+                false, true, true, true, true, true, true, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -132,6 +157,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             donorTrnTable.getColumnModel().getColumn(0).setMaxWidth(1);
         }
 
+        btnUpdateTrn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnUpdateTrn.setText("Update");
         btnUpdateTrn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,6 +165,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             }
         });
 
+        btnDeleteTrn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnDeleteTrn.setText("Delete");
         btnDeleteTrn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,31 +173,19 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             }
         });
 
+        donorLbl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         donorLbl.setText("Donor Details:");
 
+        trnLbl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         trnLbl.setText("Transaction Details:");
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Donor.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1157, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1163, Short.MAX_VALUE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(donorLbl)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(929, Short.MAX_VALUE)
-                .addComponent(btnUpdateDonor)
-                .addGap(18, 18, 18)
-                .addComponent(btnDeleteDonor)
-                .addGap(50, 50, 50))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnUpdateTrn)
@@ -178,32 +193,54 @@ public class ViewDonationHistory extends javax.swing.JPanel {
                 .addComponent(btnDeleteTrn)
                 .addGap(48, 48, 48))
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 1195, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1195, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 975, Short.MAX_VALUE)
+                        .addComponent(btnUpdateDonor)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDeleteDonor)
+                        .addGap(40, 40, 40)))
+                .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
+                        .addContainerGap()
                         .addComponent(trnLbl))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(419, 419, 419)
-                        .addComponent(jLabel2)))
+                        .addContainerGap()
+                        .addComponent(donorLbl))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(244, 244, 244)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel2)
-                .addGap(31, 31, 31)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(donorLbl)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdateDonor)
                     .addComponent(btnDeleteDonor))
-                .addGap(29, 29, 29)
+                .addGap(30, 30, 30)
                 .addComponent(trnLbl)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdateTrn)
@@ -233,7 +270,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         // TODO add your handling code here:
         System.out.println("Table row clicked");
         DefaultTableModel model = (DefaultTableModel) donorTrnTable.getModel();
-
+        
         JTable target = (JTable) evt.getSource();
         int row = target.getSelectedRow(); // select a row
         Person person = (Person) donorTable.getValueAt(row, 0);
@@ -254,7 +291,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             rowTrn[7] = data.getNumberOfUnits();
             rowTrn[8] = data.isOtherDiseases();
             rowTrn[9] = data.getPrice();
-
+            
             model.addRow(rowTrn);
         }
     }//GEN-LAST:event_donorTableMouseClicked
@@ -266,7 +303,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         int rowIndex = donorTable.getSelectedRow();
         int colIndex = 0;
         int colIndex1 = donorTable.getSelectedColumn();
-
+        
         Vector dataVector = model.getDataVector();
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
         Person personDetails = null;
@@ -274,9 +311,9 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             personDetails = personDirectory.getPersonList().stream().filter(item -> elementAt.get(0).equals(item.getId())).findFirst().orElse(null);
         }
         Person person = (Person) model.getValueAt(rowIndex, colIndex);
-        if (!elementAt.get(1).toString().isEmpty() && !elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty() 
+        if (!elementAt.get(1).toString().isEmpty() && !elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
                 && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty()) {
-
+            
             try {
                 if (personDetails == null) {
                     person.setId(Integer.parseInt(elementAt.get(1).toString()));
@@ -285,16 +322,15 @@ public class ViewDonationHistory extends javax.swing.JPanel {
                     person.setPhoneNum(Long.parseLong(elementAt.get(4).toString()));
                     person.setBloodGroup(elementAt.get(4).toString());
                     
-
                     JOptionPane.showMessageDialog(this, "Value updated successfully!");
-
+                    
                 } else {
                     JOptionPane.showMessageDialog(this, "Donor with given id already exists!");
                 }
             } catch (NumberFormatException | NullPointerException exception) {
-
+                
                 JOptionPane.showMessageDialog(this, "Please enter all values.");
-
+                
             }
         } else {
             JOptionPane.showMessageDialog(this, "Please enter all values.");
@@ -326,17 +362,17 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         int colIndex = 0;
         int rowIndexTrn = donorTrnTable.getSelectedRow();
         int colIndexTrn = donorTrnTable.getSelectedColumn();
-
+        
         Vector dataVector = modelTrn.getDataVector();
         Vector elementAt = (Vector) dataVector.elementAt(rowIndexTrn);
-
+        
         Vector dataVectorDonor = model.getDataVector();
         Vector elementAtDonor = (Vector) dataVectorDonor.elementAt(rowIndex);
-
+        
         Person personDetails = personDirectory.getPersonList().stream().filter(item -> Integer.parseInt(elementAtDonor.get(1).toString()) == item.getId()).findFirst().orElse(null);
 
-       // Encounter encounter = (Encounter) model.getValueAt(rowIndexVitals, colIndex);
-        if (personDetails != null ) {
+        // Encounter encounter = (Encounter) model.getValueAt(rowIndexVitals, colIndex);
+        if (personDetails != null) {
             
             DonorTransaction donorT = personDetails.getDonorTransaction().get(rowIndexTrn);
             
@@ -354,7 +390,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             donorT.setOtherDiseases(Boolean.parseBoolean(elementAt.get(9).toString()));
             
             JOptionPane.showMessageDialog(this, "Value updated successfully!");
-
+            
         }
     }//GEN-LAST:event_btnUpdateTrnActionPerformed
 
@@ -366,7 +402,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         int selectedRowIndexDonor = donorTable.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) donorTable.getModel();
         Person person = (Person) model.getValueAt(selectedRowIndexDonor, 0);
-
+        
         if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to delete");
             return;
@@ -377,28 +413,62 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         modelTrn.removeRow(selectedRowIndex);
         JOptionPane.showMessageDialog(this, "Donor Transaction deleted");
     }//GEN-LAST:event_btnDeleteTrnActionPerformed
-/***
-***/
-    private void viewDonationHist(){
+    /**
+     * *
+     **
+     */
+    private void viewDonationHist() {
         DefaultTableModel model = (DefaultTableModel) donorTable.getModel();
-        List<Person> person = EcoSystem.getInstance().getPersonDirectory().getPersonList();
         model.setRowCount(0);
-        for (Person data : person) {
-            Object[] row = new Object[6];
-            //row[0] = ++index;
+        
+        Person person = (Person) this.userAccount.getUser();
+        Object[] row = new Object[6];
+        row[0] = person;
+        row[1] = person.getId();
+        row[2] = person.getName();
+        row[3] = person.getEmail();
+        row[4] = person.getPhoneNum();
+        row[5] = person.getBloodGroup();
+        
+        model.addRow(row);
+        
+        for (Network n : this.business.getNetworkList()) {
+            for (Enterprise e : n.getEnterpriseDirectory().getEnterpriseList()) {
+                if (e instanceof BloodBankEnterprise) {
+                    for (Organizations org : e.getOrganizationDirectory().getOrganizationList()) {
+                        if (org instanceof BloodBankOrganization) {
+                            DefaultTableModel modelR = (DefaultTableModel) donorTrnTable.getModel();
+                            modelR.setRowCount(0);
+                            for (WorkRequest request : org.getWorkQueue().getWorkRequestList()) {
+                                if (request instanceof DonateBloodWorkRequest) {
+                                    
+                                    Object[] rowTrn = new Object[12];
+                                    //row[0] = ++index;
 
-            row[0] = data;
-            row[1] = data.getId();
-            row[2] = data.getName();
-            row[3] = data.getEmail();
-            row[4] = data.getPhoneNum();
-            row[5] = data.getBloodGroup();
-           
-            model.addRow(row);
-
+                                    rowTrn[0] = request;
+                                    rowTrn[1] = ((DonateBloodWorkRequest) request).getDonorTransaction().getAge();
+                                    rowTrn[2] = ((DonateBloodWorkRequest) request).getDonorTransaction().getWeight();
+                                    rowTrn[3] = ((DonateBloodWorkRequest) request).getDonorTransaction().getHeight();
+                                    rowTrn[4] = ((DonateBloodWorkRequest) request).getDonorTransaction().getHblevel();
+                                    rowTrn[5] = ((DonateBloodWorkRequest) request).getDonorTransaction().getBloodLastDonatedDate();
+                                    rowTrn[6] = ((DonateBloodWorkRequest) request).getDonorTransaction().getBloodDonationDate();
+                                    rowTrn[7] = ((DonateBloodWorkRequest) request).getDonorTransaction().getNumberOfUnits();
+                                    rowTrn[8] = ((DonateBloodWorkRequest) request).getDonorTransaction().isOtherDiseases();
+                                    rowTrn[9] = ((DonateBloodWorkRequest) request).getDonorTransaction().getPrice();
+                                    rowTrn[10] = request.getRequestDate();
+                                    rowTrn[11] = request.getStatus();
+                                    modelR.addRow(rowTrn);
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteDonor;
     private javax.swing.JButton btnDeleteTrn;
@@ -408,6 +478,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
     private javax.swing.JTable donorTable;
     private javax.swing.JTable donorTrnTable;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
