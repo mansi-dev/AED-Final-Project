@@ -129,7 +129,7 @@ public class LoginForm extends javax.swing.JPanel {
                 .addContainerGap(103, Short.MAX_VALUE))
         );
 
-        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 470, 340));
+        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 200, 470, 340));
 
         add(jPanel3);
 
@@ -147,21 +147,21 @@ public class LoginForm extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(181, 181, 181)
+                        .addContainerGap()
                         .addComponent(lblAppName))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(298, 298, 298)
+                        .addGap(201, 201, 201)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(93, 93, 93)
+                .addGap(99, 99, 99)
                 .addComponent(jLabel3)
-                .addGap(37, 37, 37)
+                .addGap(45, 45, 45)
                 .addComponent(lblAppName)
-                .addContainerGap(465, Short.MAX_VALUE))
+                .addContainerGap(451, Short.MAX_VALUE))
         );
 
         add(jPanel2);
