@@ -14,7 +14,6 @@ import Business.Organization.HospitalOrganization;
 import Business.Organization.Organizations;
 import Business.UserAccount.UserAccount;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
@@ -291,17 +290,17 @@ public class ManageHospital extends javax.swing.JPanel {
         tblHospView.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tblHospView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "", "ID", "Name", "Address", "City", "State", "Phone Number", "Zip Code", "Email ID"
+                "", "ID", "Name", "Address", "City", "State", "Phone Number", "Zip Code", "Email ID", "Licensed", "Trained"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true, true, true, true, true
+                false, false, true, true, true, true, true, true, true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -830,6 +829,8 @@ public class ManageHospital extends javax.swing.JPanel {
                     hospital.setPhoneNum(Long.parseLong(txtHospitalPhone.getText()));
                     hospital.setEmail(txtHospitalEmail.getText());
                     hospital.setId(Integer.parseInt(txtHospitalID1.getText()));
+                    hospital.setIsLicensed(false);
+                    hospital.setIsTrained(false);
                     break;
                 }
             }
@@ -1086,7 +1087,7 @@ public class ManageHospital extends javax.swing.JPanel {
                         if (o.getName().equalsIgnoreCase("Hospital Organization")) {
                             HospitalOrganization hospitalOrganization = (HospitalOrganization) o;
                             for (Hospital hosp : hospitalOrganization.getHospitalDirectory().getHospitalList()) {
-                                Object[] row = new Object[9];
+                                Object[] row = new Object[11];
                                 //row[0] = ++index;
 
                                 row[0] = hosp;
@@ -1098,6 +1099,8 @@ public class ManageHospital extends javax.swing.JPanel {
                                 row[6] = hosp.getPhoneNum();
                                 row[7] = hosp.getZipCode();
                                 row[8] = hosp.getEmail();
+                                row[9] = hosp.isIsLicensed();
+                                row[10] = hosp.isIsTrained();
 
                                 model.addRow(row);
 

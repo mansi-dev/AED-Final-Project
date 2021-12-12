@@ -6,14 +6,20 @@
 package userinterface.GovernmentRole;
 
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
 import Business.Government.LicenseDirectory;
 import Business.Government.License;
 import Business.Government.TrainingDirectory;
 import Business.Government.Training;
 import Business.Hospital.Hospital;
+import Business.Organization.HospitalOrganization;
+import Business.Organization.LicenseOrganization;
+import Business.Organization.Organizations;
+import Business.Organization.TrainingOrganization;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -27,18 +33,18 @@ public class GovernmentPanel extends javax.swing.JPanel {
     /**
      * Creates new form GovernmentPanel
      */
-    
     Training training;
     License license;
     LicenseDirectory licenseDir;
     TrainingDirectory trainingDir;
-    
-    public GovernmentPanel() {
+    Enterprise enterprise;
+    EcoSystem ecoSystem;
+
+    public GovernmentPanel(Enterprise enterprise, EcoSystem ecoSystem) {
+        this.enterprise = enterprise;
+        this.ecoSystem = ecoSystem;
         initComponents();
         populateHospitalLicense();
-        populateHospitalTraining();
-        populateNGOLicense();
-        populateNGOTraining();        
     }
 
     /**
@@ -515,38 +521,53 @@ public class GovernmentPanel extends javax.swing.JPanel {
 
     private void btnSaveTrainingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveTrainingActionPerformed
         // TODO add your handling code here:
-        
-    Boolean patientIdentity = chkPatientId.isSelected();
-    Boolean crossMatching = chkCrossMatching.isSelected();
-    Boolean compatibility = chkCompatibility.isSelected();
-    Boolean problems = chkProblems.isSelected();
-    Boolean troubleShooting = chkTroubleShoot.isSelected();
-    Boolean issueOfBlood = chkBloodIssue.isSelected();
-    Boolean transfusionReactions = chkTransfusion.isSelected();
-    Boolean bagDisposal = chkDisposal.isSelected();
-    
-    Training t =  EcoSystem.getInstance().getTrainingDirectory().addNewEntry();
-        
-    t.setBagDisposal(bagDisposal);
-    t.setCompatibility(compatibility);
-    t.setCrossMatching(crossMatching);
-    t.setIssueOfBlood(issueOfBlood);
-    t.setPatientIdentity(patientIdentity);
-    t.setProblems(problems);
-    t.setTransfusionReactions(transfusionReactions);
-    t.setTroubleShooting(troubleShooting);
-    
-    JOptionPane.showMessageDialog(this,"Training information added.");
-    
-    chkPatientId.setSelected(false);
-    chkCrossMatching.setSelected(false);
-    chkCompatibility.setSelected(false);
-    chkProblems.setSelected(false);
-    chkTroubleShoot.setSelected(false);
-    chkBloodIssue.setSelected(false);
-    chkTransfusion.setSelected(false);
-    chkDisposal.setSelected(false);
-   
+
+        Boolean patientIdentity = chkPatientId.isSelected();
+        Boolean crossMatching = chkCrossMatching.isSelected();
+        Boolean compatibility = chkCompatibility.isSelected();
+        Boolean problems = chkProblems.isSelected();
+        Boolean troubleShooting = chkTroubleShoot.isSelected();
+        Boolean issueOfBlood = chkBloodIssue.isSelected();
+        Boolean transfusionReactions = chkTransfusion.isSelected();
+        Boolean bagDisposal = chkDisposal.isSelected();
+        ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+        Enterprise enterpriseTemp = enterpriseList.stream().filter(item -> "Hospital".equals(item.getName())).findFirst().orElse(null);
+        Hospital hosp = null;
+        for (Organizations o : enterpriseTemp.getOrganizationDirectory().getOrganizationList()) {
+            if (o.getName().equalsIgnoreCase("Hospital Organization")) {
+                HospitalOrganization hosOrg = (HospitalOrganization) o;
+                hosp = hosOrg.getHospitalDirectory().getHospitalByName((String) cmbHospital.getSelectedItem());
+            }
+        }
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (o.getName().equalsIgnoreCase("Training Organization")) {
+                TrainingOrganization trainingOrganization = (TrainingOrganization) o;
+                Training t = trainingOrganization.getTrainingDirectory().addNewEntry();
+                t.setBagDisposal(bagDisposal);
+                t.setCompatibility(compatibility);
+                t.setCrossMatching(crossMatching);
+                t.setIssueOfBlood(issueOfBlood);
+                t.setPatientIdentity(patientIdentity);
+                t.setProblems(problems);
+                t.setTransfusionReactions(transfusionReactions);
+                t.setTroubleShooting(troubleShooting);
+                hosp.setTraining(t);
+                hosp.setIsTrained(true);
+                break;
+            }
+        }
+
+        JOptionPane.showMessageDialog(this, "Training information added.");
+
+        chkPatientId.setSelected(false);
+        chkCrossMatching.setSelected(false);
+        chkCompatibility.setSelected(false);
+        chkProblems.setSelected(false);
+        chkTroubleShoot.setSelected(false);
+        chkBloodIssue.setSelected(false);
+        chkTransfusion.setSelected(false);
+        chkDisposal.setSelected(false);
+
 //   catch(Exception e){
 //       JOptionPane.showMessageDialog(this,"Exception");
 //   }
@@ -555,45 +576,55 @@ public class GovernmentPanel extends javax.swing.JPanel {
     private void btnSaveLicenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveLicenseActionPerformed
         // TODO add your handling code here:
 
-    if((dteIssueDate.getDate()).compareTo(dteExpiryDate.getDate()) >= 0) 
-    {
-        JOptionPane.showMessageDialog(this, "License Issue Date cannot be greater than its Expiry Date.",
-        "Swing Tester", JOptionPane.ERROR_MESSAGE);
-    } 
-    else{
-    if(!txtLicenseName.getText().isEmpty() && !txtLicenseNumber.getText().isEmpty()){    
+        if ((dteIssueDate.getDate()).compareTo(dteExpiryDate.getDate()) >= 0) {
+            JOptionPane.showMessageDialog(this, "License Issue Date cannot be greater than its Expiry Date.",
+                    "Swing Tester", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (!txtLicenseName.getText().isEmpty() && !txtLicenseNumber.getText().isEmpty()) {
 
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    LocalDate now = LocalDate.now();
-    ZoneId defaultZoneId = ZoneId.systemDefault();
-    Date date = Date.from(now.atStartOfDay(defaultZoneId).toInstant());    
-        
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                LocalDate now = LocalDate.now();
+                ZoneId defaultZoneId = ZoneId.systemDefault();
+                Date date = Date.from(now.atStartOfDay(defaultZoneId).toInstant());
 
-    Long licenseNumber = Long.parseLong(txtLicenseNumber.getText());
-    String licenseName = txtLicenseName.getText();
-    Date issueDate = dteIssueDate.getDate();
-    Date expiryDate = dteExpiryDate.getDate();   
-        
-    License l = EcoSystem.getInstance().getLicenseDirectory().addNewEntry(expiryDate,issueDate,licenseNumber,licenseName);
-    
-//    l.setExpiryDate(expiryDate);
-//    l.setIssueDate(issueDate);
-//    l.setIssueNumber(licenseNumber);
-////    l.setLicenseId(licenseId);
-//    l.setLicenseName(licenseName);
-    
-    JOptionPane.showMessageDialog(this,"License information added.");
-    
-    txtLicenseName.setText("");
-    txtLicenseNumber.setText("");
-    dteIssueDate.setDate(date);
-    dteExpiryDate.setDate(date);
-    }
-    
-    else{
-        JOptionPane.showMessageDialog(this,"Fields cannot be left empty.");
-    }
-    } 
+                Long licenseNumber = Long.parseLong(txtLicenseNumber.getText());
+                String licenseName = txtLicenseName.getText();
+                Date issueDate = dteIssueDate.getDate();
+                Date expiryDate = dteExpiryDate.getDate();
+
+                ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+                Enterprise enterpriseTemp = enterpriseList.stream().filter(item -> "Hospital".equals(item.getName())).findFirst().orElse(null);
+                Hospital hosp = null;
+                for (Organizations o : enterpriseTemp.getOrganizationDirectory().getOrganizationList()) {
+                    if (o.getName().equalsIgnoreCase("Hospital Organization")) {
+                        HospitalOrganization hosOrg = (HospitalOrganization) o;
+                        hosp = hosOrg.getHospitalDirectory().getHospitalByName((String) cmbHospital1.getSelectedItem());
+                        break;
+                    }
+                }
+                if (hosp != null) {
+                    for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                        if (o.getName().equalsIgnoreCase("License Organization")) {
+                            LicenseOrganization licOrg = (LicenseOrganization) o;
+                            License lic = licOrg.getLicenseDirectory().addNewEntry(expiryDate, issueDate, licenseNumber, licenseName);
+                            hosp.setLicense(lic);
+                            hosp.setIsLicensed(true);
+                            break;
+                        }
+
+                    }
+                    JOptionPane.showMessageDialog(this, "License information added.");
+                    txtLicenseName.setText("");
+                    txtLicenseNumber.setText("");
+                    dteIssueDate.setDate(date);
+                    dteExpiryDate.setDate(date);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Select hospital");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Fields cannot be left empty.");
+            }
+        }
     }//GEN-LAST:event_btnSaveLicenseActionPerformed
 
     private void cmbNGO1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNGO1ActionPerformed
@@ -652,35 +683,25 @@ public class GovernmentPanel extends javax.swing.JPanel {
 
     private void populateHospitalLicense() {
         cmbHospital1.removeAllItems();
-        List<Hospital> hospitalList = EcoSystem.getInstance().getHospitalDirectory().getHospitalList();
-        for (Hospital bloodBank : hospitalList) {
-            cmbHospital1.addItem(bloodBank.getName());
-        }
-    }
-
-    private void populateHospitalTraining() {
         cmbHospital.removeAllItems();
-        List<Hospital> hospitalList = EcoSystem.getInstance().getHospitalDirectory().getHospitalList();
-        for (Hospital bloodBank : hospitalList) {
-            cmbHospital.addItem(bloodBank.getName());
-        }
-    }    
-
-    private void populateNGOLicense() {
         cmbNGO1.removeAllItems();
-        List<Hospital> hospitalList = EcoSystem.getInstance().getHospitalDirectory().getHospitalList();
-        for (Hospital bloodBank : hospitalList) {
-            cmbNGO1.addItem(bloodBank.getName());
+        cmbNGO.removeAllItems();
+        ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+        Enterprise enterprise = enterpriseList.stream().filter(item -> "Hospital".equals(item.getName())).findFirst().orElse(null);
+
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (o.getName().equalsIgnoreCase("Hospital Organization")) {
+                HospitalOrganization hosOrg = (HospitalOrganization) o;
+                List<Hospital> hospitalList = hosOrg.getHospitalDirectory().getHospitalList();
+                for (Hospital bloodBank : hospitalList) {
+                    cmbHospital1.addItem(bloodBank.getName());
+                    cmbHospital.addItem(bloodBank.getName());
+                    cmbNGO1.addItem(bloodBank.getName());
+                    cmbNGO.addItem(bloodBank.getName());
+                }
+                break;
+            }
         }
     }
 
-    private void populateNGOTraining() {
-        cmbNGO.removeAllItems();
-        List<Hospital> hospitalList = EcoSystem.getInstance().getHospitalDirectory().getHospitalList();
-        for (Hospital bloodBank : hospitalList) {
-            cmbNGO.addItem(bloodBank.getName());
-        }
-    }     
-    
-    
 }

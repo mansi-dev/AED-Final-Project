@@ -40,4 +40,12 @@ public class HospitalDirectory {
         return null;
     }
     
+        
+    public Hospital getHospitalByName(String name){        
+        for(Hospital r : this.hospitalList){            
+            if(r.getName()==name) return r;
+        }
+        return null;
+    }
+    
 }

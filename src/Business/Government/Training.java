@@ -5,8 +5,6 @@
  */
 package Business.Government;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author mayan

@@ -13,7 +13,6 @@ import Business.Network.Network;
 import Business.Organization.Organizations;
 import Business.Population.PersonDirectory;
 import Business.Role.SystemAdminRole;
-import Business.UserAccount.User;
 import Business.UserAccount.UserAccount;
 import Government.Admin.GovernmentAdminDirectory;
 
@@ -40,6 +39,8 @@ public class ConfigureASystem {
 
         Enterprise enterpriseGov = network.getEnterpriseDirectory().createAndAddEnterprise("Government", Enterprise.EnterpriseType.Government);
         enterpriseGov.getOrganizationDirectory().createOrganization(Organizations.Type.Admin);
+        enterpriseGov.getOrganizationDirectory().createOrganization(Organizations.Type.Training);
+        enterpriseGov.getOrganizationDirectory().createOrganization(Organizations.Type.License);
         
         Enterprise enterpriseBB = network.getEnterpriseDirectory().createAndAddEnterprise("BloodBank", Enterprise.EnterpriseType.BloodBank);
         enterpriseBB.getOrganizationDirectory().createOrganization(Organizations.Type.BloodBank);

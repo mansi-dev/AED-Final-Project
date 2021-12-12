@@ -39,7 +39,8 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
      */
     public GovernmentWorkArea(JPanel userProcessContainer, UserAccount account, Organizations organization, Enterprise enterprise, EcoSystem business) {
         initComponents();
-        this.ecosystem = ecosystem;
+        this.ecosystem = business;
+        this.account = account;
 
         this.organization = organization;
         this.enterprise = enterprise;
@@ -159,7 +160,7 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
         //        jPanel1.add(manageUsers);
         //        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
         //        cardLayout.next(jPanel1);
-        GovernmentPanel createPanel = new GovernmentPanel();
+        GovernmentPanel createPanel = new GovernmentPanel(this.enterprise,this.ecosystem);
         GovernmentSplitPane.setRightComponent(createPanel);
     }//GEN-LAST:event_btnCreateLicenseTrainingActionPerformed
 
@@ -171,7 +172,7 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
         //        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
         //        cardLayout.next(jPanel1);
 
-        ViewJPanel viewPanel = new ViewJPanel();
+        ViewJPanel viewPanel = new ViewJPanel(this.enterprise,this.ecosystem);
         GovernmentSplitPane.setRightComponent(viewPanel);
     }//GEN-LAST:event_btnViewLicenseTrainingActionPerformed
 
