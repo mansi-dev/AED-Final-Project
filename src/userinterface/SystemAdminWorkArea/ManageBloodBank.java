@@ -693,6 +693,7 @@ public class ManageBloodBank extends javax.swing.JPanel {
                     bloodBankManager.setZipCode(txtZipCode.getText());
                     bloodBankManager.setPhoneNum(Long.parseLong(txtPhoneNum.getText()));
                     bloodBankManager.setBloodBankByID(Integer.parseInt(txtBloodBank.getText()));
+                    //bloodBankManager.setEmail(txtHospitalEmail.getText());
                     temp.setUser(bloodBankManager);
                     JOptionPane.showMessageDialog(this, "Added blood bank manager details to the system");
                 }
@@ -718,15 +719,16 @@ public class ManageBloodBank extends javax.swing.JPanel {
 
         if (!elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
                 && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
-                && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()
-                && !elementAt.get(10).toString().isEmpty()) {
+                && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty()) {
             BloodBankManager res = (BloodBankManager) elementAt.get(0);
+            
             res.setName(elementAt.get(2).toString());
             res.setAddress(elementAt.get(3).toString());
             res.setCity(elementAt.get(4).toString());
             res.setState(elementAt.get(5).toString());
             res.setPhoneNum(Long.parseLong(elementAt.get(6).toString()));
             res.setZipCode(elementAt.get(7).toString());
+            //res.setBloodBank(bloodBank);
 
             JOptionPane.showMessageDialog(this, "Value updated successfully!");
 
@@ -740,9 +742,17 @@ public class ManageBloodBank extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblViewDoc.getModel();
         int rowIndex = tblViewDoc.getSelectedRow();
         BloodBankManager valueAt = (BloodBankManager) model.getValueAt(rowIndex, 0);
-        EcoSystem.getInstance().getBankManagerDirectory().removeAdmin(valueAt);
-
-        EcoSystem.getInstance().getUserAccountDirectory().deleteAccount(valueAt.getId());
+        ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+        Enterprise enterprise = enterpriseList.stream().filter(item -> "BloodBank".equals(item.getName())).findFirst().orElse(null);
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o.getName().equalsIgnoreCase("BloodBankManager Organization")) {
+                    BloodBankManagerOrganization bbOrg = (BloodBankManagerOrganization) o;
+                    bbOrg.getBloodBankManagerDirectory().removeAdmin(valueAt);
+                    bbOrg.getUserAccountDirectory().deleteAccount(valueAt.getId());
+                    break;
+                }
+        }
+       
         JOptionPane.showMessageDialog(this, "Values deleted successfully");
         populateDocView();
     }//GEN-LAST:event_btnDeleteActionPerformed
@@ -798,7 +808,7 @@ public class ManageBloodBank extends javax.swing.JPanel {
 
         if (!elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
                 && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
-                && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()) {
+                && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty()) {
             BloodBank bloodBank = (BloodBank) elementAt.get(0);
             bloodBank.setName(elementAt.get(2).toString());
             bloodBank.setAddress(elementAt.get(3).toString());
@@ -806,7 +816,8 @@ public class ManageBloodBank extends javax.swing.JPanel {
             bloodBank.setState(elementAt.get(5).toString());
             bloodBank.setPhoneNum(Long.parseLong(elementAt.get(6).toString()));
             bloodBank.setZipCode(elementAt.get(7).toString());
-
+            bloodBank.setEmail(elementAt.get(8).toString());
+            
             JOptionPane.showMessageDialog(this, "Value updated successfully!");
 
         } else {
@@ -820,7 +831,16 @@ public class ManageBloodBank extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblHospView.getModel();
         int rowIndex = tblHospView.getSelectedRow();
         BloodBank valueAt = (BloodBank) model.getValueAt(rowIndex, 0);
-        EcoSystem.getInstance().getBloodBankDirectory().deleteHospital(valueAt);
+        ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+        Enterprise enterprise = enterpriseList.stream().filter(item -> "BloodBank".equals(item.getName())).findFirst().orElse(null);
+          for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o.getName().equalsIgnoreCase("BloodBankManager Organization")) {
+                     BloodBankOrganization bbOrg = (BloodBankOrganization) o;
+                     bbOrg.getBloodBankDirectory().deleteHospital(valueAt);
+                     break;
+                }
+          }
+        
 
         JOptionPane.showMessageDialog(this, "Values deleted successfully");
         populateHospitalView();

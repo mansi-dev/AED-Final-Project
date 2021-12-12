@@ -8,14 +8,14 @@ package userinterface.Population;
 import Business.BloodBank.BloodBank;
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
-import Business.Enterprise.PopulationEnterprise;
-import Business.Network.Network;
+import Business.Organization.BloodBankOrganization;
 import Business.Organization.Organizations;
 import Business.Organization.PersonOrganization;
 import Business.Population.DonorTransaction;
 import Business.Population.Person;
 import Business.UserAccount.UserAccount;
-import Business.WorkQueue.BloodBankWorkRequest;
+import Business.WorkQueue.DonateBloodWorkRequest;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -28,13 +28,15 @@ import javax.swing.text.BadLocationException;
  * @author neeraja
  */
 public class DonateBloodJPanel extends javax.swing.JPanel {
+
     String loggedInUser;
-     JPanel userProcessContainer;
+    JPanel userProcessContainer;
 
     EcoSystem business;
 
     Enterprise enterprise;
     UserAccount userAccount;
+
     /**
      * Creates new form DonateBloodJPanel
      */
@@ -127,8 +129,8 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         diseasesLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         diseasesLbl.setText("Other Diseases");
 
-        saveBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        saveBtn.setText("Donate");
+        saveBtn.setText("Request to Donate");
+
         saveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveBtnActionPerformed(evt);
@@ -263,13 +265,22 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
                 .addGap(6, 6, 6))
         );
     }// </editor-fold>//GEN-END:initComponents
-    private void populateBloodBank(){
-        List<BloodBank> bloodBankList = EcoSystem.getInstance().getBloodBankDirectory().getBloodBankList();
-        for (BloodBank bloodBank : bloodBankList) {
-            bloodbankCombo.addItem(bloodBank.getName());
+    private void populateBloodBank() {
+        ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+        Enterprise enterprise = enterpriseList.stream().filter(item -> "BloodBank".equals(item.getName())).findFirst().orElse(null);
+
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (o.getName().equalsIgnoreCase("BloodBank Organization")) {
+                BloodBankOrganization bbOrg = (BloodBankOrganization) o;
+                for (BloodBank bloodBank : bbOrg.getBloodBankDirectory().getBloodBankList()) {
+                    bloodbankCombo.addItem(bloodBank.getName());
+                }
+            }
         }
+
     }
-    private void populateInitialValues(){
+
+    private void populateInitialValues() {
         Person person = EcoSystem.getInstance().getPersonDirectory().getPersonByUsername(loggedInUser);
         String name = person.getName();
         String email = person.getEmail();
@@ -281,12 +292,21 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         // TODO add your handling code here:
         if (!ageTxt.getText().isEmpty() && !bloodGrpTxt.getText().isEmpty()
-            && !donorTxt.getText().isEmpty() && !emailTxt.getText().isEmpty() && !hbTxt.getText().isEmpty()
-            && !heightTxt.getText().isEmpty() && !phoneNoTxt.getText().isEmpty() && !unitsTxt.getText().isEmpty()
-            && !weightTxt.getText().isEmpty() && !lastDonatedDate.getDate().toString().isEmpty() && !donationDate.getDate().toString().isEmpty() ) {
-         
-            Person person = EcoSystem.getInstance().getPersonDirectory().getPersonByPhoneNum(Long.parseLong(phoneNoTxt.getText()));
-            
+                && !donorTxt.getText().isEmpty() && !emailTxt.getText().isEmpty() && !hbTxt.getText().isEmpty()
+                && !heightTxt.getText().isEmpty() && !phoneNoTxt.getText().isEmpty() && !unitsTxt.getText().isEmpty()
+                && !weightTxt.getText().isEmpty()  && !donationDate.getDate().toString().isEmpty()) {
+
+            Person person = null;
+            ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+            Enterprise enterpriseTemp = enterpriseList.stream().filter(item -> "Population".equals(item.getName())).findFirst().orElse(null);
+            for (Organizations organization : enterpriseTemp.getOrganizationDirectory().getOrganizationList()) {
+                if (organization.getName().equals("Person Organization")) {
+                    PersonOrganization perOrg = (PersonOrganization) organization;
+                    person = perOrg.getPersonDirectory().getPersonByPhoneNum(Long.parseLong(phoneNoTxt.getText()));
+                    break;
+                }
+            }
+
             DonorTransaction dt = person.addNewDonorTransaction();
             dt.setHblevel(Float.parseFloat(hbTxt.getText()));
             dt.setBloodDonationDate(donationDate.getDate());
@@ -298,44 +318,33 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
             dt.setHeight(Float.parseFloat(heightTxt.getText()));
             dt.setWeight(Float.parseFloat(weightTxt.getText()));
             dt.setBloodBankByID(((String) bloodbankCombo.getSelectedItem()));
-                    Organizations org = null;
 
-            for (Network network : EcoSystem.getInstance().getNetworkList()) {
-            for (Enterprise enterprise : network.getEnterpriseDirectory().getEnterpriseList()) {
-                if (enterprise instanceof PopulationEnterprise) {
-                    PopulationEnterprise en = (PopulationEnterprise) enterprise;
+            Organizations org = null;
+            enterpriseTemp = enterpriseList.stream().filter(item -> "BloodBank".equals(item.getName())).findFirst().orElse(null);
 
-                    for (Organizations organization : en.getOrganizationDirectory().getOrganizationList()) {
-                        System.out.println(en.getOrganizationDirectory().getOrganizationList());
-                        if (organization instanceof PersonOrganization) {
+            for (Organizations organization : enterpriseTemp.getOrganizationDirectory().getOrganizationList()) {
+                if (organization.getName().equals("BloodBank Organization")) {
 
-                            System.out.println(organization);
-                            org = organization;
-                            break;
-                        }
-                    }
-                    if (org != null) {
-                        break;
-                    }
+                    System.out.println(organization);
+                    org = organization;
+                    break;
                 }
             }
             if (org != null) {
-                break;
+                DonateBloodWorkRequest bloodBankWorkRequest = new DonateBloodWorkRequest();
+                bloodBankWorkRequest.setDonorTransaction(dt);
+                bloodBankWorkRequest.setStatus("Pending");
+                bloodBankWorkRequest.setMessage("Donate blood");
+                bloodBankWorkRequest.setSender(userAccount);
+                bloodBankWorkRequest.setPerson(person);
+                System.out.println(org.getWorkQueue().getWorkRequestList());
+                org.getWorkQueue().getWorkRequestList().add(bloodBankWorkRequest);
+                // System.out.println(org.getWorkQueue().getWorkRequestList());
+                userAccount.getWorkQueue().getWorkRequestList().add(bloodBankWorkRequest);
+                JOptionPane.showMessageDialog(null, "Requested for donation");
+
             }
-        }
-         if (org != null) {
-            BloodBankWorkRequest bloodBankWorkRequest = new BloodBankWorkRequest();
-            bloodBankWorkRequest.setDonorTransaction(dt);
-            bloodBankWorkRequest.setStatus("Pending");
-            bloodBankWorkRequest.setMessage("Ordered");
-            bloodBankWorkRequest.setSender(userAccount);
-            System.out.println(org.getWorkQueue().getWorkRequestList());
-            org.getWorkQueue().getWorkRequestList().add(bloodBankWorkRequest);
-            // System.out.println(org.getWorkQueue().getWorkRequestList());
-            userAccount.getWorkQueue().getWorkRequestList().add(bloodBankWorkRequest);
-        }
-            
-          
+
             JOptionPane.showMessageDialog(this, "Added donor details to the system");
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
@@ -343,7 +352,7 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_saveBtnActionPerformed
 
-            /**
+    /**
      * Function to validate number input. To check if text fields contain any
      * alphabets.
      */
@@ -424,6 +433,7 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         } catch (BadLocationException ex) {
         }
     }
+
     private void addListeners() {
         ageTxt.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -449,20 +459,20 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         heightTxt.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                 validateNumberInput(e);
-               
+                validateNumberInput(e);
+
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                  validateNumberInput(e);
-                
+                validateNumberInput(e);
+
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                  validateNumberInput(e);
-                
+                validateNumberInput(e);
+
             }
 
         });

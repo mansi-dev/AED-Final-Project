@@ -221,7 +221,8 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdateReceiver)
                     .addComponent(btnDeleteReceiver))
-                .addGap(42, 42, 42)
+                .addGap(33, 33, 33)
+
                 .addComponent(trnLbl1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)

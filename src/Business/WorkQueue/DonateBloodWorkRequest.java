@@ -5,31 +5,31 @@
 package Business.WorkQueue;
 
 import Business.Population.DonorTransaction;
-import java.util.Date;
+import Business.Population.Person;
 
 /**
  *
  * @author mansizope
  */
-public class BloodBankWorkRequest extends WorkRequest{
+public class DonateBloodWorkRequest extends WorkRequest{
+    private Person person;
     private DonorTransaction donorTransaction;
-    private Date requestDate;
     private String requestApproved;
 
     public DonorTransaction getDonorTransaction() {
         return donorTransaction;
     }
 
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
     public void setDonorTransaction(DonorTransaction donorTransaction) {
         this.donorTransaction = donorTransaction;
-    }
-
-    public Date getRequestDate() {
-        return requestDate;
-    }
-
-    public void setRequestDate(Date requestDate) {
-        this.requestDate = requestDate;
     }
 
     public String getRequestApproved() {

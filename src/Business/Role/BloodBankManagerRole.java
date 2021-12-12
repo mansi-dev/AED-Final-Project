@@ -9,6 +9,7 @@ import Business.Enterprise.Enterprise;
 import Business.Organization.Organizations;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
+import userinterface.BloodBank.BloodBankManagerAreaJPanel;
 
 /**
  *
@@ -18,7 +19,7 @@ public class BloodBankManagerRole extends Role{
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organizations organization, Enterprise enterprise, EcoSystem business) {
-        return null;
+        return new BloodBankManagerAreaJPanel(userProcessContainer,account,organization,enterprise, business);
     }
     
     

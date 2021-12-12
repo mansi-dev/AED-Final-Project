@@ -89,6 +89,7 @@
                   <Component id="btnUpdateReceiver" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnDeleteReceiver" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Component id="trnLbl1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>

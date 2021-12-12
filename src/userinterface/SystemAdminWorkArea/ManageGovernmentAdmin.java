@@ -462,9 +462,18 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblGovtView.getModel();
         int rowIndex = tblGovtView.getSelectedRow();
         GovernmentAdmin valueAt = (GovernmentAdmin) model.getValueAt(rowIndex, 0);
-        EcoSystem.getInstance().getGovernmentAdminDirectory().removeAdmin(valueAt);
-
-        EcoSystem.getInstance().getUserAccountDirectory().deleteAccount(valueAt.getId());
+        
+        ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+        Enterprise enterprise = enterpriseList.stream().filter(item -> "Government".equals(item.getName())).findFirst().orElse(null);
+         for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o.getName().equalsIgnoreCase("Admin Organization")) {
+                   AdminOrganization adminOrganization = (AdminOrganization) o;
+                   adminOrganization.getGovernmentAdminDirectory().removeAdmin(valueAt);
+                   adminOrganization.getUserAccountDirectory().deleteAccount(valueAt.getId());
+                   break;
+                }   
+         }
+       
         JOptionPane.showMessageDialog(this, "Values deleted successfully");
         populateResTable();
     }//GEN-LAST:event_btnDeleteActionPerformed
