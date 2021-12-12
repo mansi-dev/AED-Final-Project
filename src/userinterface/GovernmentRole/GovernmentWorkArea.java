@@ -7,9 +7,13 @@ package userinterface.GovernmentRole;
 
 import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
 import Business.Government.LicenseDirectory;
 import Business.Government.TrainingDirectory;
+import Business.Organization.Organizations;
+import Business.UserAccount.UserAccount;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import userinterface.SystemAdminWorkArea.LoginForm;
 
@@ -20,18 +24,27 @@ import userinterface.SystemAdminWorkArea.LoginForm;
 public class GovernmentWorkArea extends javax.swing.JPanel {
 
     ViewJPanel viewPanel;
-        
+
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
     EcoSystem ecosystem;
     LicenseDirectory licenseDir;
-    TrainingDirectory trainingDir;    
+    TrainingDirectory trainingDir;
+    JPanel userProcessContainer;
+    UserAccount account;
+    Organizations organization;
+    Enterprise enterprise;
+
     /**
      * Creates new form GovernmentWorkArea
      */
-    public GovernmentWorkArea(EcoSystem ecosystem) {
+    public GovernmentWorkArea(JPanel userProcessContainer, UserAccount account, Organizations organization, Enterprise enterprise, EcoSystem business) {
         initComponents();
         this.ecosystem = ecosystem;
-        
+
+        this.organization = organization;
+        this.enterprise = enterprise;
+        this.userProcessContainer = userProcessContainer;
+
     }
 
     /**
@@ -140,7 +153,7 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
         //        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
         //        cardLayout.next(jPanel1);
         GovernmentPanel createPanel = new GovernmentPanel();
-        GovernmentSplitPane.setRightComponent(createPanel);    
+        GovernmentSplitPane.setRightComponent(createPanel);
     }//GEN-LAST:event_btnCreateLicenseTrainingActionPerformed
 
     private void btnViewLicenseTrainingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewLicenseTrainingActionPerformed
@@ -150,10 +163,9 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
         //
         //        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
         //        cardLayout.next(jPanel1);
-        
-        
+
         ViewJPanel viewPanel = new ViewJPanel();
-        GovernmentSplitPane.setRightComponent(viewPanel);           
+        GovernmentSplitPane.setRightComponent(viewPanel);
     }//GEN-LAST:event_btnViewLicenseTrainingActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed

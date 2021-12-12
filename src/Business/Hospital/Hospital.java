@@ -5,7 +5,7 @@
 package Business.Hospital;
 
 import Business.BloodBank.BloodStock;
-import Business.Organization.Organization;
+import Business.Organization.Organizations;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -6,8 +6,12 @@ package userinterface.HospitalWorkArea;
 
 import Business.DB4OUtil.DB4OUtil;
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Organization.Organizations;
+import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import userinterface.SystemAdminWorkArea.LoginForm;
 
@@ -19,13 +23,20 @@ public class HospitalJPanel extends javax.swing.JPanel {
 
     private DB4OUtil dB4OUtil = DB4OUtil.getInstance();
     EcoSystem ecosystem;
-
+    JPanel userProcessContainer;
+    UserAccount account;
+    Organizations organization;
+    Enterprise enterprise;
     /**
      * Creates new form HospitalJPanel
      */
-    public HospitalJPanel(EcoSystem ecosystem) {
+    public HospitalJPanel(JPanel userProcessContainer, UserAccount account, Organizations organization, Enterprise enterprise, EcoSystem ecosystem) {
         initComponents();
         this.ecosystem = ecosystem;
+        this.ecosystem = ecosystem;
+        this.organization = organization;
+        this.enterprise = enterprise;
+        this.userProcessContainer = userProcessContainer;
     }
 
     /**
