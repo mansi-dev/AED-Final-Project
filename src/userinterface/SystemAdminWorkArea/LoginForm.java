@@ -193,7 +193,7 @@ public class LoginForm extends javax.swing.JPanel {
 
             //this.pack();
         } else if (auth.getRole() == Role.Manager) {
-            HospitalJPanel hospitalJPanel = new HospitalJPanel(system);
+            HospitalJPanel hospitalJPanel = new HospitalJPanel(system,auth);
 
             JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
             MainJFrame mj = (MainJFrame) topFrame;
