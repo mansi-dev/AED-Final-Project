@@ -188,7 +188,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
 //        jPanel2.remove(receieveBlood);
 //        jPanel2.remove(receiverHistory);
 //        jPanel2.remove(donateBlood);
-        viewDonationHistory = new ViewDonationHistory(EcoSystem.getInstance().getPersonDirectory());
+        viewDonationHistory = new ViewDonationHistory(userProcessContainer, ecosystem,enterprise, account);
         jPanel2.removeAll();
         jPanel2.add(viewDonationHistory);
 

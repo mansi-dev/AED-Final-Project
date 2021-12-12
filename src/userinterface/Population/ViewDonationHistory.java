@@ -6,13 +6,24 @@
 package userinterface.Population;
 
 import Business.EcoSystem;
+import Business.Enterprise.BloodBankEnterprise;
+import Business.Enterprise.Enterprise;
+import Business.Enterprise.PopulationEnterprise;
+import Business.Network.Network;
+import Business.Organization.BloodBankOrganization;
+import Business.Organization.Organizations;
+import Business.Organization.PersonOrganization;
 import Business.Population.DonorTransaction;
 import Business.Population.Person;
 import Business.Population.PersonDirectory;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.DonateBloodWorkRequest;
+import Business.WorkQueue.WorkRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,10 +37,16 @@ public class ViewDonationHistory extends javax.swing.JPanel {
      * Creates new form ViewDonationHistory
      */
     PersonDirectory personDirectory;
-    public ViewDonationHistory( PersonDirectory personDirectory) {
-        this.personDirectory = personDirectory;
+    JPanel userProcessContainer;
+    EcoSystem business;
+    Enterprise enterprise;
+    UserAccount userAccount;
+    
+    public ViewDonationHistory(JPanel userProcessContainer, EcoSystem business, Enterprise enterprise, UserAccount userAccount) {
         initComponents();
-        
+        this.business = business;
+        this.userAccount = userAccount;
+        this.enterprise = enterprise;
         viewDonationHist();
     }
 
@@ -116,17 +133,17 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         donorTrnTable.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         donorTrnTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "", "Age", "Weight", "Height", "Hemoglobin Level", "Blood Last Donated Date", "Blood Donation Date", "Number of Units", "Other Diseases", "Price"
+                "", "Age", "Weight", "Height", "Hemoglobin Level", "Blood Last Donated Date", "Blood Donation Date", "Number of Units", "Other Diseases", "Price", "Requested Date", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true, true, true, true, true
+                false, true, true, true, true, true, true, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -253,7 +270,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         // TODO add your handling code here:
         System.out.println("Table row clicked");
         DefaultTableModel model = (DefaultTableModel) donorTrnTable.getModel();
-
+        
         JTable target = (JTable) evt.getSource();
         int row = target.getSelectedRow(); // select a row
         Person person = (Person) donorTable.getValueAt(row, 0);
@@ -274,7 +291,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             rowTrn[7] = data.getNumberOfUnits();
             rowTrn[8] = data.isOtherDiseases();
             rowTrn[9] = data.getPrice();
-
+            
             model.addRow(rowTrn);
         }
     }//GEN-LAST:event_donorTableMouseClicked
@@ -286,7 +303,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         int rowIndex = donorTable.getSelectedRow();
         int colIndex = 0;
         int colIndex1 = donorTable.getSelectedColumn();
-
+        
         Vector dataVector = model.getDataVector();
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
         Person personDetails = null;
@@ -294,9 +311,9 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             personDetails = personDirectory.getPersonList().stream().filter(item -> elementAt.get(0).equals(item.getId())).findFirst().orElse(null);
         }
         Person person = (Person) model.getValueAt(rowIndex, colIndex);
-        if (!elementAt.get(1).toString().isEmpty() && !elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty() 
+        if (!elementAt.get(1).toString().isEmpty() && !elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
                 && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty()) {
-
+            
             try {
                 if (personDetails == null) {
                     person.setId(Integer.parseInt(elementAt.get(1).toString()));
@@ -305,16 +322,15 @@ public class ViewDonationHistory extends javax.swing.JPanel {
                     person.setPhoneNum(Long.parseLong(elementAt.get(4).toString()));
                     person.setBloodGroup(elementAt.get(4).toString());
                     
-
                     JOptionPane.showMessageDialog(this, "Value updated successfully!");
-
+                    
                 } else {
                     JOptionPane.showMessageDialog(this, "Donor with given id already exists!");
                 }
             } catch (NumberFormatException | NullPointerException exception) {
-
+                
                 JOptionPane.showMessageDialog(this, "Please enter all values.");
-
+                
             }
         } else {
             JOptionPane.showMessageDialog(this, "Please enter all values.");
@@ -346,17 +362,17 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         int colIndex = 0;
         int rowIndexTrn = donorTrnTable.getSelectedRow();
         int colIndexTrn = donorTrnTable.getSelectedColumn();
-
+        
         Vector dataVector = modelTrn.getDataVector();
         Vector elementAt = (Vector) dataVector.elementAt(rowIndexTrn);
-
+        
         Vector dataVectorDonor = model.getDataVector();
         Vector elementAtDonor = (Vector) dataVectorDonor.elementAt(rowIndex);
-
+        
         Person personDetails = personDirectory.getPersonList().stream().filter(item -> Integer.parseInt(elementAtDonor.get(1).toString()) == item.getId()).findFirst().orElse(null);
 
-       // Encounter encounter = (Encounter) model.getValueAt(rowIndexVitals, colIndex);
-        if (personDetails != null ) {
+        // Encounter encounter = (Encounter) model.getValueAt(rowIndexVitals, colIndex);
+        if (personDetails != null) {
             
             DonorTransaction donorT = personDetails.getDonorTransaction().get(rowIndexTrn);
             
@@ -374,7 +390,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
             donorT.setOtherDiseases(Boolean.parseBoolean(elementAt.get(9).toString()));
             
             JOptionPane.showMessageDialog(this, "Value updated successfully!");
-
+            
         }
     }//GEN-LAST:event_btnUpdateTrnActionPerformed
 
@@ -386,7 +402,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         int selectedRowIndexDonor = donorTable.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) donorTable.getModel();
         Person person = (Person) model.getValueAt(selectedRowIndexDonor, 0);
-
+        
         if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please select a row to delete");
             return;
@@ -397,28 +413,62 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         modelTrn.removeRow(selectedRowIndex);
         JOptionPane.showMessageDialog(this, "Donor Transaction deleted");
     }//GEN-LAST:event_btnDeleteTrnActionPerformed
-/***
-***/
-    private void viewDonationHist(){
+    /**
+     * *
+     **
+     */
+    private void viewDonationHist() {
         DefaultTableModel model = (DefaultTableModel) donorTable.getModel();
-        List<Person> person = EcoSystem.getInstance().getPersonDirectory().getPersonList();
         model.setRowCount(0);
-        for (Person data : person) {
-            Object[] row = new Object[6];
-            //row[0] = ++index;
+        
+        Person person = (Person) this.userAccount.getUser();
+        Object[] row = new Object[6];
+        row[0] = person;
+        row[1] = person.getId();
+        row[2] = person.getName();
+        row[3] = person.getEmail();
+        row[4] = person.getPhoneNum();
+        row[5] = person.getBloodGroup();
+        
+        model.addRow(row);
+        
+        for (Network n : this.business.getNetworkList()) {
+            for (Enterprise e : n.getEnterpriseDirectory().getEnterpriseList()) {
+                if (e instanceof BloodBankEnterprise) {
+                    for (Organizations org : e.getOrganizationDirectory().getOrganizationList()) {
+                        if (org instanceof BloodBankOrganization) {
+                            DefaultTableModel modelR = (DefaultTableModel) donorTrnTable.getModel();
+                            modelR.setRowCount(0);
+                            for (WorkRequest request : org.getWorkQueue().getWorkRequestList()) {
+                                if (request instanceof DonateBloodWorkRequest) {
+                                    
+                                    Object[] rowTrn = new Object[12];
+                                    //row[0] = ++index;
 
-            row[0] = data;
-            row[1] = data.getId();
-            row[2] = data.getName();
-            row[3] = data.getEmail();
-            row[4] = data.getPhoneNum();
-            row[5] = data.getBloodGroup();
-           
-            model.addRow(row);
-
+                                    rowTrn[0] = request;
+                                    rowTrn[1] = ((DonateBloodWorkRequest) request).getDonorTransaction().getAge();
+                                    rowTrn[2] = ((DonateBloodWorkRequest) request).getDonorTransaction().getWeight();
+                                    rowTrn[3] = ((DonateBloodWorkRequest) request).getDonorTransaction().getHeight();
+                                    rowTrn[4] = ((DonateBloodWorkRequest) request).getDonorTransaction().getHblevel();
+                                    rowTrn[5] = ((DonateBloodWorkRequest) request).getDonorTransaction().getBloodLastDonatedDate();
+                                    rowTrn[6] = ((DonateBloodWorkRequest) request).getDonorTransaction().getBloodDonationDate();
+                                    rowTrn[7] = ((DonateBloodWorkRequest) request).getDonorTransaction().getNumberOfUnits();
+                                    rowTrn[8] = ((DonateBloodWorkRequest) request).getDonorTransaction().isOtherDiseases();
+                                    rowTrn[9] = ((DonateBloodWorkRequest) request).getDonorTransaction().getPrice();
+                                    rowTrn[10] = request.getRequestDate();
+                                    rowTrn[11] = request.getStatus();
+                                    modelR.addRow(rowTrn);
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteDonor;
     private javax.swing.JButton btnDeleteTrn;
