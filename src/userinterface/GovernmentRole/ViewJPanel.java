@@ -6,11 +6,14 @@
 package userinterface.GovernmentRole;
 
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
 import Business.Government.LicenseDirectory;
 import Business.Government.License;
 import Business.Government.TrainingDirectory;
 import Business.Government.Training;
-import java.util.Date;
+import Business.Organization.LicenseOrganization;
+import Business.Organization.Organizations;
+import Business.Organization.TrainingOrganization;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -25,31 +28,27 @@ public class ViewJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ViewJPanel
      */
-    
     ViewJPanel viewPanel;
     Training training;
     License license;
     LicenseDirectory licenseDir;
     TrainingDirectory trainingDir;
-    
-    public ViewJPanel(Training training, License license, LicenseDirectory licenseDir, TrainingDirectory trainingDir) {
-        this.training = training;
-        this.license = license; 
-        this.licenseDir = licenseDir;
-        this.trainingDir = trainingDir;
-        
-        
+    Enterprise enterprise;
+    EcoSystem ecoSystem;
+
+    public ViewJPanel(Enterprise enterprise, EcoSystem ecoSystem) {
+        initComponents();
+
+        this.enterprise = enterprise;
+        this.ecoSystem = ecoSystem;
+
+        populateTableLicense();
+        populateTableTraining();
     }
 
     public ViewJPanel() {
-                initComponents();
-                
-        populateTableLicense();
-        populateTableTraining();
 
     }
-
- 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -243,98 +242,96 @@ public class ViewJPanel extends javax.swing.JPanel {
 
     private void btnDeleteTrainingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteTrainingActionPerformed
         // TODO add your handling code here:
-        
+
         int RowIndex = tblTraining.getSelectedRow();
-        
-        if(RowIndex < 0){
-            
-            JOptionPane.showMessageDialog(this,"Please select a row to delete!");
-            return ;            
+
+        if (RowIndex < 0) {
+
+            JOptionPane.showMessageDialog(this, "Please select a row to delete!");
+            return;
         }
-        
-        DefaultTableModel model = (DefaultTableModel)tblTraining.getModel();
-        Training selectedRow = (Training) model.getValueAt(RowIndex , 0); 
-        
+
+        DefaultTableModel model = (DefaultTableModel) tblTraining.getModel();
+        Training selectedRow = (Training) model.getValueAt(RowIndex, 0);
+
         EcoSystem.getInstance().getTrainingDirectory().deleteRows(selectedRow);
-        
-        JOptionPane.showMessageDialog(this,"Selected record is deleted!");    
-        
+
+        JOptionPane.showMessageDialog(this, "Selected record is deleted!");
+
         populateTableTraining();
-        
+
     }//GEN-LAST:event_btnDeleteTrainingActionPerformed
 
     private void btnDeleteLicenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteLicenseActionPerformed
         // TODO add your handling code here:
-        
+
         int RowIndex = tblLicense.getSelectedRow();
-        
-        if(RowIndex < 0){
-            
-            JOptionPane.showMessageDialog(this,"Please select a row to delete!");
-            return ;            
+
+        if (RowIndex < 0) {
+
+            JOptionPane.showMessageDialog(this, "Please select a row to delete!");
+            return;
         }
-        
-        DefaultTableModel model = (DefaultTableModel)tblLicense.getModel();
-        License selectedRow = (License) model.getValueAt(RowIndex , 0); 
-        
+
+        DefaultTableModel model = (DefaultTableModel) tblLicense.getModel();
+        License selectedRow = (License) model.getValueAt(RowIndex, 0);
+
         EcoSystem.getInstance().getLicenseDirectory().deleteRows(selectedRow);
-        
-        JOptionPane.showMessageDialog(this,"Selected record is deleted!");    
-        
-        populateTableLicense();        
-        
+
+        JOptionPane.showMessageDialog(this, "Selected record is deleted!");
+
+        populateTableLicense();
+
     }//GEN-LAST:event_btnDeleteLicenseActionPerformed
 
     private void btnUpdateLicenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateLicenseActionPerformed
         // TODO add your handling code here:
-        
-        
-        
+
         DefaultTableModel model = (DefaultTableModel) tblLicense.getModel();
         int rowIndex = tblLicense.getSelectedRow();
         int colIndex = 0;
         int colIndex1 = tblLicense.getSelectedColumn();
-        
+
         Vector dataVector = model.getDataVector();
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
 
-        License licenseDetails = null;
-        if (colIndex1 == 0) {
-            licenseDetails = EcoSystem.getInstance().getLicenseDirectory().getLicense().stream().filter(item -> elementAt.get(0).equals(item.getLicenseId())).findFirst().orElse(null);
-        }
-        
+//        License licenseDetails = null;
+//        if (colIndex1 == 0) {
+//            licenseDetails = EcoSystem.getInstance().getLicenseDirectory().getLicense().stream().filter(item -> elementAt.get(0).equals(item.getLicenseId())).findFirst().orElse(null);
+//        }
         //LicenseOrganization res = (LicenseOrganization) model.getValueAt(rowIndex, colIndex);
         //!elementAt.get(1).toString().isEmpty() && 
-
         if (!elementAt.get(2).toString().isEmpty()
-            && !elementAt.get(3).toString().isEmpty() && !elementAt.get(4).toString().isEmpty() 
-              && !elementAt.get(5).toString().isEmpty()  ) {
-            
+                && !elementAt.get(3).toString().isEmpty() && !elementAt.get(4).toString().isEmpty()
+                && !elementAt.get(5).toString().isEmpty()) {
+
             License res = (License) elementAt.get(0);
             //res.setLicenseId(Integer.parseInt(elementAt.get(1).toString()));
             res.setIssueNumber(Long.parseLong(elementAt.get(2).toString()));
             res.setLicenseName(elementAt.get(3).toString());
-            res.setIssueDate((Date) elementAt.get(4));
-            res.setExpiryDate(((Date) elementAt.get(5)));
+//                Date issueDt = new SimpleDateFormat("dd/MM/yyyy").parse(elementAt.get(4).toString());
+//                Date expDt = new SimpleDateFormat("dd/MM/yyyy").parse(elementAt.get(5).toString());
+//                res.setIssueDate(issueDt);
+//                res.setExpiryDate(expDt);
 
             JOptionPane.showMessageDialog(this, "Value updated successfully!");
 
         } else {
             JOptionPane.showMessageDialog(this, "Please enter all values.");
 
-        }        
-        
-        
+        }
+
+
     }//GEN-LAST:event_btnUpdateLicenseActionPerformed
 
     private void btnUpdateTrainingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateTrainingActionPerformed
         // TODO add your handling code here:
-        
-         DefaultTableModel model = (DefaultTableModel) tblTraining.getModel();
+
+        DefaultTableModel model = (DefaultTableModel) tblTraining.getModel();
         int rowIndex = tblTraining.getSelectedRow();
         int colIndex = 0;
         int colIndex1 = tblTraining.getSelectedColumn();
-        
+
         Vector dataVector = model.getDataVector();
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
 
@@ -342,15 +339,13 @@ public class ViewJPanel extends javax.swing.JPanel {
         if (colIndex1 == 0) {
             trainingDetails = EcoSystem.getInstance().getTrainingDirectory().getTraining().stream().filter(item -> elementAt.get(0).equals(item.getPatientIdentity())).findFirst().orElse(null);
         }
-        
+
         //LicenseOrganization res = (LicenseOrganization) model.getValueAt(rowIndex, colIndex);
-        
         if (!elementAt.get(1).toString().isEmpty() && !elementAt.get(2).toString().isEmpty()
-            && !elementAt.get(3).toString().isEmpty() && !elementAt.get(4).toString().isEmpty() 
-              && !elementAt.get(5).toString().isEmpty()  && !elementAt.get(6).toString().isEmpty() && !elementAt.get(7).toString().isEmpty() 
-              && !elementAt.get(8).toString().isEmpty()) {
-            
-            
+                && !elementAt.get(3).toString().isEmpty() && !elementAt.get(4).toString().isEmpty()
+                && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty() && !elementAt.get(7).toString().isEmpty()
+                && !elementAt.get(8).toString().isEmpty()) {
+
             Training res = (Training) elementAt.get(0);
             res.setPatientIdentity(Boolean.parseBoolean(elementAt.get(1).toString()));
             res.setCrossMatching(Boolean.parseBoolean(elementAt.get(2).toString()));
@@ -359,16 +354,16 @@ public class ViewJPanel extends javax.swing.JPanel {
             res.setTroubleShooting(Boolean.parseBoolean(elementAt.get(5).toString()));
             res.setIssueOfBlood(Boolean.parseBoolean(elementAt.get(6).toString()));
             res.setTransfusionReactions(Boolean.parseBoolean(elementAt.get(7).toString()));
-            res.setBagDisposal(Boolean.parseBoolean(elementAt.get(8).toString()));            
+            res.setBagDisposal(Boolean.parseBoolean(elementAt.get(8).toString()));
 
             JOptionPane.showMessageDialog(this, "Value updated successfully!");
 
         } else {
             JOptionPane.showMessageDialog(this, "Please enter all values.");
 
-        }        
-        
-        
+        }
+
+
     }//GEN-LAST:event_btnUpdateTrainingActionPerformed
 
 
@@ -387,45 +382,56 @@ public class ViewJPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void populateTableLicense() {
-        DefaultTableModel model = (DefaultTableModel)tblLicense.getModel();
-         List<License> license = EcoSystem.getInstance().getLicenseDirectory().getLicense();
+        DefaultTableModel model = (DefaultTableModel) tblLicense.getModel();
         model.setRowCount(0);
-        
-        for(License l : license){
-            
-            Object[] col = new Object[6];
-            col[0] = l;
-            col[1] = l.getLicenseId();
-            col[2] = l.getIssueNumber();
-            col[3] = l.getLicenseName();
-            col[4] = l.getIssueDate();
-            col[5] = l.getExpiryDate();
-            
-            model.addRow(col);
-            
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (o.getName().equalsIgnoreCase("License Organization")) {
+                LicenseOrganization licOrg = (LicenseOrganization) o;
+                for (License l : licOrg.getLicenseDirectory().getLicense()) {
+
+                    Object[] col = new Object[6];
+                    col[0] = l;
+                    col[1] = l.getLicenseId();
+                    col[2] = l.getIssueNumber();
+                    col[3] = l.getLicenseName();
+                    col[4] = l.getIssueDate();
+                    col[5] = l.getExpiryDate();
+
+                    model.addRow(col);
+
+                }
+                break;
+            }
         }
     }
-    
+
     private void populateTableTraining() {
-        DefaultTableModel model = (DefaultTableModel)tblTraining.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblTraining.getModel();
         model.setRowCount(0);
         List<Training> training = EcoSystem.getInstance().getTrainingDirectory().getTraining();
-        for(Training t : training){
-            
-            Object[] col = new Object[9];
-            col[0] = t;
-            col[1] = t.getPatientIdentity();
-            col[2] = t.getCrossMatching();
-            col[3] = t.getCompatibility();
-            col[4] = t.getProblems();
-            col[5] = t.getTroubleShooting();
-            col[6] = t.getIssueOfBlood();
-            col[7] = t.getTransfusionReactions();
-            col[8] = t.getBagDisposal();
-           
-            model.addRow(col);
-            
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (o.getName().equalsIgnoreCase("Training Organization")) {
+                TrainingOrganization trainingOrganization = (TrainingOrganization) o;
+                for (Training t : trainingOrganization.getTrainingDirectory().getTraining()) {
+
+                    Object[] col = new Object[9];
+                    col[0] = t;
+                    col[1] = t.getPatientIdentity();
+                    col[2] = t.getCrossMatching();
+                    col[3] = t.getCompatibility();
+                    col[4] = t.getProblems();
+                    col[5] = t.getTroubleShooting();
+                    col[6] = t.getIssueOfBlood();
+                    col[7] = t.getTransfusionReactions();
+                    col[8] = t.getBagDisposal();
+
+                    model.addRow(col);
+
+                }
+                break;
+            }
         }
-    }    
-    
+
+    }
+
 }
