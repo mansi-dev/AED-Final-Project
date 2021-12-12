@@ -74,10 +74,13 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.setPreferredSize(new java.awt.Dimension(145, 243));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Government Admin");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
 
+        btnCreateLicenseTraining.setBackground(new java.awt.Color(255, 255, 255));
+        btnCreateLicenseTraining.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnCreateLicenseTraining.setText("Create License/Training");
         btnCreateLicenseTraining.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -85,6 +88,8 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
             }
         });
 
+        btnViewLicenseTraining.setBackground(new java.awt.Color(255, 255, 255));
+        btnViewLicenseTraining.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnViewLicenseTraining.setText("View License/Training");
         btnViewLicenseTraining.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,6 +97,8 @@ public class GovernmentWorkArea extends javax.swing.JPanel {
             }
         });
 
+        btnLogout.setBackground(new java.awt.Color(255, 255, 255));
+        btnLogout.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

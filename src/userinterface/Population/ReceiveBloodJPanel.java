@@ -65,21 +65,29 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
         ageLbl = new javax.swing.JLabel();
         heightLbl = new javax.swing.JLabel();
         weightLbl = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setText("Request Blood");
 
+        receiverLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         receiverLbl.setText("Receiver Name:");
 
+        phoneNumberLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         phoneNumberLbl.setText("Receiver Phone Number:");
 
+        bloodGrpLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         bloodGrpLbl.setText("Blood Group:");
 
+        unitsLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         unitsLbl.setText("Number of Units:");
 
+        orgNameLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         orgNameLbl.setText("Organization Name:");
 
+        saveBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         saveBtn.setText("Save");
         saveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,74 +95,86 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
             }
         });
 
+        hbLvl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         hbLvl.setText("Hemoglobin Level:");
 
+        emailLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         emailLbl.setText("Email:");
 
+        ageLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         ageLbl.setText("Age:");
 
+        heightLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         heightLbl.setText("Height:");
 
+        weightLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         weightLbl.setText("Weight:");
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/receiver.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(357, 357, 357))
             .addGroup(layout.createSequentialGroup()
-                .addGap(98, 98, 98)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(receiverLbl)
-                            .addComponent(phoneNumberLbl))
-                        .addGap(23, 23, 23)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(phoneNumberTxt)
-                            .addComponent(receiverTxt)))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(256, 256, 256)
+                                .addComponent(receiverLbl)
+                                .addGap(64, 64, 64))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(phoneNumberLbl)
+                                .addGap(63, 63, 63)))
+                        .addGap(5, 5, 5)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(bloodGrpLbl)
-                                .addComponent(unitsLbl)
-                                .addComponent(orgNameLbl)
-                                .addComponent(hbLvl)
-                                .addComponent(emailLbl)
-                                .addComponent(ageLbl)
-                                .addComponent(heightLbl))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(weightLbl)
-                                .addGap(79, 79, 79)))
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bloodGrpTxt)
-                            .addComponent(unitsTxt)
-                            .addComponent(hbTxt)
-                            .addComponent(orgCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(ageTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                                    .addComponent(heightTxt)
-                                    .addComponent(weightTxt)
-                                    .addComponent(emailTxt))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(390, 390, 390))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(432, 432, 432)
-                .addComponent(saveBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(phoneNumberTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(receiverTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(238, 238, 238)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(unitsLbl)
+                            .addComponent(orgNameLbl)
+                            .addComponent(hbLvl)
+                            .addComponent(bloodGrpLbl)
+                            .addComponent(weightLbl)
+                            .addComponent(heightLbl)
+                            .addComponent(ageLbl)
+                            .addComponent(emailLbl))
+                        .addGap(63, 63, 63)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(bloodGrpTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(hbTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(unitsTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(weightTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(heightTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ageTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(emailTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(orgCombo, 0, 188, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(356, 356, 356)
+                        .addComponent(saveBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(375, 375, 375))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jLabel1)
-                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(jLabel1)))
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(receiverLbl)
                     .addComponent(receiverTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -167,18 +187,18 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
                     .addComponent(emailLbl)
                     .addComponent(emailTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ageLbl)
-                    .addComponent(ageTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(heightLbl)
-                    .addComponent(heightTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(weightLbl)
-                    .addComponent(weightTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                    .addComponent(ageTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ageLbl))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(heightTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(heightLbl))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(weightTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(weightLbl))
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bloodGrpLbl)
                     .addComponent(bloodGrpTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -191,12 +211,12 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
                     .addComponent(unitsLbl)
                     .addComponent(unitsTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(orgNameLbl)
-                    .addComponent(orgCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(orgCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(orgNameLbl))
+                .addGap(18, 18, 18)
                 .addComponent(saveBtn)
-                .addGap(50, 50, 50))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     private void populateHospital(){
@@ -397,6 +417,7 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel heightLbl;
     private javax.swing.JTextField heightTxt;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JComboBox<String> orgCombo;
     private javax.swing.JLabel orgNameLbl;
     private javax.swing.JLabel phoneNumberLbl;
