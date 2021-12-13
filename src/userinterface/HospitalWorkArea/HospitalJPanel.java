@@ -37,7 +37,7 @@ public class HospitalJPanel extends javax.swing.JPanel {
     public HospitalJPanel(JPanel userProcessContainer, UserAccount account, Organizations organization, Enterprise enterprise, EcoSystem ecosystem) {
         initComponents();
         this.ecosystem = ecosystem;
-        this.ecosystem = ecosystem;
+        this.account = account;
         this.organization = organization;
         this.enterprise = enterprise;
         this.userProcessContainer = userProcessContainer;
@@ -179,7 +179,7 @@ public class HospitalJPanel extends javax.swing.JPanel {
     private void btnOrderBloodSampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderBloodSampleActionPerformed
         // TODO add your handling code here:
         jPanel1.removeAll();
-        OrderPanel aPanel = new OrderPanel();
+        OrderPanel aPanel = new OrderPanel(account, organization, enterprise, ecosystem);
         jPanel1.add(aPanel);
         CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
         cardLayout.next(jPanel1);
@@ -199,7 +199,7 @@ public class HospitalJPanel extends javax.swing.JPanel {
     private void btnSellBloodSampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSellBloodSampleActionPerformed
         // TODO add your handling code here:
         jPanel1.removeAll();
-        SellPanel sPanel = new SellPanel();
+        SellPanel sPanel = new SellPanel(account, organization, enterprise, ecosystem);
         jPanel1.add(sPanel);
         CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
         cardLayout.next(jPanel1);
@@ -207,14 +207,19 @@ public class HospitalJPanel extends javax.swing.JPanel {
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         jPanel1.removeAll();
-       // ViewInventory viewInventory = new ViewInventory(auth);
-        //jPanel1.add(viewInventory);
-        //CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
-        //cardLayout.next(jPanel1);
+        ViewInventory viewInventory = new ViewInventory(account, organization, enterprise, ecosystem);
+        jPanel1.add(viewInventory);
+        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
+        cardLayout.next(jPanel1);
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnView1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnView1ActionPerformed
         // TODO add your handling code here:
+                jPanel1.removeAll();
+ManageBloodRequest mbr = new ManageBloodRequest(account, organization, enterprise, ecosystem);
+jPanel1.add(mbr);
+        CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
+        cardLayout.next(jPanel1);
     }//GEN-LAST:event_btnView1ActionPerformed
 
 

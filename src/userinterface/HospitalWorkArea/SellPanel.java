@@ -4,17 +4,34 @@
  */
 package userinterface.HospitalWorkArea;
 
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Organization.Organizations;
+import Business.UserAccount.UserAccount;
+import javax.swing.JPanel;
+
 /**
  *
  * @author mansizope
  */
 public class SellPanel extends javax.swing.JPanel {
 
+    EcoSystem ecosystem;
+    
+    JPanel userProcessContainer;
+    UserAccount account;
+    Organizations organization;
+    Enterprise enterprise;
+    
     /**
      * Creates new form AvailabilityPanel
      */
-    public SellPanel() {
+    public SellPanel(UserAccount account, Organizations organization, Enterprise enterprise, EcoSystem ecosystem) {
         initComponents();
+        this.ecosystem = ecosystem;
+        this.organization = organization;
+        this.enterprise = enterprise;
+        this.account = account;
     }
 
     /**

@@ -7,7 +7,19 @@ package userinterface.HospitalWorkArea;
 import Business.BloodBank.BloodBank;
 import Business.BloodBank.BloodStock;
 import Business.EcoSystem;
+import Business.Enterprise.BloodBankEnterprise;
+import Business.Enterprise.Enterprise;
+import Business.Network.Network;
+import Business.Organization.BloodBankOrganization;
+import Business.Organization.Organizations;
+import Business.Organization.PersonOrganization;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.DonateBloodWorkRequest;
+import Business.WorkQueue.OrderBloodSampleWorkRequest;
+import Business.WorkQueue.WorkRequest;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,12 +27,21 @@ import javax.swing.table.DefaultTableModel;
  * @author mansizope
  */
 public class OrderPanel extends javax.swing.JPanel {
-
+EcoSystem ecosystem;
+    
+    JPanel userProcessContainer;
+    UserAccount account;
+    Organizations organization;
+    Enterprise enterprise;
     /**
      * Creates new form AvailabilityPanel
      */
-    public OrderPanel() {
+    public OrderPanel(UserAccount account, Organizations organization, Enterprise enterprise, EcoSystem ecosystem) {
         initComponents();
+         this.ecosystem = ecosystem;
+        this.organization = organization;
+        this.enterprise = enterprise;
+        this.account = account;
     }
 
     /**
@@ -39,6 +60,8 @@ public class OrderPanel extends javax.swing.JPanel {
         lblCity1 = new javax.swing.JLabel();
         txtBloodGroup = new javax.swing.JTextField();
         btnCheck = new javax.swing.JButton();
+        lblCity2 = new javax.swing.JLabel();
+        txtQuantity = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBloodBank = new javax.swing.JTable();
         btnOrderBloodSample = new javax.swing.JButton();
@@ -70,6 +93,10 @@ public class OrderPanel extends javax.swing.JPanel {
             }
         });
 
+        lblCity2.setBackground(new java.awt.Color(255, 255, 255));
+        lblCity2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblCity2.setText("Quantity:");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -80,6 +107,10 @@ public class OrderPanel extends javax.swing.JPanel {
                     .addComponent(btnCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addComponent(lblCity2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel5Layout.createSequentialGroup()
                             .addComponent(lblCity1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtBloodGroup, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -87,7 +118,7 @@ public class OrderPanel extends javax.swing.JPanel {
                             .addComponent(lblCity, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,9 +131,13 @@ public class OrderPanel extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCity1)
                     .addComponent(txtBloodGroup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCity2)
+                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCheck)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tblBloodBank.setBackground(new java.awt.Color(255, 204, 204));
@@ -159,11 +194,9 @@ public class OrderPanel extends javax.swing.JPanel {
                         .addGap(14, 14, 14)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnOrderBloodSample, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(btnOrderBloodSample, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(197, 197, 197))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,11 +210,11 @@ public class OrderPanel extends javax.swing.JPanel {
                         .addComponent(jLabel2)))
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnOrderBloodSample)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -189,11 +222,22 @@ public class OrderPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         String city = txtCity.getText();
         String bloodGroup = txtBloodGroup.getText();
-        List<BloodBank> bloodBankList = EcoSystem.getInstance().getBloodBankDirectory().getBloodBankList();
+        BloodBankOrganization bOrg = null;
+        ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+            Enterprise enterpriseTemp = enterpriseList.stream().filter(item -> "BloodBank".equals(item.getName())).findFirst().orElse(null);
+            for (Organizations organization : enterpriseTemp.getOrganizationDirectory().getOrganizationList()) {
+                if (organization.getName().equals("BloodBank Organization")) {
+                    bOrg = (BloodBankOrganization) organization;
+                }
+            }
+        List<BloodBank> bloodBankList = bOrg.getBloodBankDirectory().getBloodBankList();
         for (BloodBank bloodBank : bloodBankList) {
             List<BloodStock> bloodStock = bloodBank.getBloodStock();
             BloodStock bloodStockIns = bloodStock.stream().filter(item -> bloodGroup.equals(item.getBloodGroup())).findFirst().orElse(null);
-            if(bloodBank.getCity().equals(city) && bloodStockIns!=null){
+            if(bloodBank.getCity().equals(city) && bloodStockIns!=null && bloodStockIns.getQuantity()>0){
+//                OrderBloodSampleWorkRequest orderBloodSampleWorkRequest = new OrderBloodSampleWorkRequest();
+//                orderBloodSampleWorkRequest.setBloodGroup(bloodGroup);
+//                orderBloodSampleWorkRequest.setQuantity(Integer.parseInt(txtQuantity.getText()));
                 populateBloodBankTable(bloodStockIns.getQuantity());
             }
         }
@@ -218,17 +262,23 @@ public class OrderPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCity;
     private javax.swing.JLabel lblCity1;
+    private javax.swing.JLabel lblCity2;
     private javax.swing.JTable tblBloodBank;
     private javax.swing.JTextField txtBloodGroup;
     private javax.swing.JTextField txtCity;
+    private javax.swing.JTextField txtQuantity;
     // End of variables declaration//GEN-END:variables
 
     private void populateBloodBankTable(int quantity) {
          DefaultTableModel model = (DefaultTableModel) tblBloodBank.getModel();
         List<BloodBank> bloodBank = EcoSystem.getInstance().getBloodBankDirectory().getBloodBankList();
         model.setRowCount(0);
-        
-        for (BloodBank bb : bloodBank) {
+           for (Network n : this.ecosystem.getNetworkList()) {
+            for (Enterprise e : n.getEnterpriseDirectory().getEnterpriseList()) {
+                if (e instanceof BloodBankEnterprise) {
+                    for (Organizations org : e.getOrganizationDirectory().getOrganizationList()) {
+                        if (org instanceof BloodBankOrganization) {
+                            for (BloodBank bb : bloodBank) {
             Object[] row = new Object[7];
             //row[0] = ++index;
 
@@ -242,5 +292,13 @@ public class OrderPanel extends javax.swing.JPanel {
             model.addRow(row);
 
         }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+        
     }
 }
