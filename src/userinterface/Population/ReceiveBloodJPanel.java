@@ -5,13 +5,19 @@
  */
 package userinterface.Population;
 
-import Business.BloodBank.BloodBank;
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
 import Business.Hospital.Hospital;
+import Business.Organization.HospitalOrganization;
+import Business.Organization.Organizations;
+import Business.Organization.PersonOrganization;
 import Business.Population.Person;
 import Business.Population.ReceiverTransaction;
-import java.util.List;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.RecieverBloodWorkRequest;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
@@ -21,17 +27,27 @@ import javax.swing.text.BadLocationException;
  * @author neeraja
  */
 public class ReceiveBloodJPanel extends javax.swing.JPanel {
-    
+
     String loggedInUser;
+
+    EcoSystem business;
+
+    Enterprise enterprise;
+    UserAccount userAccount;
+
     /**
      * Creates new form ReceiveBloodJPanel
      */
-    public ReceiveBloodJPanel(String loggedInUser) {
+    public ReceiveBloodJPanel(JPanel userProcessContainer, EcoSystem business, Enterprise enterprise, UserAccount userAccount) {
         this.loggedInUser = loggedInUser;
         initComponents();
         addListeners();
-       // populateInitialValues();
-       populateHospital();
+
+        this.business = business;
+        this.userAccount = userAccount;
+        this.enterprise = enterprise;
+        // populateInitialValues();
+        populateHospital();
     }
 
     /**
@@ -88,7 +104,7 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
         orgNameLbl.setText("Organization Name:");
 
         saveBtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        saveBtn.setText("Save");
+        saveBtn.setText("Request");
         saveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveBtnActionPerformed(evt);
@@ -219,13 +235,21 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-    private void populateHospital(){
-        List<Hospital> hospitalList = EcoSystem.getInstance().getHospitalDirectory().getHospitalList();
-        for (Hospital hospital : hospitalList) {
-            orgCombo.addItem(hospital.getName());
+    private void populateHospital() {
+                ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+        Enterprise enterprise = enterpriseList.stream().filter(item -> "Hospital".equals(item.getName())).findFirst().orElse(null);
+
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (o.getName().equalsIgnoreCase("Hospital Organization")) {
+                HospitalOrganization hosOrg = (HospitalOrganization) o;
+                for (Hospital hosp : hosOrg.getHospitalDirectory().getHospitalList()) {
+                    orgCombo.addItem(hosp.getName());
+                }
+            }
         }
     }
-    private void populateInitialValues(){
+
+    private void populateInitialValues() {
         Person person = EcoSystem.getInstance().getPersonDirectory().getPersonByUsername(loggedInUser);
         String name = person.getName();
         String email = person.getEmail();
@@ -234,15 +258,23 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
         phoneNumberTxt.setText(String.valueOf(phoneNum));
         emailTxt.setText(String.valueOf(phoneNum));
     }
-    
+
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         // TODO add your handling code here:
         if (!receiverTxt.getText().isEmpty() && !bloodGrpTxt.getText().isEmpty()
-            && !phoneNumberTxt.getText().isEmpty() && !hbLvl.getText().isEmpty() && !unitsTxt.getText().isEmpty()
-            && orgCombo.getSelectedItem()!= null && !emailTxt.getText().isEmpty()) {
-         
-            Person person = EcoSystem.getInstance().getPersonDirectory().getPersonByPhoneNum(Long.parseLong(phoneNumberTxt.getText()));
-            
+                && !phoneNumberTxt.getText().isEmpty() && !hbLvl.getText().isEmpty() && !unitsTxt.getText().isEmpty()
+                && orgCombo.getSelectedItem() != null && !emailTxt.getText().isEmpty()) {
+
+            Person person = null;
+            ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+            Enterprise enterpriseTemp = enterpriseList.stream().filter(item -> "Population".equals(item.getName())).findFirst().orElse(null);
+            for (Organizations organization : enterpriseTemp.getOrganizationDirectory().getOrganizationList()) {
+                if (organization.getName().equals("Person Organization")) {
+                    PersonOrganization perOrg = (PersonOrganization) organization;
+                    person = perOrg.getPersonDirectory().getPersonByPhoneNum(Long.parseLong(phoneNumberTxt.getText()));
+                    break;
+                }
+            }
             ReceiverTransaction rt = person.addNewReceiverTransaction();
             rt.setHblevel(Float.parseFloat(hbTxt.getText()));
             rt.setNumberOfUnits(Integer.parseInt(unitsTxt.getText()));
@@ -250,21 +282,39 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
             rt.setHeight(Float.parseFloat(heightTxt.getText()));
             rt.setWeight(Float.parseFloat(weightTxt.getText()));
             person.setBloodGroup(bloodGrpTxt.getText());
-            String org = (String) orgCombo.getSelectedItem();
-            rt.setOrganizationName(org);
-           
-//            person.setName(donorTxt.getText());
-//            person.setEmail(emailTxt.getText());
-//            
-            
-          
+            rt.setHospitalByID(((String) orgCombo.getSelectedItem()));
+            Organizations oTemp = null;
+            enterpriseTemp = enterpriseList.stream().filter(item -> "Hospital".equals(item.getName())).findFirst().orElse(null);
+
+            for (Organizations organization : enterpriseTemp.getOrganizationDirectory().getOrganizationList()) {
+                if (organization.getName().equals("Hospital Organization")) {
+
+                    System.out.println(organization);
+                    oTemp = organization;
+                    break;
+                }
+            }
+            if (oTemp != null) {
+                RecieverBloodWorkRequest bloodBankWorkRequest = new RecieverBloodWorkRequest();
+                bloodBankWorkRequest.setReceiverTransaction(rt);
+                bloodBankWorkRequest.setStatus("Pending");
+                bloodBankWorkRequest.setMessage("Recieve blood");
+                bloodBankWorkRequest.setSender(userAccount);
+                bloodBankWorkRequest.setPerson(person);
+                oTemp.getWorkQueue().getWorkRequestList().add(bloodBankWorkRequest);
+                // System.out.println(org.getWorkQueue().getWorkRequestList());
+                userAccount.getWorkQueue().getWorkRequestList().add(bloodBankWorkRequest);
+                JOptionPane.showMessageDialog(null, "Blood request raised");
+
+            }
+
             JOptionPane.showMessageDialog(this, "Added receiver details to the system");
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
 
         }
     }//GEN-LAST:event_saveBtnActionPerformed
-          /**
+    /**
      * Function to validate number input. To check if text fields contain any
      * alphabets.
      */
@@ -345,6 +395,7 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
         } catch (BadLocationException ex) {
         }
     }
+
     private void addListeners() {
         bloodGrpTxt.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -359,7 +410,7 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-               validateTextInput(e);
+                validateTextInput(e);
             }
 
         });
@@ -367,20 +418,20 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
         hbTxt.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                 validateNumberInput(e);
-               
+                validateNumberInput(e);
+
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                  validateNumberInput(e);
-                
+                validateNumberInput(e);
+
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                  validateNumberInput(e);
-                
+                validateNumberInput(e);
+
             }
 
         });
@@ -401,8 +452,7 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
             }
 
         });
-       
-            
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
