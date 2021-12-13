@@ -310,7 +310,7 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
                     break;
                 }
             }
-
+            if(person != null){
             DonorTransaction dt = person.addNewDonorTransaction();
             dt.setHblevel(Float.parseFloat(hbTxt.getText()));
             dt.setBloodDonationDate(donationDate.getDate());
@@ -350,10 +350,15 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
             }
 
             JOptionPane.showMessageDialog(this, "Added donor details to the system");
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "User does not exist! Please check Phone Number");
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
 
         }
+        
     }//GEN-LAST:event_saveBtnActionPerformed
 
     private void ageTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ageTxtFocusLost

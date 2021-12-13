@@ -274,6 +274,7 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
                     break;
                 }
             }
+            if(person !=null){
             ReceiverTransaction rt = person.addNewReceiverTransaction();
             rt.setHblevel(Float.parseFloat(hbTxt.getText()));
             rt.setNumberOfUnits(Integer.parseInt(unitsTxt.getText()));
@@ -308,7 +309,11 @@ public class ReceiveBloodJPanel extends javax.swing.JPanel {
             }
 
             JOptionPane.showMessageDialog(this, "Added receiver details to the system");
-        } else {
+        }
+            else{
+                JOptionPane.showMessageDialog(this, "User does not exist! Please check Phone Number");
+            }
+        }else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
 
         }
