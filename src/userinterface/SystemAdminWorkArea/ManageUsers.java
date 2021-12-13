@@ -136,6 +136,11 @@ public class ManageUsers extends javax.swing.JPanel {
         lblEmailId.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblEmailId.setText("Email ID:");
 
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEmailActionPerformed(evt);
@@ -406,6 +411,17 @@ public class ManageUsers extends javax.swing.JPanel {
                     temp.setUser(customer);
 
                     JOptionPane.showMessageDialog(this, "Added user details");
+                    
+                    txtName.setText("");
+                    txtAddress.setText("");
+                    txtCity.setText("");
+                    txtState.setText("");
+                    txtZipCode.setText("");
+                    txtPhoneNum.setText("");
+                    txtUsername.setText("");
+                    txtPassword.setText("");
+                    txtEmail.setText("");
+                    
                     break;
                 }
             }
@@ -527,6 +543,11 @@ public class ManageUsers extends javax.swing.JPanel {
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        // TODO add your handling code here:
+        validateEmailInput(txtEmail.getText());
+    }//GEN-LAST:event_txtEmailFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -750,5 +771,6 @@ public class ManageUsers extends javax.swing.JPanel {
             }
 
         });
+           
     }
 }
