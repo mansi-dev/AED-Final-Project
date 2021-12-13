@@ -439,7 +439,18 @@ public class ManageHospitalManager extends javax.swing.JPanel {
                     temp.setUser(manager);
                     JOptionPane.showMessageDialog(this, "Added manager details");
 
-                    JOptionPane.showMessageDialog(this, "Added user details");
+                    
+                    txtMgrName.setText("");
+                    txtMgrAddr.setText("");
+                    txtMgrCIty.setText("");
+                    txtMgrState.setText("");
+                    txtMgrZipCode.setText("");
+                    txtPhoneNum.setText("");
+                    txtEmailID.setText("");
+                    txtHospitalId.setText("");
+                    txtUsername.setText("");
+                    txtPassword.setText("");
+                    
                 }
             }
 
@@ -458,8 +469,8 @@ public class ManageHospitalManager extends javax.swing.JPanel {
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
 
         if (!elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
-                && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
-                && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()) {
+            && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
+            && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()) {
             Hospital hospital = (Hospital) elementAt.get(0);
             hospital.setName(elementAt.get(2).toString());
             hospital.setAddress(elementAt.get(3).toString());
