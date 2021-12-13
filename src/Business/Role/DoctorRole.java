@@ -14,7 +14,7 @@ import userinterface.HospitalWorkArea.HospitalJPanel;
 
 /**
  *
- * @author raunak
+ * @author mayan
  */
 public class DoctorRole extends Role{
 

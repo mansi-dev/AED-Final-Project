@@ -13,7 +13,7 @@ import userinterface.HospitalWorkArea.HospitalJPanel;
 
 /**
  *
- * @author raunak
+ * @author mansi
  */
 public class ManagerRole extends Role{
 
