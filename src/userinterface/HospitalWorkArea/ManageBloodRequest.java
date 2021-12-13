@@ -92,7 +92,7 @@ public class ManageBloodRequest extends javax.swing.JPanel {
             donorTrnTable.getColumnModel().getColumn(0).setMaxWidth(1);
         }
 
-        btnApprove.setText("Approve");
+        btnApprove.setText("Action");
         btnApprove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApproveActionPerformed(evt);
@@ -125,9 +125,9 @@ public class ManageBloodRequest extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnApprove)
-                .addContainerGap(382, Short.MAX_VALUE))
+                .addContainerGap(376, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -156,8 +156,6 @@ public class ManageBloodRequest extends javax.swing.JPanel {
                 }
                 db.setResolveDate(new Date());
                 db.setReceiver(account);
-                JOptionPane.showMessageDialog(this, "Request approved");
-
                 populateRequestTable();
             }
 
