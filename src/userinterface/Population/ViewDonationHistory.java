@@ -10,6 +10,7 @@ import Business.Enterprise.BloodBankEnterprise;
 import Business.Enterprise.Enterprise;
 import Business.Enterprise.PopulationEnterprise;
 import Business.Network.Network;
+import Business.Organization.BloodBankManagerOrganization;
 import Business.Organization.BloodBankOrganization;
 import Business.Organization.Organizations;
 import Business.Organization.PersonOrganization;
@@ -19,6 +20,7 @@ import Business.Population.PersonDirectory;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.DonateBloodWorkRequest;
 import Business.WorkQueue.WorkRequest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -72,6 +74,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         donorLbl = new javax.swing.JLabel();
         trnLbl = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        btnDonate = new javax.swing.JButton();
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -182,6 +185,14 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Donor.png"))); // NOI18N
 
+        btnDonate.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnDonate.setText("Donate");
+        btnDonate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDonateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -191,7 +202,9 @@ public class ViewDonationHistory extends javax.swing.JPanel {
                 .addComponent(btnUpdateTrn)
                 .addGap(18, 18, 18)
                 .addComponent(btnDeleteTrn)
-                .addGap(48, 48, 48))
+                .addGap(18, 18, 18)
+                .addComponent(btnDonate)
+                .addGap(24, 24, 24))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,7 +257,8 @@ public class ViewDonationHistory extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdateTrn)
-                    .addComponent(btnDeleteTrn))
+                    .addComponent(btnDeleteTrn)
+                    .addComponent(btnDonate))
                 .addContainerGap(61, Short.MAX_VALUE))
         );
 
@@ -347,7 +361,18 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         }
         DefaultTableModel model = (DefaultTableModel) donorTable.getModel();
         Person person = (Person) model.getValueAt(selectedRowIndex, 0);
-        personDirectory.removePerson(person);
+        ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+        Enterprise enterprise = enterpriseList.stream().filter(item -> "Population".equals(item.getName())).findFirst().orElse(null);
+        
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+                if (o.getName().equalsIgnoreCase("Person Organization")) {
+                    PersonOrganization personOrg = (PersonOrganization) o;
+                    personOrg.getPersonDirectory().removePerson(person);
+                    enterprise.getUserAccountDirectory().deleteAccount(person.getId());
+                    break;
+                }
+        }
+        //personDirectory.removePerson(person);
         DefaultTableModel modelTrn = (DefaultTableModel) donorTrnTable.getModel();
         modelTrn.setRowCount(0);
         viewDonationHist();
@@ -409,10 +434,33 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         }
         DefaultTableModel modelTrn = (DefaultTableModel) donorTrnTable.getModel();
         DonorTransaction donorTransaction = (DonorTransaction) modelTrn.getValueAt(selectedRowIndex, 0);
-        person.removeDonorTransaction(donorTransaction);
+//         ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+//        Enterprise enterprise = enterpriseList.stream().filter(item -> "BloodBank".equals(item.getName())).findFirst().orElse(null);
+//        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+//                if (o.getName().equalsIgnoreCase("BloodBankManager Organization")) {
+//                    BloodBankOrganization bbOrg = (BloodBankOrganization) o;
+//                     //o.getWorkQueue().getWorkRequestList().;
+//                     break;
+//                }
+//        }
+       person.removeDonorTransaction(donorTransaction);
         modelTrn.removeRow(selectedRowIndex);
         JOptionPane.showMessageDialog(this, "Donor Transaction deleted");
     }//GEN-LAST:event_btnDeleteTrnActionPerformed
+
+    private void btnDonateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDonateActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = donorTrnTable.getSelectedRow();
+
+        // Selected patient
+        
+        DefaultTableModel model = (DefaultTableModel) donorTable.getModel();
+        DonateBloodWorkRequest wr = (DonateBloodWorkRequest) model.getValueAt(selectedRowIndex, 0);
+        if(wr.getStatus() == "Approved"){
+        wr.setStatus("Complete");
+        }
+        
+    }//GEN-LAST:event_btnDonateActionPerformed
     /**
      * *
      **
@@ -472,6 +520,7 @@ public class ViewDonationHistory extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDeleteDonor;
     private javax.swing.JButton btnDeleteTrn;
+    private javax.swing.JButton btnDonate;
     private javax.swing.JButton btnUpdateDonor;
     private javax.swing.JButton btnUpdateTrn;
     private javax.swing.JLabel donorLbl;

@@ -178,11 +178,13 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
                 .addComponent(btnDeleteReceiver)
                 .addGap(38, 38, 38))
             .addGroup(layout.createSequentialGroup()
+
                 .addGap(807, 807, 807)
                 .addComponent(btnUpdateTrn)
                 .addGap(34, 34, 34)
                 .addComponent(btnDeleteTrn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,6 +194,7 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
                             .addComponent(receiverLbl1)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1046, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
+
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(trnLbl1)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -201,6 +204,12 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

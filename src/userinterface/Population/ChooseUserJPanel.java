@@ -83,6 +83,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
 
+        donateBldBtn.setBackground(new java.awt.Color(255, 255, 255));
         donateBldBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         donateBldBtn.setText("Donate Blood");
         donateBldBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -91,6 +92,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
             }
         });
 
+        receiveBtn.setBackground(new java.awt.Color(255, 255, 255));
         receiveBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         receiveBtn.setText("Receive Blood");
         receiveBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -99,6 +101,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
             }
         });
 
+        donateHistBtn.setBackground(new java.awt.Color(255, 255, 255));
         donateHistBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         donateHistBtn.setText("View Donation History");
         donateHistBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -107,6 +110,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
             }
         });
 
+        receiveHistBtn.setBackground(new java.awt.Color(255, 255, 255));
         receiveHistBtn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         receiveHistBtn.setText("View Receiver History");
         receiveHistBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -115,6 +119,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnLogout.setBackground(new java.awt.Color(255, 255, 255));
         btnLogout.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
