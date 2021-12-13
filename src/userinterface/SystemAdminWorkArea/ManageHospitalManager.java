@@ -439,7 +439,18 @@ public class ManageHospitalManager extends javax.swing.JPanel {
                     temp.setUser(manager);
                     JOptionPane.showMessageDialog(this, "Added manager details");
 
-                    JOptionPane.showMessageDialog(this, "Added user details");
+                    
+                    txtMgrName.setText("");
+                    txtMgrAddr.setText("");
+                    txtMgrCIty.setText("");
+                    txtMgrState.setText("");
+                    txtMgrZipCode.setText("");
+                    txtPhoneNum.setText("");
+                    txtEmailID.setText("");
+                    txtHospitalId.setText("");
+                    txtUsername.setText("");
+                    txtPassword.setText("");
+                    
                 }
             }
 
@@ -467,6 +478,7 @@ public class ManageHospitalManager extends javax.swing.JPanel {
             manager.setState(elementAt.get(5).toString());
             manager.setPhoneNum(Long.parseLong(elementAt.get(6).toString()));
             manager.setZipCode(elementAt.get(7).toString());
+
 
             JOptionPane.showMessageDialog(this, "Value updated successfully!");
 

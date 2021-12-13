@@ -10,7 +10,7 @@ import userinterface.SystemAdminWorkArea.LoginForm;
 
 /**
  *
- * @author Lingfeng
+ * @author mansi
  */
 public class MainJFrame extends javax.swing.JFrame {
 

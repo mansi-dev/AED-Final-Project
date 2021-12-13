@@ -75,8 +75,6 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.CardLayout());
-
-        jLabel1.setText("                                                                    User Panel");
         jPanel2.add(jLabel1, "card2");
 
         jSplitPane1.setRightComponent(jPanel2);

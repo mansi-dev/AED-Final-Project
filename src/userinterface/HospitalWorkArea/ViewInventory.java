@@ -1,10 +1,18 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package userinterface.HospitalWorkArea;
 
+import Business.BloodBank.BloodStock;
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Manager.Manager;
+import Business.Organization.HospitalOrganization;
+import Business.Organization.Organizations;
 import Business.UserAccount.UserAccount;
+import javax.swing.JPanel;
 
 /**
  *
@@ -12,13 +20,22 @@ import Business.UserAccount.UserAccount;
  */
 public class ViewInventory extends javax.swing.JPanel {
 
-    UserAccount auth;
+    EcoSystem ecosystem;
+    
+    JPanel userProcessContainer;
+    UserAccount account;
+    Organizations organization;
+    Enterprise enterprise;
+    
     /**
-     * Creates new form ViewInventory
+     * Creates new form ViewReceiverHistory
      */
-    public ViewInventory(UserAccount auth) {
+    public ViewInventory(UserAccount account, Organizations organization, Enterprise enterprise, EcoSystem ecosystem) {
         initComponents();
-        this.auth = auth;
+        this.ecosystem = ecosystem;
+        this.organization = organization;
+        this.enterprise = enterprise;
+        this.account = account;
     }
 
     /**
@@ -30,83 +47,130 @@ public class ViewInventory extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblHosp = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        trnLbl1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        txtBloodBank = new javax.swing.JTextField();
+        trnLbl2 = new javax.swing.JLabel();
+        txtQuantity = new javax.swing.JTextField();
+        btnCheck = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
-        jLabel1.setText("VIEW BLOOD INVENTORY");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel3.setText("Blood Inventory");
 
-        tblHosp.setBackground(new java.awt.Color(255, 204, 204));
-        tblHosp.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        tblHosp.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "", "Name", "Address", "City", "State", "Phone No", "Blood Group", "No of Units"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tblHosp);
-        if (tblHosp.getColumnModel().getColumnCount() > 0) {
-            tblHosp.getColumnModel().getColumn(0).setMinWidth(1);
-            tblHosp.getColumnModel().getColumn(0).setPreferredWidth(1);
-            tblHosp.getColumnModel().getColumn(0).setMaxWidth(1);
-        }
+        trnLbl1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        trnLbl1.setText("Blood Group: ");
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hosp1.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/receiver.png"))); // NOI18N
+
+        txtBloodBank.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBloodBankActionPerformed(evt);
+            }
+        });
+
+        trnLbl2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        trnLbl2.setText("Quantity:");
+
+        txtQuantity.setEditable(false);
+        txtQuantity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQuantityActionPerformed(evt);
+            }
+        });
+
+        btnCheck.setText("Check");
+        btnCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 912, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(156, 156, 156))
+                .addGap(339, 339, 339)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(trnLbl2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(trnLbl1)
+                                .addGap(55, 55, 55)
+                                .addComponent(txtBloodBank, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(45, 45, 45)
+                        .addComponent(btnCheck)))
+                .addGap(0, 204, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel2)))
-                .addGap(19, 19, 19)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(311, Short.MAX_VALUE))
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabel3))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addGap(67, 67, 67)))
+                .addGap(102, 102, 102)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(trnLbl1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtBloodBank, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCheck)))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(trnLbl2)
+                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(332, 332, 332))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtBloodBankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBloodBankActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBloodBankActionPerformed
+
+    private void txtQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQuantityActionPerformed
+
+    private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
+        // TODO add your handling code here:
+        String bloodGroup = txtBloodBank.getText();
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+     
+                if (o.getName().equalsIgnoreCase("Hospital Organization")) {
+                   HospitalOrganization bbOrg =  (HospitalOrganization) o;
+                    Manager bm = (Manager) account.getUser();
+                    int id = (int) bm.getHospital().getId();
+                    if(bbOrg!=null){
+                        
+                    BloodStock bbstock = bbOrg.getHospitalDirectory().getHospitalByID(id).getBloodStock().stream().filter(item -> bloodGroup.equals(item.getBloodGroup())).findFirst().orElse(null);
+                    txtQuantity.setText(String.valueOf(bbstock.getQuantity()));
+                    }
+                }
+        }
+    }//GEN-LAST:event_btnCheckActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnCheck;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblHosp;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel trnLbl1;
+    private javax.swing.JLabel trnLbl2;
+    private javax.swing.JTextField txtBloodBank;
+    private javax.swing.JTextField txtQuantity;
     // End of variables declaration//GEN-END:variables
 }
