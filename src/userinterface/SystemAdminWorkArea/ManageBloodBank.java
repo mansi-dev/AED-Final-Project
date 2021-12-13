@@ -692,16 +692,26 @@ public class ManageBloodBank extends javax.swing.JPanel {
                     bloodBankManager.setState(txtState.getText());
                     bloodBankManager.setZipCode(txtZipCode.getText());
                     bloodBankManager.setPhoneNum(Long.parseLong(txtPhoneNum.getText()));
-                    bloodBankManager.setBloodBankByID(Integer.parseInt(txtBloodBank.getText()));
+                    bloodBankManager.setBloodBankByID(Integer.parseInt(txtHospitalID.getText()));
                     //bloodBankManager.setEmail(txtHospitalEmail.getText());
                     temp.setUser(bloodBankManager);
                     JOptionPane.showMessageDialog(this, "Added blood bank manager details to the system");
+                    
+                    txtName.setText("");
+                    txtAddress.setText("");
+                    txtCity.setText("");
+                    txtState.setText("");
+                    txtZipCode.setText("");
+                    txtPhoneNum.setText("");
+                    txtUsername.setText("");
+                    txtPassword.setText("");
+                    txtHospitalID.setText("");
                 }
             }
 
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
-
+                
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -788,7 +798,17 @@ public class ManageBloodBank extends javax.swing.JPanel {
                     bloodBank.setId(Integer.parseInt(txtBloodBank.getText()));
 
                     JOptionPane.showMessageDialog(this, "Added Blood Bank details to the system");
-                    break;
+                    
+                    
+            txtHospitalName.setText("");
+            txtHospitalAddr.setText("");
+            txtHospitalCity.setText("");
+            txtHospitalState.setText("");
+            txtHospitalZipCode.setText("");
+            txtHospitalPhone.setText("");
+            txtHospitalEmail.setText("");
+            txtBloodBank.setText("");
+                break;    
                 }
             }
 

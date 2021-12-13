@@ -357,6 +357,7 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        try{
         if (!txtName.getText().isEmpty() && !txtUsername.getText().isEmpty()
                 && !txtPassword.getText().isEmpty() && !txtAddress.getText().isEmpty() && !txtCity.getText().isEmpty()
                 && !txtState.getText().isEmpty() && !txtZipCode.getText().isEmpty() && !txtPhoneNum.getText().isEmpty()) {
@@ -396,6 +397,9 @@ public class ManageGovernmentAdmin extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
 
+        }}
+        catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Phone number should be numerical.");
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
