@@ -217,7 +217,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
 //        jPanel2.remove(receiverHistory);
         jPanel2.removeAll();
         
-        receieveBlood = new ReceiveBloodJPanel(loggedInUser);
+        receieveBlood = new ReceiveBloodJPanel(userProcessContainer, ecosystem,enterprise, account);
         jPanel2.add(receieveBlood);
 
         CardLayout cardLayout = (CardLayout) jPanel2.getLayout();

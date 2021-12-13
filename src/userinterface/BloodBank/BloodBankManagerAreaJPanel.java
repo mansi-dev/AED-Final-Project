@@ -42,7 +42,7 @@ public class BloodBankManagerAreaJPanel extends javax.swing.JPanel {
         this.ecosystem = ecosystem;
         this.organization = organization;
         this.enterprise = enterprise;
-        this.userProcessContainer = userProcessContainer;
+        this.account = account;
     }
 
     /**
@@ -142,9 +142,9 @@ public class BloodBankManagerAreaJPanel extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         jPanel1.removeAll();
+        ViewInventory inventory = new ViewInventory(account, organization, enterprise, ecosystem);
+        jPanel1.add(inventory);
         
-        //jPanel1.add(manageHospital);
-
         CardLayout cardLayout = (CardLayout) jPanel1.getLayout();
         cardLayout.next(jPanel1);
     }//GEN-LAST:event_jButton2ActionPerformed

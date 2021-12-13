@@ -7,6 +7,11 @@ package Business.Population;
 
 import Business.BloodBank.BloodBank;
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Organization.BloodBankOrganization;
+import Business.Organization.HospitalOrganization;
+import Business.Organization.Organizations;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -32,8 +37,15 @@ public class DonorTransaction {
         return bloodbank;
     }
     public void setBloodBankByID(String name){
-        
-        this.bloodbank=EcoSystem.getInstance().getBloodBankDirectory().getBloodBankList().stream().filter(item -> name.equals(item.getName())).findFirst().orElse(null);
+         ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+        Enterprise enterprise = enterpriseList.stream().filter(item -> "BloodBank".equals(item.getName())).findFirst().orElse(null);
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (o.getName().equalsIgnoreCase("BloodBank Organization")) {
+                BloodBankOrganization hsoOrg = (BloodBankOrganization) o;
+                this.bloodbank = hsoOrg.getBloodBankDirectory().getBloodBankList().stream().filter(item -> name.equals(item.getName())).findFirst().orElse(null);
+                break;
+            }
+        }
     }
 
     public void setBloodbank(BloodBank bloodbank) {

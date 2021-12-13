@@ -5,13 +5,21 @@
  */
 package Business.Population;
 
+import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Hospital.Hospital;
+import Business.Organization.BloodBankOrganization;
+import Business.Organization.HospitalOrganization;
+import Business.Organization.Organizations;
+import java.util.ArrayList;
+
 /**
  *
  * @author neeraja
  */
 public class ReceiverTransaction {
     private int numberOfUnits;
-    private String organizationName;
+    private Hospital hospital;
     private float price;
     private float hblevel;
     private float weight;
@@ -45,9 +53,9 @@ public class ReceiverTransaction {
     public ReceiverTransaction() {
     }
 
-    public ReceiverTransaction(float hblevel,int numberOfUnits, String organizationName) {
+    public ReceiverTransaction(float hblevel,int numberOfUnits, Hospital hospital) {
         this.numberOfUnits = numberOfUnits;
-        this.organizationName = organizationName;
+        this.hospital = hospital;
         this.hblevel = hblevel;
     }
     public int getNumberOfUnits() {
@@ -74,15 +82,23 @@ public class ReceiverTransaction {
         this.hblevel = hblevel;
     }
 
-    public String getOrganizationName() {
-        return organizationName;
+    public Hospital getHospital() {
+        return hospital;
     }
 
-    public void setOrganizationName(String organizationName) {
-        this.organizationName = organizationName;
+    public void setHospital(Hospital hospital) {
+        this.hospital = hospital;
     }
-    @Override
-    public String toString() {
-        return "ReceiverTransaction{" + "hblevel=" + hblevel + "age=" + age +"height=" + height +"weight=" + weight +"numberOfUnits=" + numberOfUnits + ", organizationName=" + organizationName + '}';
+
+    public void setHospitalByID(String name){
+         ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
+        Enterprise enterprise = enterpriseList.stream().filter(item -> "Hospital".equals(item.getName())).findFirst().orElse(null);
+        for (Organizations o : enterprise.getOrganizationDirectory().getOrganizationList()) {
+            if (o.getName().equalsIgnoreCase("Hospital Organization")) {
+                HospitalOrganization hsoOrg = (HospitalOrganization) o;
+                this.hospital = hsoOrg.getHospitalDirectory().getHospitalList().stream().filter(item -> name.equals(item.getName())).findFirst().orElse(null);
+                break;
+            }
+        }
     }
 }

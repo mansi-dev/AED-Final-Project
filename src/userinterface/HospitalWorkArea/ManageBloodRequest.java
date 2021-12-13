@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package userinterface.BloodBank;
+package userinterface.HospitalWorkArea;
 
-import Business.BloodBank.BloodBank;
 import Business.BloodBank.BloodStock;
 import Business.EcoSystem;
-import Business.Enterprise.BloodBankEnterprise;
 import Business.Enterprise.Enterprise;
+import Business.Enterprise.HospitalEnterprise;
+import Business.Hospital.Hospital;
 import Business.Network.Network;
-import Business.Organization.BloodBankOrganization;
+import Business.Organization.HospitalOrganization;
 import Business.Organization.Organizations;
 import Business.UserAccount.UserAccount;
-import Business.WorkQueue.DonateBloodWorkRequest;
+import Business.WorkQueue.RecieverBloodWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author mansizope
  */
-public class ManageDonateBloodRequest extends javax.swing.JPanel {
+public class ManageBloodRequest extends javax.swing.JPanel {
 
     UserAccount account;
     Organizations organization;
@@ -33,7 +33,7 @@ public class ManageDonateBloodRequest extends javax.swing.JPanel {
     /**
      * Creates new form ManageDonateBloodRequest
      */
-    public ManageDonateBloodRequest(UserAccount account, Organizations organization, Enterprise enterprise, EcoSystem ecosystem) {
+    public ManageBloodRequest(UserAccount account, Organizations organization, Enterprise enterprise, EcoSystem ecosystem) {
         initComponents();
         this.ecosystem = ecosystem;
         this.organization = organization;
@@ -61,24 +61,24 @@ public class ManageDonateBloodRequest extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("MANAGE DONATION REQUEST");
+        jLabel1.setText("MANAGE RECIEVER REQUEST");
 
         donorTrnTable.setBackground(new java.awt.Color(255, 204, 204));
         donorTrnTable.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         donorTrnTable.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         donorTrnTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "", "Name", "Age", "Weight", "Height", "Hemoglobin Level", "Blood Last Donated Date", "Blood Donation Date", "Number of Units", "Other Diseases", "Price", "Requested Date", "Status"
+                "", "Name", "Age", "Weight", "Height", "Hemoglobin Level", "Number of Units", "Price", "Requested Date", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -135,45 +135,34 @@ public class ManageDonateBloodRequest extends javax.swing.JPanel {
         // TODO add your handling code here:
         DefaultTableModel model = (DefaultTableModel) donorTrnTable.getModel();
         int selectedRow = donorTrnTable.getSelectedRow();
-        if(selectedRow!=-1){
-        DonateBloodWorkRequest db = (DonateBloodWorkRequest) model.getValueAt(selectedRow, 0);
-        if(db.getStatus().equals("Approved")){
-                        JOptionPane.showMessageDialog(this, "Request already approved");
-        }else{
-            if (db.getDonorTransaction().getAge() > 16 && !db.getDonorTransaction().isOtherDiseases() && db.getDonorTransaction().getHblevel() >= 12.5) {
-            db.getDonorTransaction().setIsEligible(true);
-            db.setStatus("Approved");
-            db.setResolveDate(new Date());
-            db.setReceiver(account);
+        if (selectedRow != -1) {
+            RecieverBloodWorkRequest db = (RecieverBloodWorkRequest) model.getValueAt(selectedRow, 0);
+            if (db.getStatus().equals("Approved")) {
+                JOptionPane.showMessageDialog(this, "Request already approved");
+            } else {
 
+                Hospital hospital = db.getReceiverTransaction().getHospital();
+                BloodStock bloodStock = hospital.getBloodStock().stream().filter(item -> db.getPerson().getBloodGroup().equals(item.getBloodGroup())).findFirst().orElse(null);
+                int quant = 0;
+                if (bloodStock == null) {
+                    JOptionPane.showMessageDialog(this, "Blood Bag not available!");
+                    db.setStatus("Rejected");
 
-            BloodBank bloodBank = db.getDonorTransaction().getBloodbank();
-            BloodStock bloodStock = bloodBank.getBloodStock().stream().filter(item -> db.getPerson().getBloodGroup().equals(item.getBloodGroup())).findFirst().orElse(null);
-            int quant = 0;
-            if (bloodStock == null) {
-                quant += 1;
-                bloodBank.getBloodStock().add(new BloodStock(db.getPerson().getBloodGroup(), quant));
+                } else {
+                    quant = bloodStock.getQuantity() - 1;
+                    db.setStatus("Approved");
 
-            }else{
-                quant = bloodStock.getQuantity() + 1;
-                bloodStock.setQuantity(quant);
+                    bloodStock.setQuantity(quant);
+                }
+                db.setResolveDate(new Date());
+                db.setReceiver(account);
+                JOptionPane.showMessageDialog(this, "Request approved");
+
+                populateRequestTable();
             }
 
-            JOptionPane.showMessageDialog(this, "Thank you for donating the blood");
-
         } else {
-            db.getDonorTransaction().setIsEligible(true);
-            db.setStatus("Rejected");
-            db.setResolveDate(new Date());
-            db.setReceiver(account);
-            JOptionPane.showMessageDialog(this, "You are not eligible for donation");
-
-        }
-        populateRequestTable();
-        }
-        
-        }else{
-                        JOptionPane.showMessageDialog(this, "Please select a record to approve the request");
+            JOptionPane.showMessageDialog(this, "Please select a record to approve the request");
 
         }
     }//GEN-LAST:event_btnApproveActionPerformed
@@ -191,30 +180,27 @@ public class ManageDonateBloodRequest extends javax.swing.JPanel {
         model.setRowCount(0);
         for (Network n : this.ecosystem.getNetworkList()) {
             for (Enterprise e : n.getEnterpriseDirectory().getEnterpriseList()) {
-                if (e instanceof BloodBankEnterprise) {
+                if (e instanceof HospitalEnterprise) {
                     for (Organizations org : e.getOrganizationDirectory().getOrganizationList()) {
-                        if (org instanceof BloodBankOrganization) {
+                        if (org instanceof HospitalOrganization) {
                             DefaultTableModel modelR = (DefaultTableModel) donorTrnTable.getModel();
                             modelR.setRowCount(0);
                             for (WorkRequest request : org.getWorkQueue().getWorkRequestList()) {
-                                if (request instanceof DonateBloodWorkRequest) {
+                                if (request instanceof RecieverBloodWorkRequest) {
 
-                                    Object[] rowTrn = new Object[13];
+                                    Object[] rowTrn = new Object[10];
                                     //row[0] = ++index;
 
                                     rowTrn[0] = request;
-                                    rowTrn[1] = ((DonateBloodWorkRequest) request).getPerson().getName();
-                                    rowTrn[2] = ((DonateBloodWorkRequest) request).getDonorTransaction().getAge();
-                                    rowTrn[3] = ((DonateBloodWorkRequest) request).getDonorTransaction().getWeight();
-                                    rowTrn[4] = ((DonateBloodWorkRequest) request).getDonorTransaction().getHeight();
-                                    rowTrn[5] = ((DonateBloodWorkRequest) request).getDonorTransaction().getHblevel();
-                                    rowTrn[6] = ((DonateBloodWorkRequest) request).getDonorTransaction().getBloodLastDonatedDate();
-                                    rowTrn[7] = ((DonateBloodWorkRequest) request).getDonorTransaction().getBloodDonationDate();
-                                    rowTrn[8] = ((DonateBloodWorkRequest) request).getDonorTransaction().getNumberOfUnits();
-                                    rowTrn[9] = ((DonateBloodWorkRequest) request).getDonorTransaction().isOtherDiseases();
-                                    rowTrn[10] = ((DonateBloodWorkRequest) request).getDonorTransaction().getPrice();
-                                    rowTrn[11] = request.getRequestDate();
-                                    rowTrn[12] = request.getStatus();
+                                    rowTrn[1] = ((RecieverBloodWorkRequest) request).getPerson().getName();
+                                    rowTrn[2] = ((RecieverBloodWorkRequest) request).getReceiverTransaction().getAge();
+                                    rowTrn[3] = ((RecieverBloodWorkRequest) request).getReceiverTransaction().getWeight();
+                                    rowTrn[4] = ((RecieverBloodWorkRequest) request).getReceiverTransaction().getHeight();
+                                    rowTrn[5] = ((RecieverBloodWorkRequest) request).getReceiverTransaction().getHblevel();
+                                    rowTrn[6] = ((RecieverBloodWorkRequest) request).getReceiverTransaction().getNumberOfUnits();
+                                    rowTrn[7] = ((RecieverBloodWorkRequest) request).getReceiverTransaction().getPrice();
+                                    rowTrn[8] = request.getRequestDate();
+                                    rowTrn[9] = request.getStatus();
                                     modelR.addRow(rowTrn);
                                 }
                             }
