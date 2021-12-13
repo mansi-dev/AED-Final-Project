@@ -13,7 +13,7 @@ import userinterface.BloodBank.BloodBankManagerAreaJPanel;
 
 /**
  *
- * @author raunak
+ * @author mayan
  */
 public class BloodBankManagerRole extends Role{
 

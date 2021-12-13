@@ -13,7 +13,7 @@ import userinterface.Population.ChooseUserJPanel;
 
 /**
  *
- * @author raunak
+ * @author neeraja
  */
 public class PersonRole extends Role {
 
