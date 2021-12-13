@@ -16,7 +16,6 @@ import Business.Population.Person;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.DonateBloodWorkRequest;
 import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.DocumentEvent;

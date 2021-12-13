@@ -66,6 +66,7 @@
                                   <Component id="btnOrderBloodSample" min="-2" pref="196" max="-2" attributes="0"/>
                                   <Component id="btnSellBloodSample" alignment="0" min="-2" pref="196" max="-2" attributes="0"/>
                                   <Component id="btnView" alignment="0" min="-2" pref="196" max="-2" attributes="0"/>
+                                  <Component id="btnView1" alignment="0" min="-2" pref="196" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -87,8 +88,10 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnSellBloodSample" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnView1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnView" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="388" max="32767" attributes="0"/>
+                      <EmptySpace pref="363" max="32767" attributes="0"/>
                       <Component id="btnLogout" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -164,6 +167,17 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnView1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Tahoma" size="12" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Manage Requests"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnView1ActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
