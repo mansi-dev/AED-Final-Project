@@ -158,7 +158,11 @@ public class ViewInventory extends javax.swing.JPanel {
                     if(bbOrg!=null){
                         
                     BloodStock bbstock = bbOrg.getHospitalDirectory().getHospitalByID(id).getBloodStock().stream().filter(item -> bloodGroup.equals(item.getBloodGroup())).findFirst().orElse(null);
-                    txtQuantity.setText(String.valueOf(bbstock.getQuantity()));
+                    if(bbstock!=null){
+                       txtQuantity.setText(String.valueOf(bbstock.getQuantity()));
+                    }else{
+                                               txtQuantity.setText("0");
+                    }
                     }
                 }
         }
