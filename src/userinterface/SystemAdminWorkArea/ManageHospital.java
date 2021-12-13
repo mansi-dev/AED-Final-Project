@@ -568,29 +568,29 @@ public class ManageHospital extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(196, 196, 196)
                         .addComponent(jLabel8)
-                        .addGap(28, 28, 28)
+                        .addGap(26, 26, 26)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(180, 180, 180)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(371, 371, 371)
+                        .addGap(372, 372, 372)
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addContainerGap(263, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSave)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Create Doctor", jPanel4);
@@ -738,6 +738,17 @@ public class ManageHospital extends javax.swing.JPanel {
                     temp.setUser(doctor);
 
                     JOptionPane.showMessageDialog(this, "Added user details");
+                    
+                    txtName.setText("");
+                    txtAddress.setText("");
+                    txtCity.setText("");
+                    txtState.setText("");
+                    txtZipCode.setText("");
+                    txtPhoneNum.setText("");
+                    txtHospitalID.setText("");
+                    txtDegree.setText("");
+                    txtSpec.setText("");
+                    
                     break;
                 }
             }
@@ -849,6 +860,17 @@ public class ManageHospital extends javax.swing.JPanel {
             // Hospital hospital = EcoSystem.getInstance().getHospitalDirectory().addNewHospital();
 
             JOptionPane.showMessageDialog(this, "Added hospital details to the system");
+            
+            txtHospitalName.setText("");
+            txtHospitalAddr.setText("");
+            txtHospitalCity.setText("");
+            txtHospitalState.setText("");
+            txtHospitalZipCode.setText("");
+            txtHospitalPhone.setText("");
+            txtHospitalEmail.setText("");
+            txtHospitalID1.setText("");
+            
+            
         } else {
             JOptionPane.showMessageDialog(this, "Fields cannot be empty");
 
