@@ -10,10 +10,9 @@ package Business.BloodBank;
  */
 public class BloodStock {
     private long id;
-    private String status;
     private String bloodGroup;
-    private int quantity;
-
+    private int quantity=0;
+    private static int counter=0;
     public long getId() {
         return id;
     }
@@ -22,13 +21,6 @@ public class BloodStock {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public String getBloodGroup() {
         return bloodGroup;
@@ -46,16 +38,15 @@ public class BloodStock {
         this.quantity = quantity;
     }
 
-    public BloodStock(long id, String status, String bloodGroup, int quantity) {
-        this.id = id;
-        this.status = status;
+    public BloodStock(String bloodGroup, int quantity) {
+        this.id = ++counter;
         this.bloodGroup = bloodGroup;
         this.quantity = quantity;
     }
 
     @Override
     public String toString() {
-        return "BloodStock{" + "id=" + id + ", status=" + status + ", bloodGroup=" + bloodGroup + ", quantity=" + quantity + '}';
+        return "BloodStock{" + "id=" + id +  ", bloodGroup=" + bloodGroup + ", quantity=" + quantity + '}';
     }
     
     
