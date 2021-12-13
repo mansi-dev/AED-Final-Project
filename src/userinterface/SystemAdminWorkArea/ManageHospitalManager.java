@@ -78,7 +78,7 @@ public class ManageHospitalManager extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblHospView = new javax.swing.JTable();
+        tblMngView = new javax.swing.JTable();
         btnUpdate1 = new javax.swing.JButton();
         btnDelete1 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -297,10 +297,10 @@ public class ManageHospitalManager extends javax.swing.JPanel {
 
         jPanel3.setOpaque(false);
 
-        tblHospView.setBackground(new java.awt.Color(255, 204, 204));
-        tblHospView.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        tblHospView.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        tblHospView.setModel(new javax.swing.table.DefaultTableModel(
+        tblMngView.setBackground(new java.awt.Color(255, 204, 204));
+        tblMngView.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        tblMngView.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        tblMngView.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null, null},
@@ -319,11 +319,11 @@ public class ManageHospitalManager extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tblHospView);
-        if (tblHospView.getColumnModel().getColumnCount() > 0) {
-            tblHospView.getColumnModel().getColumn(0).setMinWidth(1);
-            tblHospView.getColumnModel().getColumn(0).setPreferredWidth(1);
-            tblHospView.getColumnModel().getColumn(0).setMaxWidth(1);
+        jScrollPane2.setViewportView(tblMngView);
+        if (tblMngView.getColumnModel().getColumnCount() > 0) {
+            tblMngView.getColumnModel().getColumn(0).setMinWidth(1);
+            tblMngView.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tblMngView.getColumnModel().getColumn(0).setMaxWidth(1);
         }
 
         btnUpdate1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -462,22 +462,23 @@ public class ManageHospitalManager extends javax.swing.JPanel {
 
     private void btnUpdate1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdate1ActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) tblHospView.getModel();
-        int rowIndex = tblHospView.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tblMngView.getModel();
+        int rowIndex = tblMngView.getSelectedRow();
 
         Vector dataVector = model.getDataVector();
         Vector elementAt = (Vector) dataVector.elementAt(rowIndex);
 
         if (!elementAt.get(2).toString().isEmpty() && !elementAt.get(3).toString().isEmpty()
-            && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
-            && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()) {
-            Hospital hospital = (Hospital) elementAt.get(0);
-            hospital.setName(elementAt.get(2).toString());
-            hospital.setAddress(elementAt.get(3).toString());
-            hospital.setCity(elementAt.get(4).toString());
-            hospital.setState(elementAt.get(5).toString());
-            hospital.setPhoneNum(Long.parseLong(elementAt.get(6).toString()));
-            hospital.setZipCode(elementAt.get(7).toString());
+                && !elementAt.get(4).toString().isEmpty() && !elementAt.get(5).toString().isEmpty() && !elementAt.get(6).toString().isEmpty()
+                && !elementAt.get(7).toString().isEmpty() && !elementAt.get(8).toString().isEmpty() && !elementAt.get(9).toString().isEmpty()) {
+            Manager manager = (Manager) elementAt.get(0);
+            manager.setName(elementAt.get(2).toString());
+            manager.setAddress(elementAt.get(3).toString());
+            manager.setCity(elementAt.get(4).toString());
+            manager.setState(elementAt.get(5).toString());
+            manager.setPhoneNum(Long.parseLong(elementAt.get(6).toString()));
+            manager.setZipCode(elementAt.get(7).toString());
+
 
             JOptionPane.showMessageDialog(this, "Value updated successfully!");
 
@@ -489,8 +490,8 @@ public class ManageHospitalManager extends javax.swing.JPanel {
 
     private void btnDelete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelete1ActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) tblHospView.getModel();
-        int rowIndex = tblHospView.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) tblMngView.getModel();
+        int rowIndex = tblMngView.getSelectedRow();
         Manager valueAt = (Manager) model.getValueAt(rowIndex, 0);
         
         ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
@@ -549,7 +550,7 @@ public class ManageHospitalManager extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable tblHospView;
+    private javax.swing.JTable tblMngView;
     private javax.swing.JTextField txtEmailID;
     private javax.swing.JTextField txtHospitalId;
     private javax.swing.JTextField txtMgrAddr;
@@ -645,7 +646,7 @@ public class ManageHospitalManager extends javax.swing.JPanel {
     }
 
     private void populateManagerView() {
-        DefaultTableModel model = (DefaultTableModel) tblHospView.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblMngView.getModel();
         List<Manager> managerList = EcoSystem.getInstance().getManagerDirectory().getManagerList();
         model.setRowCount(0);
         for (Network network : EcoSystem.getInstance().getNetworkList()) {
