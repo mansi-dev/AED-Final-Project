@@ -27,18 +27,20 @@ import javax.swing.table.DefaultTableModel;
  * @author mansizope
  */
 public class OrderPanel extends javax.swing.JPanel {
-EcoSystem ecosystem;
-    
+
+    EcoSystem ecosystem;
+
     JPanel userProcessContainer;
     UserAccount account;
     Organizations organization;
     Enterprise enterprise;
+
     /**
      * Creates new form AvailabilityPanel
      */
     public OrderPanel(UserAccount account, Organizations organization, Enterprise enterprise, EcoSystem ecosystem) {
         initComponents();
-         this.ecosystem = ecosystem;
+        this.ecosystem = ecosystem;
         this.organization = organization;
         this.enterprise = enterprise;
         this.account = account;
@@ -224,23 +226,24 @@ EcoSystem ecosystem;
         String bloodGroup = txtBloodGroup.getText();
         BloodBankOrganization bOrg = null;
         ArrayList<Enterprise> enterpriseList = EcoSystem.getInstance().getNetworkList().get(0).getEnterpriseDirectory().getEnterpriseList();
-            Enterprise enterpriseTemp = enterpriseList.stream().filter(item -> "BloodBank".equals(item.getName())).findFirst().orElse(null);
-            for (Organizations organization : enterpriseTemp.getOrganizationDirectory().getOrganizationList()) {
-                if (organization.getName().equals("BloodBank Organization")) {
-                    bOrg = (BloodBankOrganization) organization;
-                }
-            }
-        List<BloodBank> bloodBankList = bOrg.getBloodBankDirectory().getBloodBankList();
-        for (BloodBank bloodBank : bloodBankList) {
-            List<BloodStock> bloodStock = bloodBank.getBloodStock();
-            BloodStock bloodStockIns = bloodStock.stream().filter(item -> bloodGroup.equals(item.getBloodGroup())).findFirst().orElse(null);
-            if(bloodBank.getCity().equals(city) && bloodStockIns!=null && bloodStockIns.getQuantity()>0){
-//                OrderBloodSampleWorkRequest orderBloodSampleWorkRequest = new OrderBloodSampleWorkRequest();
-//                orderBloodSampleWorkRequest.setBloodGroup(bloodGroup);
-//                orderBloodSampleWorkRequest.setQuantity(Integer.parseInt(txtQuantity.getText()));
-                populateBloodBankTable(bloodStockIns.getQuantity());
+        Enterprise enterpriseTemp = enterpriseList.stream().filter(item -> "BloodBank".equals(item.getName())).findFirst().orElse(null);
+        for (Organizations organization : enterpriseTemp.getOrganizationDirectory().getOrganizationList()) {
+            if (organization.getName().equals("BloodBank Organization")) {
+                bOrg = (BloodBankOrganization) organization;
             }
         }
+        if (bOrg != null) {
+            List<BloodBank> bloodBankList = bOrg.getBloodBankDirectory().getBloodBankList();
+            for (BloodBank bloodBank : bloodBankList) {
+                List<BloodStock> bloodStock = bloodBank.getBloodStock();
+                BloodStock bloodStockIns = bloodStock.stream().filter(item -> bloodGroup.equals(item.getBloodGroup())).findFirst().orElse(null);
+                if (bloodBank.getCity().equals(city) && bloodStockIns != null && bloodStockIns.getQuantity() > 0) {
+
+                    populateBloodBankTable(bloodStockIns.getQuantity());
+                }
+            }
+        }
+
     }//GEN-LAST:event_btnCheckActionPerformed
 
     private void btnOrderBloodSampleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderBloodSampleActionPerformed
@@ -249,7 +252,7 @@ EcoSystem ecosystem;
         int rowIndex = tblBloodBank.getSelectedRow();
 
         BloodBank bloodBank = (BloodBank) model.getValueAt(rowIndex, 0);
-            
+
     }//GEN-LAST:event_btnOrderBloodSampleActionPerformed
 
 
@@ -270,28 +273,28 @@ EcoSystem ecosystem;
     // End of variables declaration//GEN-END:variables
 
     private void populateBloodBankTable(int quantity) {
-         DefaultTableModel model = (DefaultTableModel) tblBloodBank.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblBloodBank.getModel();
         List<BloodBank> bloodBank = EcoSystem.getInstance().getBloodBankDirectory().getBloodBankList();
         model.setRowCount(0);
-           for (Network n : this.ecosystem.getNetworkList()) {
+        for (Network n : this.ecosystem.getNetworkList()) {
             for (Enterprise e : n.getEnterpriseDirectory().getEnterpriseList()) {
                 if (e instanceof BloodBankEnterprise) {
                     for (Organizations org : e.getOrganizationDirectory().getOrganizationList()) {
                         if (org instanceof BloodBankOrganization) {
                             for (BloodBank bb : bloodBank) {
-            Object[] row = new Object[7];
-            //row[0] = ++index;
+                                Object[] row = new Object[7];
+                                //row[0] = ++index;
 
-            row[0] = bb;
-            row[1] = bb.getName();
-            row[2] = bb.getAddress();
-            row[3] = bb.getCity();
-            row[4] = bb.getState();
-            row[5] = bb.getPhoneNum();
-            row[6] = quantity;
-            model.addRow(row);
+                                row[0] = bb;
+                                row[1] = bb.getName();
+                                row[2] = bb.getAddress();
+                                row[3] = bb.getCity();
+                                row[4] = bb.getState();
+                                row[5] = bb.getPhoneNum();
+                                row[6] = quantity;
+                                model.addRow(row);
 
-        }
+                            }
                             break;
                         }
                     }
@@ -299,6 +302,6 @@ EcoSystem ecosystem;
                 }
             }
         }
-        
+
     }
 }
