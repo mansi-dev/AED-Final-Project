@@ -180,7 +180,7 @@ public class ChooseUserJPanel extends javax.swing.JPanel {
 //        jPanel2.remove(viewDonationHistory);
 //        jPanel2.remove(donateBlood);
         jPanel2.removeAll();
-        receiverHistory = new ViewReceiverHistory(EcoSystem.getInstance().getPersonDirectory());
+        receiverHistory = new ViewReceiverHistory(userProcessContainer, ecosystem,enterprise, account);
 
         jPanel2.add(receiverHistory);
 

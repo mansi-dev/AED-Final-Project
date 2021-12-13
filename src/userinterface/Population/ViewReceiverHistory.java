@@ -6,14 +6,25 @@
 package userinterface.Population;
 
 import Business.EcoSystem;
+import Business.Enterprise.BloodBankEnterprise;
+import Business.Enterprise.Enterprise;
+import Business.Enterprise.HospitalEnterprise;
+import Business.Network.Network;
+import Business.Organization.BloodBankOrganization;
+import Business.Organization.Organizations;
 import Business.Population.DonorTransaction;
 import Business.Population.Person;
 import Business.Population.PersonDirectory;
 import Business.Population.ReceiverTransaction;
+import Business.UserAccount.UserAccount;
+import Business.WorkQueue.DonateBloodWorkRequest;
+import Business.WorkQueue.RecieverBloodWorkRequest;
+import Business.WorkQueue.WorkRequest;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,9 +38,16 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
      * Creates new form ViewReceiverHistory
      */
     PersonDirectory personDirectory;
-    public ViewReceiverHistory(PersonDirectory personDirectory) {
-        this.personDirectory = personDirectory;
-        initComponents();
+    JPanel userProcessContainer;
+    EcoSystem business;
+    Enterprise enterprise;
+    UserAccount userAccount;
+    public ViewReceiverHistory(JPanel userProcessContainer, EcoSystem business, Enterprise enterprise, UserAccount userAccount) {
+        this.business = business;
+        this.userAccount = userAccount;
+        this.enterprise = enterprise;
+               initComponents();
+
         viewReceiverHist();
     }
 
@@ -168,23 +186,12 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1050, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnUpdateReceiver)
                 .addGap(18, 18, 18)
                 .addComponent(btnDeleteReceiver)
                 .addGap(38, 38, 38))
-            .addGroup(layout.createSequentialGroup()
-
-                .addGap(807, 807, 807)
-                .addComponent(btnUpdateTrn)
-                .addGap(34, 34, 34)
-                .addComponent(btnDeleteTrn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +201,6 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
                             .addComponent(receiverLbl1)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1046, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
-
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(trnLbl1)
                         .addGap(0, 0, Short.MAX_VALUE))))
@@ -205,11 +211,16 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1050, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(807, 807, 807)
+                        .addComponent(btnUpdateTrn)
+                        .addGap(34, 34, 34)
+                        .addComponent(btnDeleteTrn)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,22 +395,51 @@ public class ViewReceiverHistory extends javax.swing.JPanel {
 /***
 ***/
     private void viewReceiverHist(){
-        DefaultTableModel model = (DefaultTableModel) receiverTbl.getModel();
-        List<Person> person = EcoSystem.getInstance().getPersonDirectory().getPersonList();
+       DefaultTableModel model = (DefaultTableModel) receiverTbl.getModel();
         model.setRowCount(0);
-        for (Person data : person) {
-            Object[] row = new Object[6];
-            //row[0] = ++index;
+        
+        Person person = (Person) this.userAccount.getUser();
+        Object[] row = new Object[6];
+        row[0] = person;
+        row[1] = person.getId();
+        row[2] = person.getName();
+        row[3] = person.getEmail();
+        row[4] = person.getPhoneNum();
+        row[5] = person.getBloodGroup();
+        
+        model.addRow(row);
+        
+        for (Network n : this.business.getNetworkList()) {
+            for (Enterprise e : n.getEnterpriseDirectory().getEnterpriseList()) {
+                if (e instanceof HospitalEnterprise) {
+                    for (Organizations org : e.getOrganizationDirectory().getOrganizationList()) {
+                        if (org instanceof BloodBankOrganization) {
+                            DefaultTableModel modelR = (DefaultTableModel) receiverTbl.getModel();
+                            modelR.setRowCount(0);
+                            for (WorkRequest request : org.getWorkQueue().getWorkRequestList()) {
+                                if (request instanceof RecieverBloodWorkRequest) {
+                                    
+                                    Object[] rowTrn = new Object[8];
+                                    //row[0] = ++index;
 
-            row[0] = data;
-            row[1] = data.getId();
-            row[2] = data.getName();
-            row[3] = data.getEmail();
-            row[4] = data.getPhoneNum();
-            row[5] = data.getBloodGroup();
-           
-            model.addRow(row);
-
+                                    rowTrn[0] = request;
+                                    rowTrn[1] = ((RecieverBloodWorkRequest) request).getReceiverTransaction().getAge();
+                                    rowTrn[2] = ((RecieverBloodWorkRequest) request).getReceiverTransaction().getHeight();
+                                    rowTrn[3] = ((RecieverBloodWorkRequest) request).getReceiverTransaction().getWeight();
+                                    rowTrn[4] = ((RecieverBloodWorkRequest) request).getReceiverTransaction().getHblevel();
+                                    rowTrn[5] = ((RecieverBloodWorkRequest) request).getReceiverTransaction().getNumberOfUnits();
+                                    rowTrn[6] = ((RecieverBloodWorkRequest) request).getReceiverTransaction().getHospital().getName();
+                                    rowTrn[7] = ((RecieverBloodWorkRequest) request).getReceiverTransaction().getPrice();
+                                   
+                                    modelR.addRow(rowTrn);
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
         }
     }
     

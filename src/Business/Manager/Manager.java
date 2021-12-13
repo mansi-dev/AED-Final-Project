@@ -36,9 +36,7 @@ public class Manager extends User{
             }
         }
     }  
-//    public long getRestaurantByID(int id){
-//        return EcoSystem.getInstance().getHospitalDirectory().getHospitalByID(id).getId();
-//    }
+
     public void setHospital(Hospital hospital) {
         this.hospital = hospital;
     }

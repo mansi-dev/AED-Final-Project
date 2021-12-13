@@ -643,8 +643,8 @@ public class ManageHospitalManager extends javax.swing.JPanel {
                     for (Organizations o : enterprise2.getOrganizationDirectory().getOrganizationList()) {
                         if (o.getName().equalsIgnoreCase("Hospital Manager Organization")) {
                             HospitalManagerOrganization managerOrg = (HospitalManagerOrganization) o;
-                            for (User data : managerOrg.getManagerDirectory().getManagerList()) {
-                                Object[] row = new Object[9];
+                            for (Manager data : managerOrg.getManagerDirectory().getManagerList()) {
+                                Object[] row = new Object[10];
                                 row[0] = data;
                                 row[1] = data.getId();
                                 row[2] = data.getName();
@@ -654,6 +654,7 @@ public class ManageHospitalManager extends javax.swing.JPanel {
                                 row[6] = data.getPhoneNum();
                                 row[7] = data.getZipCode();
                                 row[8] = data.getEmail();
+                                row[9] = data.getHospital().getName();
                                 model.addRow(row);
 
                             }
