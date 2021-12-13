@@ -78,6 +78,7 @@ public class HospitalJPanel extends javax.swing.JPanel {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
 
+        btnOrderBloodSample.setBackground(new java.awt.Color(255, 255, 255));
         btnOrderBloodSample.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnOrderBloodSample.setText("Order Blood Sample");
         btnOrderBloodSample.addActionListener(new java.awt.event.ActionListener() {
@@ -86,6 +87,7 @@ public class HospitalJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnLogout.setBackground(new java.awt.Color(255, 255, 255));
         btnLogout.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +96,7 @@ public class HospitalJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnSellBloodSample.setBackground(new java.awt.Color(255, 255, 255));
         btnSellBloodSample.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnSellBloodSample.setText("Sell Blood Sample");
         btnSellBloodSample.addActionListener(new java.awt.event.ActionListener() {
@@ -102,6 +105,7 @@ public class HospitalJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnView.setBackground(new java.awt.Color(255, 255, 255));
         btnView.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnView.setText("View Inventory");
         btnView.addActionListener(new java.awt.event.ActionListener() {

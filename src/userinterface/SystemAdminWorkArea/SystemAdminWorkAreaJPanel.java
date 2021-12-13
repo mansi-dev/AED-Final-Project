@@ -73,6 +73,8 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         btnManageGovernment = new javax.swing.JButton();
         btnManageBloodBank = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setLayout(new java.awt.GridLayout(1, 0));
 
@@ -88,6 +90,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
 
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton1.setText("Manage Users");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -96,6 +99,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButton2.setText("Manage Hospitals");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -104,6 +108,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnLogout.setBackground(new java.awt.Color(255, 255, 255));
         btnLogout.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnLogout.setText("Logout");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +117,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnManageHospitalManager.setBackground(new java.awt.Color(255, 255, 255));
         btnManageHospitalManager.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnManageHospitalManager.setText("Manage Hospital Manager");
         btnManageHospitalManager.addActionListener(new java.awt.event.ActionListener() {
@@ -120,6 +126,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnManageGovernment.setBackground(new java.awt.Color(255, 255, 255));
         btnManageGovernment.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnManageGovernment.setText("Manage Government");
         btnManageGovernment.addActionListener(new java.awt.event.ActionListener() {
@@ -128,6 +135,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnManageBloodBank.setBackground(new java.awt.Color(255, 255, 255));
         btnManageBloodBank.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnManageBloodBank.setText("Manage Blood Bank");
         btnManageBloodBank.addActionListener(new java.awt.event.ActionListener() {
@@ -180,6 +188,13 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new java.awt.CardLayout());
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jPanel1.add(jScrollPane1, "card2");
+
         jSplitPane2.setRightComponent(jPanel1);
 
         add(jSplitPane2);
@@ -256,6 +271,8 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPane2;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

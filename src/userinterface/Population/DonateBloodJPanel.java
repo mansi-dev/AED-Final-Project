@@ -128,8 +128,13 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         diseasesLbl.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         diseasesLbl.setText("Other Diseases");
 
-        saveBtn.setText("Request to Donate");
+        ageTxt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ageTxtFocusLost(evt);
+            }
+        });
 
+        saveBtn.setText("Request to Donate");
         saveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveBtnActionPerformed(evt);
@@ -351,6 +356,14 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_saveBtnActionPerformed
 
+    private void ageTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ageTxtFocusLost
+        // TODO add your handling code here:
+       int age = Integer.parseInt(ageTxt.getText());
+       if(age<16){
+            JOptionPane.showMessageDialog(this, "Sorry! You are not eligible to donate blood.");
+        }  
+    }//GEN-LAST:event_ageTxtFocusLost
+
     /**
      * Function to validate number input. To check if text fields contain any
      * alphabets.
@@ -432,6 +445,17 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
         } catch (BadLocationException ex) {
         }
     }
+    void validateAge(DocumentEvent e){
+        int length = e.getDocument().getLength();
+        try {
+            int input = Integer.parseInt(e.getDocument().getText(0,length));
+            if (input<16) {
+                JOptionPane.showMessageDialog(this, "Sorry! You are not eligible to donate blood.");
+
+            }
+        } catch (BadLocationException ex) {
+        }
+    }
 
     private void addListeners() {
         ageTxt.getDocument().addDocumentListener(new DocumentListener() {
@@ -439,18 +463,21 @@ public class DonateBloodJPanel extends javax.swing.JPanel {
             public void insertUpdate(DocumentEvent e) {
                 validateNumberInput(e);
                 validateSpecialInput(e);
+                //validateAge(e);
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
                 validateNumberInput(e);
                 validateSpecialInput(e);
+               // validateAge(e);
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
                 validateNumberInput(e);
                 validateSpecialInput(e);
+               // validateAge(e);
             }
 
         });
