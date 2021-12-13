@@ -456,8 +456,9 @@ public class ViewDonationHistory extends javax.swing.JPanel {
         
         DefaultTableModel model = (DefaultTableModel) donorTable.getModel();
         DonateBloodWorkRequest wr = (DonateBloodWorkRequest) model.getValueAt(selectedRowIndex, 0);
+        if(wr.getStatus() == "Approved"){
         wr.setStatus("Complete");
-        
+        }
         
     }//GEN-LAST:event_btnDonateActionPerformed
     /**
